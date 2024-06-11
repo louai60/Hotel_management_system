@@ -1,0 +1,14 @@
+package com.louaysaafi.HotelManagementSystem.models;
+
+public enum ERole {
+  ROLE_ADMIN,
+  ROLE_EMPLOYEE,
+  ROLE_GUEST,
+  ROLE_MANAGER,
+  ROLE_RECEPTIONIST,
+  ROLE_CHEF,
+  ROLE_HOUSEKEEPING,
+  ROLE_MAINTENANCE,
+  ROLE_MODERATOR,
+  ROLE_PENDING
+}
