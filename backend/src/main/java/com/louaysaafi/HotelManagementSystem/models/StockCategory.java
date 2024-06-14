@@ -2,56 +2,101 @@ package com.louaysaafi.HotelManagementSystem.models;
 
 import javax.persistence.*;
 
+import java.util.Date;
+import java.util.List;
+
 @Entity
-@Table(name = "StockCategory")
+@Table(name = "stocks_categories")
 public class StockCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
-
     @Column(name = "description")
     private String description;
 
-    public StockCategory() {
+    @Column(name = "name", unique = true)
+    private String name;
+    
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 
-    }
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
-    public Long getId() {
-        return id;
-    }
+    public Date getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
-    public String getName() {
-        return name;
-    }
+	@ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    // Relationships
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<StockItem> stockItems;
+    
+    public StockCategory () {
+		super();
+	}
+    
+ // Getters and Setters
+    // ...
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<StockItem> getStockItems() {
+		return stockItems;
+	}
+
+	public void setStockItems(List<StockItem> stockItems) {
+		this.stockItems = stockItems;
+	}
+
+	
 }

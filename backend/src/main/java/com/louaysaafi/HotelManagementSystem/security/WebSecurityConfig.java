@@ -58,9 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
             .antMatchers("/api/auth/**").permitAll()
-//            .antMatchers("/api/admin/**").permitAll()
-//            .antMatchers(HttpMethod.POST, "/api/admin/signup").permitAll() // Allow unauthenticated access to signup endpoint
-            .antMatchers("/api/admin/**").hasRole("ADMIN")
+            .antMatchers("/api/admin/**").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/admin/signup").permitAll()
+//            .antMatchers("/api/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated();
 
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

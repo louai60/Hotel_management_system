@@ -36,7 +36,7 @@ public class JwtUtils {
   }
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-    String jwt = generateTokenFromUsername(userPrincipal.getUsername());
+    String jwt = generateTokenFromEmail(userPrincipal.getEmail()); // Change to getEmail() instead of getUsername()
     ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/").maxAge(24 * 60 * 60).httpOnly(true).build();
     return cookie;
   }
@@ -68,13 +68,13 @@ public class JwtUtils {
 
     return false;
   }
-  
-  public String generateTokenFromUsername(String username) {   
+
+  public String generateTokenFromEmail(String email) { // Method renamed to generateTokenFromEmail
     return Jwts.builder()
-        .setSubject(username)
-        .setIssuedAt(new Date())
-        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-        .signWith(SignatureAlgorithm.HS512, jwtSecret)
-        .compact();
+            .setSubject(email) // Change to email instead of username
+            .setIssuedAt(new Date())
+            .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .compact();
   }
 }

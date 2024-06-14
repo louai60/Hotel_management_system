@@ -1,103 +1,121 @@
 package com.louaysaafi.HotelManagementSystem.models;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "StockItem")
+@Table(name = "stocks_items")
 public class StockItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private StockCategory category;
+    @Column(name = "last_order_date")
+    private LocalDateTime lastOrderDate;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "quantity")
     private Integer quantity;
-
-    @Column(name = "unit_price", nullable = false)
-    private Double unitPrice;
 
     @Column(name = "supplier")
     private String supplier;
 
-    @Column(name = "last_order_date")
-    private Date lastOrderDate;
+    @Column(name = "unit_price")
+    private Double unitPrice;
+    
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 
-    public StockItem() {
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
-    }
+    public Date getCreatedAt() {
+		return createdAt;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public StockCategory getCategory() {
-        return category;
-    }
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
-    public void setCategory(StockCategory category) {
-        this.category = category;
-    }
+	@ManyToOne
+    @JoinColumn(name = "category_id")
+    private StockCategory category;
+    
+    public StockItem () {
+		super();
+	}
+    
+ // Getters and Setters
+    // ...
 
-    public User getUser() {
-        return user;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public LocalDateTime getLastOrderDate() {
+		return lastOrderDate;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setLastOrderDate(LocalDateTime lastOrderDate) {
+		this.lastOrderDate = lastOrderDate;
+	}
 
-    public Integer getQuantity() {
-        return quantity;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Double getUnitPrice() {
-        return unitPrice;
-    }
+	public Integer getQuantity() {
+		return quantity;
+	}
 
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 
-    public String getSupplier() {
-        return supplier;
-    }
+	public String getSupplier() {
+		return supplier;
+	}
 
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
-    }
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
+	}
 
-    public Date getLastOrderDate() {
-        return lastOrderDate;
-    }
+	public Double getUnitPrice() {
+		return unitPrice;
+	}
 
-    public void setLastOrderDate(Date lastOrderDate) {
-        this.lastOrderDate = lastOrderDate;
-    }
+	public void setUnitPrice(Double unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public StockCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(StockCategory category) {
+		this.category = category;
+	}
+
+    
 }

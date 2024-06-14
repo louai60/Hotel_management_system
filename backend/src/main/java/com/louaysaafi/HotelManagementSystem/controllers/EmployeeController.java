@@ -1,7 +1,7 @@
 package com.louaysaafi.HotelManagementSystem.controllers;
 
 import com.louaysaafi.HotelManagementSystem.models.Employee;
-import com.louaysaafi.HotelManagementSystem.service.EmployeeService;
+import com.louaysaafi.HotelManagementSystem.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

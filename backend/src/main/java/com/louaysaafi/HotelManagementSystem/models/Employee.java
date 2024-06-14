@@ -1,122 +1,128 @@
 package com.louaysaafi.HotelManagementSystem.models;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+
 import java.util.Date;
 
 @Entity
-@Table(name = "employees")
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", unique = true)
-    private User user;
-
-    @Column(name = "date_of_birth")
+    @Column(nullable = true)
     private Date dateOfBirth;
 
-    @Column(name = "date_of_hire")
+    @Column(nullable = true)
     private Date dateOfHire;
 
-    @Column(name = "salary")
-    private BigDecimal salary;
-
-    @Column(name = "phone")
+    @Column(nullable = true)
     private String phone;
 
-    @Column(name = "created_at", updatable = false)
+    @Column(nullable = true)
+    private Double salary;
+
+    @Column(nullable = true)
+    private Double bonuses;
+
+    @Column(nullable = true)
+    private String benefits;
+
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @Column(name = "updated_at")
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+    
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 
-    @Column(name = "created_by")
-    private Long createdBy;
+    public Employee () {
+		super();
+	}
+    // Getters and Setters
+    
+	public Long getId() {
+		return id;
+	}
 
-    @Column(name = "updated_by")
-    private Long updatedBy;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
+	public Date getDateOfHire() {
+		return dateOfHire;
+	}
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+	public void setDateOfHire(Date dateOfHire) {
+		this.dateOfHire = dateOfHire;
+	}
 
-    public Date getDateOfHire() {
-        return dateOfHire;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setDateOfHire(Date dateOfHire) {
-        this.dateOfHire = dateOfHire;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public BigDecimal getSalary() {
-        return salary;
-    }
+	public Double getSalary() {
+		return salary;
+	}
 
-    public void setSalary(BigDecimal salary) {
-        this.salary = salary;
-    }
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public Double getBonuses() {
+		return bonuses;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setBonuses(Double bonuses) {
+		this.bonuses = bonuses;
+	}
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+	public String getBenefits() {
+		return benefits;
+	}
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+	public void setBenefits(String benefits) {
+		this.benefits = benefits;
+	}
 
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
+	public Date getCreatedAt() {
+		return createdAt;
+	}
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public Long getCreatedBy() {
-        return createdBy;
-    }
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public void setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Long getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(Long updatedBy) {
-        this.updatedBy = updatedBy;
-    }
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 }

@@ -1,48 +1,58 @@
 package com.louaysaafi.HotelManagementSystem.controllers;
 
 import com.louaysaafi.HotelManagementSystem.models.Room;
-import com.louaysaafi.HotelManagementSystem.service.RoomService;
+import com.louaysaafi.HotelManagementSystem.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/rooms")
 public class RoomController {
-
     @Autowired
     private RoomService roomService;
 
     @GetMapping
-    public ResponseEntity<List<Room>> getAllRooms() {
-        List<Room> rooms = roomService.getAllRooms();
-        return ResponseEntity.ok(rooms);
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('RECEPTIONIST')")
+    public List<Room> getAllRooms() {
+        return roomService.getAllRooms();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('RECEPTIONIST')")
     public ResponseEntity<Room> getRoomById(@PathVariable Long id) {
-        return roomService.getRoomById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Room> room = roomService.getRoomById(id);
+        if (room.isPresent()) {
+            return ResponseEntity.ok(room.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Room> createRoom(@RequestBody Room room) {
-        Room savedRoom = roomService.saveRoom(room);
-        return ResponseEntity.ok(savedRoom);
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
+    public Room createRoom(@RequestBody Room room) {
+        return roomService.saveRoom(room);
     }
 
-//    @PutMapping("/{id}")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody Room room) {
-//        return roomService.updateRoom(id, room)
-//                .map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
+    public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody Room roomDetails) {
+        Optional<Room> room = roomService.getRoomById(id);
+        if (room.isPresent()) {
+            Room updatedRoom = room.get();
+            updatedRoom.setRoomNumber(roomDetails.getRoomNumber());
+            updatedRoom.setType(roomDetails.getType());
+            updatedRoom.setStatus(roomDetails.getStatus());
+            return ResponseEntity.ok(roomService.saveRoom(updatedRoom));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

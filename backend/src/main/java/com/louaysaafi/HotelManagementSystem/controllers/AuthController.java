@@ -1,10 +1,9 @@
 package com.louaysaafi.HotelManagementSystem.controllers;
 
-import com.louaysaafi.HotelManagementSystem.models.User;
 import com.louaysaafi.HotelManagementSystem.payload.request.LoginRequest;
 import com.louaysaafi.HotelManagementSystem.payload.response.MessageResponse;
 import com.louaysaafi.HotelManagementSystem.payload.response.UserInfoResponse;
-import com.louaysaafi.HotelManagementSystem.repository.UserRepository;
+import com.louaysaafi.HotelManagementSystem.repositories.UserRepository;
 import com.louaysaafi.HotelManagementSystem.security.jwt.JwtUtils;
 import com.louaysaafi.HotelManagementSystem.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class AuthController {
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
     Authentication authentication = authenticationManager
-            .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -56,7 +55,8 @@ public class AuthController {
 
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
             .body(new UserInfoResponse(userDetails.getId(),
-                    userDetails.getUsername(),
+                    userDetails.getFirstName(),
+                    userDetails.getLastName(),
                     userDetails.getEmail(),
                     roles));
   }

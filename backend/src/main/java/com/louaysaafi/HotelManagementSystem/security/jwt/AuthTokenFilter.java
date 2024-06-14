@@ -31,9 +31,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     try {
       String jwt = parseJwt(request);
       if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        String email = jwtUtils.getUserNameFromJwtToken(jwt); // Changed to getUserNameFromJwtToken
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(userDetails,
@@ -46,6 +46,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       }
     } catch (Exception e) {
       logger.error("Error occurred while processing JWT token: {}", e.getMessage(), e);
+      throw new ServletException("Error occurred while processing JWT token", e);
     }
 
     filterChain.doFilter(request, response);

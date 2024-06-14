@@ -1,34 +1,46 @@
 package com.louaysaafi.HotelManagementSystem.models;
 
 import javax.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "Payment")
+@Table(name = "payment")
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id")
-    private Booking booking;
-
-    @Column(name = "amount", nullable = false)
+    @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "payment_date", nullable = false)
-    private Date paymentDate;
+    @Column(name = "payment_date")
+    private LocalDateTime paymentDate;
 
     @Column(name = "payment_method")
     private String paymentMethod;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private String status;
+    
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
 
-    public Payment() {
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
-    }
+    // Relationships
+    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+    private Reception reception;
+    
+    public Payment () {
+		super();
+	}
+
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -36,14 +48,6 @@ public class Payment {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Booking getBooking() {
-        return booking;
-    }
-
-    public void setBooking(Booking booking) {
-        this.booking = booking;
     }
 
     public Double getAmount() {
@@ -54,11 +58,11 @@ public class Payment {
         this.amount = amount;
     }
 
-    public Date getPaymentDate() {
+    public LocalDateTime getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Date paymentDate) {
+    public void setPaymentDate(LocalDateTime paymentDate) {
         this.paymentDate = paymentDate;
     }
 
@@ -76,5 +80,29 @@ public class Payment {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Reception getReception() {
+        return reception;
+    }
+
+    public void setReception(Reception reception) {
+        this.reception = reception;
     }
 }

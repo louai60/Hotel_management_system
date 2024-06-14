@@ -1,7 +1,7 @@
 package com.louaysaafi.HotelManagementSystem.controllers;
 
 import com.louaysaafi.HotelManagementSystem.models.StockItem;
-import com.louaysaafi.HotelManagementSystem.service.StockItemService;
+import com.louaysaafi.HotelManagementSystem.services.StockItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

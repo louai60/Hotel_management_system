@@ -1,8 +1,7 @@
 package com.louaysaafi.HotelManagementSystem.security.services;
 
-
 import com.louaysaafi.HotelManagementSystem.models.User;
-import com.louaysaafi.HotelManagementSystem.repository.UserRepository;
+import com.louaysaafi.HotelManagementSystem.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,15 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
   @Autowired
-  UserRepository userRepository;
+  private UserRepository userRepository;
 
   @Override
   @Transactional
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findByUsername(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));
 
     return UserDetailsImpl.build(user);
   }
-
 }
