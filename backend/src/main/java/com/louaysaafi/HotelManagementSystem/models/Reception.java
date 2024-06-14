@@ -11,6 +11,9 @@ public class Reception {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "clientName")
+    private String clientName;
+
     @Column(name = "check_in_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date checkInDate;
@@ -140,5 +143,15 @@ public class Reception {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
     }
 }

@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.ReceptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,8 @@ public class ReceptionService {
     }
 
     public Reception createReception(Reception reception) {
+        reception.setCreatedAt(new Date());
+        reception.setUpdatedAt(new Date());
         return receptionRepository.save(reception);
     }
 
