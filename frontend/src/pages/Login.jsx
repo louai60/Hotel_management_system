@@ -22,11 +22,11 @@ export default function Login() {
       });
 
       console.log(response.data)
-      localStorage.setItem('user', JSON.stringify(response.data)); 
+      localStorage.setItem('user', JSON.stringify(response.data)); // Store user data in local storage
 
       toast.success('Login successful!');
       setTimeout(() => {
-        navigate('/user');
+        navigate('/dashboard');
       }, 2000);
     } catch (error) {
       console.error('There was an error logging in!', error);

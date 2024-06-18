@@ -8,12 +8,6 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      colors: {
-        primary: "#ffffff",
-        // secondary: "#1097d6",
-        // dimWhite: "rgba(255, 255, 255, 0.7)",
-        // dimBlue: "rgba(66, 991, 824, 0.1)",
-      },
       boxShadow: {
         DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.02)',
         md: '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',

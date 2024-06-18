@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 function WelcomeBanner() {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    // Read the user information from local storage
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      // Parse the JSON data stored in local storage
+      const parsedUserData = JSON.parse(userData);
+      setCurrentUser(parsedUserData);
+    }
+  }, []);
+
   return (
     <div className="relative bg-indigo-200 dark:bg-indigo-500 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
       {/* Background illustration */}
@@ -47,7 +59,11 @@ function WelcomeBanner() {
 
       {/* Content */}
       <div className="relative">
-        <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Good afternoon, Acme Inc. 👋</h1>
+      {currentUser ? (
+        <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Good afternoon, {currentUser.firstName} {currentUser.lastName}. 👋</h1>
+      ) : (
+        <p>No user logged in</p>
+      )}
         <p className="dark:text-indigo-200">Here is what’s happening with your projects today:</p>
       </div>
     </div>

@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
-
 import UserAvatar from '../images/user-avatar-32.png';
 
-function DropdownProfile({
-  align
-}) {
-
+function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -33,6 +31,15 @@ function DropdownProfile({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+
+  const handleLogout = () => {
+    // Clear user data from local storage
+    localStorage.removeItem('user');
+    // Clear current user state
+    setCurrentUser(null);
+    // Redirect to the sign-in page
+    navigate('/');
+  };
 
   return (
     <div className="relative inline-flex">
@@ -82,13 +89,12 @@ function DropdownProfile({
               </Link>
             </li>
             <li>
-              <Link
+              <button
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center py-1 px-3"
-                to="/signin"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={handleLogout}
               >
                 Sign Out
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
