@@ -1,40 +1,35 @@
-import React, { useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  useLocation
-} from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 
-import './css/style.css';
+import "./css/style.css";
 
-import './charts/ChartjsConfig';
+import "./charts/ChartjsConfig";
 
 // Import pages
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import Signup from './pages/register';
-import CurrentUserDisplay from './pages/CurrentUser';
-import PendingUsersTable from './pages/PendingUsers';
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Signup from "./pages/register";
+import CurrentUserDisplay from "./pages/CurrentUser";
+import PendingUsersTable from "./pages/PendingUsers";
 
 function App() {
-
   const location = useLocation();
 
   useEffect(() => {
-    document.querySelector('html').style.scrollBehavior = 'auto'
-    window.scroll({ top: 0 })
-    document.querySelector('html').style.scrollBehavior = ''
+    document.querySelector("html").style.scrollBehavior = "auto";
+    window.scroll({ top: 0 });
+    document.querySelector("html").style.scrollBehavior = "";
   }, [location.pathname]); // triggered on route change
 
   return (
     <>
       <Routes>
         <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route exact path='/' element={<Login />} />
-        <Route exact path='/register' element={<Signup />} />
-        <Route exact path='/user' element={<CurrentUserDisplay />} />
-        <Route path='/pending' element={<PendingUsersTable /> } />
-
+        <Route exact path="/" element={<Login />} />
+        <Route exact path="/register" element={<Signup />} />
+        <Route exact path="/user" element={<CurrentUserDisplay />} />
+        <Route path="/pending" element={<PendingUsersTable />} />
+        <Route path="/accounting" element={<Accounting />} />
       </Routes>
     </>
   );
@@ -42,17 +37,15 @@ function App() {
 
 export default App;
 
-
 // // App.jsx or main routing file
 // import React from 'react';
 // import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 // import DashboardTemplate from './components/DashboardTemplate';
 // import ReceptionDashboard from './components/ReciptionDashboard';
 // import HousekeepingDashboard from './components/HouseKeepingDashboard';
-// import AdminDashboard from './components/AdminDashboard'; 
+// import AdminDashboard from './components/AdminDashboard';
 // import Login from './pages/Login';
 // import Dashboard from './pages/Dashboard';
-
 
 // const App = () => {
 //   const getUserRole = () => {
@@ -69,8 +62,8 @@ export default App;
 //         <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
 
 //         {/* Admin route */}
-//         <Route 
-//           path="/admin" 
+//         <Route
+//           path="/admin"
 //           element={
 //             userRole === "ROLE_ADMIN" ? (
 //               <DashboardTemplate title="Admin Dashboard">
@@ -83,8 +76,8 @@ export default App;
 //         />
 
 //         {/* Reception route */}
-//         <Route 
-//           path="/reception" 
+//         <Route
+//           path="/reception"
 //           element={
 //             ["Admin", "Receptionist"].includes(userRole) ? (
 //               <DashboardTemplate title="Reception Dashboard">
@@ -97,8 +90,8 @@ export default App;
 //         />
 
 //         {/* Housekeeping route */}
-//         <Route 
-//           path="/housekeeping" 
+//         <Route
+//           path="/housekeeping"
 //           element={
 //             ["Admin", "Housekeeping"].includes(userRole) ? (
 //               <DashboardTemplate title="Housekeeping Dashboard">
@@ -111,11 +104,11 @@ export default App;
 //         />
 
 //         {/* Add more routes for other departments */}
-        
+
 //         {/* Default route */}
-//         <Route 
-//           path="*" 
-//           element={<Navigate to="/" replace />} 
+//         <Route
+//           path="*"
+//           element={<Navigate to="/" replace />}
 //         />
 //       </Routes>
 //   );
