@@ -1,7 +1,7 @@
 package com.louaysaafi.HotelManagementSystem.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -10,29 +10,29 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+	@Column(name = "first_name")
+	private String firstName;
 
-    @Column(name = "last_name")
-    private String lastName;
+	@Column(name = "last_name")
+	private String lastName;
 
-    @Column(name = "email", unique = true)
-    private String email;
+	@Column(name = "email", unique = true)
+	private String email;
 
-    @Column(name = "password")
-    private String password;
-    
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+	@Column(name = "password")
+	private String password;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+	@Column(nullable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
+
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt;
 
 	@PrePersist
 	protected void onCreate() {
@@ -40,47 +40,33 @@ public class User {
 		updatedAt = new Date();
 	}
 
-	public User(String email,String password, String firstName, String lastName) {
+	public User(String email, String password, String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 	}
 
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public void setAccountings(List<Accounting> accountings) {
-		this.accountings = accountings;
+	public User() {
+		super();
 	}
 
 	// Relationships
-    // One-to-One relation to Employee
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-    private Employee employee;
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+	@JsonIgnore
+	private Employee employee;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<StockCategory> stockCategory;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<StockCategory> stockCategory;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OrderManagement> order;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<OrderManagement> order;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Reception> receptions;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Reception> receptions;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles",
@@ -88,13 +74,11 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Accounting> accountings;
-    
-    public User () {
-		super();
-	}
-    
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Accounting> accountings;
+
+
     // Getters and setters
 
 	public Long getId() {
@@ -180,5 +164,5 @@ public class User {
 	public List<Accounting> getAccountings() {
 		return accountings;
 	}
-	
+
 }

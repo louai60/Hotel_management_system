@@ -31,7 +31,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     try {
       String jwt = parseJwt(request);
       if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-        String email = jwtUtils.getUserNameFromJwtToken(jwt); // Changed to getUserNameFromJwtToken
+        String email = jwtUtils.getEmailFromJwtToken(jwt); // Changed to getEmailFromJwtToken
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
@@ -46,13 +46,20 @@ public class AuthTokenFilter extends OncePerRequestFilter {
       }
     } catch (Exception e) {
       logger.error("Error occurred while processing JWT token: {}", e.getMessage(), e);
-      throw new ServletException("Error occurred while processing JWT token", e);
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+      return;
     }
 
     filterChain.doFilter(request, response);
   }
 
   private String parseJwt(HttpServletRequest request) {
+    String headerAuth = request.getHeader("Authorization");
+
+    if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+      return headerAuth.substring(7);
+    }
+
     return jwtUtils.getJwtFromCookies(request);
   }
 }

@@ -10,11 +10,13 @@ import './css/style.css';
 import './charts/ChartjsConfig';
 
 // Import pages
-import Dashboard from './pages/Dashboard';
-import Dashboard_reception from './pages/Dashboard_reception';
-import Dashboard_manger from './pages/Dashboard_manger';
-import Dashboard_housekiping from './pages/Dashboard_housekiping';
-import Dashboard_chef from './pages/Dashboard_chef';
+import Admin_Dashboard from './pages/Admin_Dashboard';
+import Reception_Dashboard from './pages/Reception_Dashboard';
+import Chef_Dashboard from './pages/Chef_Dashboard';
+import Home from './Home';
+import Login from './pages/Login';
+import CurrentUserDisplay from './pages/CurrentUser';
+import PendingUsersTable from './pages/PendingUsers';
 
 function App() {
 
@@ -29,11 +31,16 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Dashboard />} />
-        <Route exact path="/reception_workers" element={<Dashboard_reception />} />
-        <Route exact path="/manager" element={<Dashboard_manger />} />
-        <Route exact path="/housekiping" element={<Dashboard_housekiping />} />
-        <Route exact path="/kitechen" element={<Dashboard_chef />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/admin" element={<Admin_Dashboard />} />
+        <Route exact path="/reception" element={<Reception_Dashboard />} />
+        <Route exact path="/chef" element={<Chef_Dashboard />} />
+
+        <Route exact path='/user' element={<CurrentUserDisplay />} />
+        <Route path='/pending' element={<PendingUsersTable /> } />
+
+
       </Routes>
     </>
   );

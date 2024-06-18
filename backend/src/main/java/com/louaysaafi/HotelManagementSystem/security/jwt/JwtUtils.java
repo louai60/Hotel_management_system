@@ -26,6 +26,9 @@ public class JwtUtils {
   @Value("${auth.app.jwtCookieName}")
   private String jwtCookie;
 
+  @Value("${auth.app.jwtAlgorithm:HS512}")
+  private String jwtAlgorithm;
+
   public String getJwtFromCookies(HttpServletRequest request) {
     Cookie cookie = WebUtils.getCookie(request, jwtCookie);
     if (cookie != null) {
@@ -36,17 +39,27 @@ public class JwtUtils {
   }
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-    String jwt = generateTokenFromEmail(userPrincipal.getEmail()); // Change to getEmail() instead of getUsername()
-    ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/").maxAge(24 * 60 * 60).httpOnly(true).build();
+    String jwt = generateTokenFromEmail(userPrincipal.getEmail());
+    ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt)
+            .path("/")
+            .maxAge(24 * 60 * 60)
+            .httpOnly(true)
+            .secure(true) // Add secure attribute if using HTTPS
+            .build();
     return cookie;
   }
 
   public ResponseCookie getCleanJwtCookie() {
-    ResponseCookie cookie = ResponseCookie.from(jwtCookie, null).path("/").build();
+    ResponseCookie cookie = ResponseCookie.from(jwtCookie, null)
+            .path("/")
+            .maxAge(0)
+            .httpOnly(true)
+            .secure(true) // Ensure the secure attribute is consistent
+            .build();
     return cookie;
   }
 
-  public String getUserNameFromJwtToken(String token) {
+  public String getEmailFromJwtToken(String token) {
     return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
   }
 
@@ -69,12 +82,12 @@ public class JwtUtils {
     return false;
   }
 
-  public String generateTokenFromEmail(String email) { // Method renamed to generateTokenFromEmail
+  public String generateTokenFromEmail(String email) {
     return Jwts.builder()
-            .setSubject(email) // Change to email instead of username
+            .setSubject(email)
             .setIssuedAt(new Date())
             .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .signWith(SignatureAlgorithm.forName(jwtAlgorithm), jwtSecret)
             .compact();
   }
 }
