@@ -31,7 +31,7 @@ public class MaintenanceService {
         return maintenanceRepository.save(maintenance);
     }
 
-    public Maintenance updateMaintenance(Integer id, Maintenance updatedMaintenance) {
+    public Maintenance updateMaintenance(Maintenance updatedMaintenance) {
         // Check if the maintenance with the given id exists
         if (maintenanceRepository.existsById(id)) {
             updatedMaintenance.setId(id); // Set the ID of the updated maintenance
