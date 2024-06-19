@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/register";
 import CurrentUserDisplay from "./pages/CurrentUser";
 import PendingUsersTable from "./pages/PendingUsers";
+import Accounting from "./pages/Accounting";
 
 function App() {
   const location = useLocation();
