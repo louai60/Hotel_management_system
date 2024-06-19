@@ -14,6 +14,7 @@ import PendingUsersTable from "./pages/PendingUsers";
 import Accounting from "./pages/Accounting";
 import Maintenance from "./Dashboards/Maintenance/Maintenance";
 import HouseKeeping from "./Dashboards/HouseKeeping/HouseKeeping";
+import Landing_page from "./home";
 
 function App() {
   const location = useLocation();
@@ -27,8 +28,9 @@ function App() {
   return (
     <>
       <Routes>
+      <Route exact path="/" element={<Landing_page />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route exact path="/" element={<Login />} />
+        <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/user" element={<CurrentUserDisplay />} />
         <Route path="/pending" element={<PendingUsersTable />} />
