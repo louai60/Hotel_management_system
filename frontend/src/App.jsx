@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import Signup from './pages/register';
 import CurrentUserDisplay from './pages/CurrentUser';
 import PendingUsersTable from './pages/PendingUsers';
+import HouseKeeping from './pages/HouseKeeping';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route exact path='/register' element={<Signup />} />
         <Route exact path='/user' element={<CurrentUserDisplay />} />
         <Route path='/pending' element={<PendingUsersTable /> } />
+        <Route path='/housekeeping' element={<HouseKeeping/>} />
 
       </Routes>
     </>
