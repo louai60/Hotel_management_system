@@ -13,6 +13,7 @@ import CurrentUserDisplay from "./pages/CurrentUser";
 import PendingUsersTable from "./pages/PendingUsers";
 import Accounting from "./pages/Accounting";
 import Maintenance from "./Dashboards/Maintenance/Maintenance";
+import HouseKeeping from "./Dashboards/HouseKeeping/HouseKeeping";
 
 function App() {
   const location = useLocation();
@@ -32,7 +33,7 @@ function App() {
         <Route exact path="/user" element={<CurrentUserDisplay />} />
         <Route path="/pending" element={<PendingUsersTable />} />
         <Route path="/accounting" element={<Accounting />} />
-
+        <Route path="/housekeeping" element={<HouseKeeping />} />
 
         <Route path="/maintenance" element={<Maintenance />} />
       </Routes>
