@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
-export default function MaintenanceFormDialog() {
+export default function CreateIntervention() {
   const [open, setOpen] = React.useState(false);
   const [maintenanceLocation, setMaintenanceLocation] = React.useState('');
   const [maintenanceNumber, setMaintenanceNumber] = React.useState('');
