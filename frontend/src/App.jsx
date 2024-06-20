@@ -50,12 +50,13 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Dashboard from "./pages/Dashboard";
 import DashboardTemplate from './components/DashboardTemplate';
 // import ReceptionDashboard from './components/ReceptionDashboard';
-import HousekeepingDashboard from './components/HousekeepingDashboard';
+import PendingUsersTable from "./pages/PendingUsers";
 import AdminDashboard from './components/AdminDashboard';
 import Login from './pages/Login';
 import Signup from "./pages/register";
 
 import "./css/style.css";
+import HouseKeeping from "./Dashboards/HouseKeeping/HouseKeeping";
 
 const getUserRolePath = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -70,8 +71,8 @@ const getUserRolePath = () => {
 
   const userRole = roles.find(role => roleToPathMap[role]);
   return roleToPathMap[userRole] || '/unauthorized';
-  console.log(userRole)
 };
+// console.log(userRole)
 
 const App = () => {
   const userRolePath = getUserRolePath();
@@ -83,6 +84,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route path="/pending" element={<PendingUsersTable />} />
         <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
 
         <Route path="/admin" element={
@@ -106,7 +108,7 @@ const App = () => {
         <Route path="/housekeeping" element={
           userRolePath === '/admin' || userRolePath === '/housekeeping' ? (
             <DashboardTemplate title="Housekeeping Dashboard">
-              <HousekeepingDashboard />
+              <HouseKeeping />
             </DashboardTemplate>
           ) : (
             <Navigate to="/unauthorized" />
