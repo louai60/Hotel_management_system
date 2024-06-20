@@ -17,8 +17,6 @@ public class RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    // CRUD operations
-
     public List<Restaurant> getAllRestaurants() {
         return restaurantRepository.findAll();
     }
@@ -31,25 +29,19 @@ public class RestaurantService {
         return restaurantRepository.save(restaurant);
     }
 
-    public Restaurant updateRestaurant(Integer id, Restaurant updatedRestaurant) {
-        // Check if the restaurant with the given id exists
-        if (restaurantRepository.existsById(Long.valueOf(id))) {
-            updatedRestaurant.setId(id); // Set the ID of the updated restaurant
+    public Restaurant updateRestaurant(Restaurant updatedRestaurant) {
+        Long id = updatedRestaurant.getId();
+
+        if (id != null && restaurantRepository.existsById(id)) {
             return restaurantRepository.save(updatedRestaurant);
         } else {
-            // Handle error: restaurant not found
             return null;
         }
     }
 
     public void deleteRestaurant(Long id) {
-        // Check if the restaurant with the given id exists
         if (restaurantRepository.existsById(id)) {
             restaurantRepository.deleteById(id);
-        } else {
-            // Handle error: restaurant not found
         }
     }
-
-    // Add any additional methods as needed for specific business logic
 }

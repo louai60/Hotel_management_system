@@ -19,7 +19,7 @@ import com.louaysaafi.HotelManagementSystem.services.AccountingService;
 
 @RestController
 @RequestMapping("/api/accountings")
-public class AccountingsApi {
+public class AccountingController {
 
     @Autowired
     private AccountingService accountingService;

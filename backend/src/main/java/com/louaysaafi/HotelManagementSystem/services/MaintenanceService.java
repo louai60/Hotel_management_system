@@ -32,24 +32,20 @@ public class MaintenanceService {
     }
 
     public Maintenance updateMaintenance(Maintenance updatedMaintenance) {
-        // Check if the maintenance with the given id exists
-        if (maintenanceRepository.existsById(id)) {
-            updatedMaintenance.setId(id); // Set the ID of the updated maintenance
+        Long id = updatedMaintenance.getId();
+
+        if (id != null && maintenanceRepository.existsById(id)) {
             return maintenanceRepository.save(updatedMaintenance);
         } else {
-            // Handle error: maintenance not found
             return null;
         }
     }
 
     public void deleteMaintenance(Long id) {
-        // Check if the maintenance with the given id exists
         if (maintenanceRepository.existsById(id)) {
             maintenanceRepository.deleteById(id);
         } else {
-            // Handle error: maintenance not found
         }
     }
 
-    // Add any additional methods as needed for specific business logic
 }

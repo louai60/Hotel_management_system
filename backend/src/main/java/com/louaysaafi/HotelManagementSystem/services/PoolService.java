@@ -17,8 +17,6 @@ public class PoolService {
         this.poolRepository = poolRepository;
     }
 
-    // CRUD operations
-
     public List<Pool> getAllPools() {
         return poolRepository.findAll();
     }
@@ -31,25 +29,19 @@ public class PoolService {
         return poolRepository.save(pool);
     }
 
-    public Pool updatePool(Long id, Pool updatedPool) {
-        // Check if the pool with the given id exists
-        if (poolRepository.existsById(id)) {
-            updatedPool.setId(id); // Set the ID of the updated pool
+    public Pool updatePool(Pool updatedPool) {
+        Long id = updatedPool.getId();
+
+        if (id != null && poolRepository.existsById(id)) {
             return poolRepository.save(updatedPool);
         } else {
-            // Handle error: pool not found
             return null;
         }
     }
 
     public void deletePool(Long id) {
-        // Check if the pool with the given id exists
         if (poolRepository.existsById(id)) {
             poolRepository.deleteById(id);
-        } else {
-            // Handle error: pool not found
         }
     }
-
-    // Add any additional methods as needed for specific business logic
 }
