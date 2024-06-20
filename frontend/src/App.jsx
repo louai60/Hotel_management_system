@@ -57,6 +57,7 @@ import Signup from "./pages/register";
 
 import "./css/style.css";
 import HouseKeepingDashboard from "./Dashboards/HouseKeeping/HouseKeepingDashboard";
+import ReceptionDashboard from './Dashboards/Reception/ReceptionDashboard';
 
 const getUserRolePath = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -89,26 +90,26 @@ const App = () => {
 
         <Route path="/admin" element={
           userRolePath === '/admin' ? (
-              <Dashboard />
+            <Dashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
         } />
 
-        {/* <Route path="/reception" element={
-          userRolePath === '/admin' || userRolePath === '/reception' ? (
-            <DashboardTemplate title="Reception Dashboard">
-              <ReceptionDashboard />
-            </DashboardTemplate>
+        <Route path="/Reception" element={
+          userRolePath === '/admin' || userRolePath === '/Reception' ? (
+            // <DashboardTemplate title="Reception Dashboard">
+            <ReceptionDashboard />
+            // {/* </DashboardTemplate> */}
           ) : (
             <Navigate to="/unauthorized" />
           )
-        } /> */}
+        } />
 
         <Route path="/housekeeping" element={
           userRolePath === '/admin' || userRolePath === '/housekeeping' ? (
             // <DashboardTemplate title="Housekeeping Dashboard">
-              <HouseKeepingDashboard />
+            <HouseKeepingDashboard />
             // </DashboardTemplate>
           ) : (
             <Navigate to="/unauthorized" />
