@@ -33,10 +33,10 @@ function HouseKeepingDashboard() {
             {/* Dashboard actions */}
             {/* <div className="sm:flex sm:justify-between sm:items-center mb-8"> */}
 
-              {/* Left: Avatars */}
-              {/* <DashboardAvatars /> */}
+            {/* Left: Avatars */}
+            {/* <DashboardAvatars /> */}
 
-              <HouseKeepingStatus />
+            <HouseKeepingStatus />
 
 
             {/* </div> */}

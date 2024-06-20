@@ -89,7 +89,7 @@ const App = () => {
 
         <Route path="/admin" element={
           userRolePath === '/admin' ? (
-              <Dashboard />
+            <Dashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
@@ -108,15 +108,30 @@ const App = () => {
         <Route path="/housekeeping" element={
           userRolePath === '/admin' || userRolePath === '/housekeeping' ? (
             // <DashboardTemplate title="Housekeeping Dashboard">
-              <HouseKeepingDashboard />
+            <HouseKeepingDashboard />
             // </DashboardTemplate>
           ) : (
             <Navigate to="/unauthorized" />
           )
         } />
 
+
         {/* Default route */}
         <Route path="*" element={<Navigate to="/" replace />} />
+
+
+
+        <Route path="/accounting" element={
+          userRolePath === '/admin' || userRolePath === '/accounting' ? (
+            // <DashboardTemplate title="Housekeeping Dashboard">
+            <AccountingDashboard />
+            // </DashboardTemplate>
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+
       </Routes>
     </Router>
   );
