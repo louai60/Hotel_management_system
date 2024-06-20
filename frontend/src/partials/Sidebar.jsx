@@ -101,7 +101,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               />
             </svg>
           </NavLink>
+          <div className="text-white font-medium ml-3">
+            <h1>Admin Dashboard</h1>
+          </div>
         </div>
+
 
         {/* Links */}
         <div className="space-y-8">
@@ -255,19 +259,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/community/users-tabs"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Users - Tabs
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
                               to="/pending"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
@@ -278,7 +269,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
-                          <li className="mb-1 last:mb-0">
+                          
+                          {/* <li className="mb-1 last:mb-0">
                             <NavLink
                               end
                               to="/community/profile"
@@ -355,7 +347,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 Meetups - Post
                               </span>
                             </NavLink>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                     </React.Fragment>
@@ -367,7 +359,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('campaigns') && 'bg-slate-900'}`}>
                 <NavLink
                   end
-                  to="/campaigns"
+                  to="/housekeeping"
                   className={`block text-slate-200 truncate transition duration-150 ${
                     pathname.includes('campaigns') ? 'hover:text-slate-200' : 'hover:text-white'
                   }`}

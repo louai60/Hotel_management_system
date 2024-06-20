@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import API_BASE_URL from '../Config/ApiConfig';
+import API_BASE_URL from '../../Config/ApiConfig';
 
 const PendingUsersTable = () => {
   const [pendingUsers, setPendingUsers] = useState([]);

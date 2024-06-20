@@ -50,7 +50,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Dashboard from "./pages/Dashboard";
 import DashboardTemplate from './components/DashboardTemplate';
 // import ReceptionDashboard from './components/ReceptionDashboard';
-import PendingUsersTable from "./pages/PendingUsers";
+import PendingUsersTable from "./partials/dashboard/PendingUsers";
 import Landing_page from "./home";
 import Login from './pages/Login';
 import Signup from "./pages/register";
@@ -83,7 +83,7 @@ const App = () => {
         <Route exact path="/" element={<Landing_page />} />
         <Route path="/login" element={<Login />} />
         <Route exact path="/register" element={<Signup />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/admin" element={<Dashboard />} />
         <Route path="/pending" element={<PendingUsersTable />} />
         <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
 
@@ -107,6 +107,16 @@ const App = () => {
 
         <Route path="/housekeeping" element={
           userRolePath === '/admin' || userRolePath === '/housekeeping' ? (
+            // <DashboardTemplate title="Housekeeping Dashboard">
+              <HouseKeepingDashboard />
+            // </DashboardTemplate>
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/maintenance" element={
+          userRolePath === '/admin' || userRolePath === '/technician' ? (
             // <DashboardTemplate title="Housekeeping Dashboard">
               <HouseKeepingDashboard />
             // </DashboardTemplate>
