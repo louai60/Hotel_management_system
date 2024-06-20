@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -21,13 +20,24 @@ export default function Login() {
         password,
       });
 
-      console.log(response.data)
+      console.log(response.data);
       localStorage.setItem('user', JSON.stringify(response.data)); // Store user data in local storage
+
+      const roles = response.data.roles;
+      const roleToPathMap = {
+        ROLE_ADMIN: '/admin',
+        ROLE_RECEPTIONIST: '/reception',
+        ROLE_HOUSEKEEPING: '/housekeeping',
+        // ....
+      };
+
+      const userRole = roles.find(role => roleToPathMap[role]);
+      const redirectPath = roleToPathMap[userRole] || '/unauthorized';
 
       toast.success('Login successful!');
       setTimeout(() => {
-        navigate('/dashboard');
-      }, 2000);
+        navigate(redirectPath);
+      }, 1500);
     } catch (error) {
       console.error('There was an error logging in!', error);
       toast.error('Invalid email or password. Please try again.');
@@ -41,11 +51,7 @@ export default function Login() {
       <ToastContainer />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Logo"
-          />
+          <img className="mx-auto h-10 w-auto" alt="Logo" />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
             Sign in to your account
           </h2>

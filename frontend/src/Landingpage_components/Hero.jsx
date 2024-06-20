@@ -19,14 +19,14 @@ const Hero = () => {
 
           <h1 className="flex-1 font-poppins font-semibold ss:text-[100px] text-[80px] text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-black ss:leading-[120px] leading-[90px]">
             Welcome <br className="sm:block hidden" />{" "}
-            <span >To our working area</span>{" "}
+            <span >To our working space</span>{" "}
           </h1>
           {/* text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-black to-red-700 animate-gradient */}
           <div className="ss:flex hidden md:mr-4 mr-0">
           </div>
         </div>
-
         <h1 className="">
+
 
         </h1>
         <p className={`${styles.paragraph} max-w-[470px] text-2xl font-bold bg-gradient-to-r from-blue-400 to-black  text-transparent bg-clip-text animate-gradient`}>
