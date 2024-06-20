@@ -14,7 +14,7 @@
 // import Accounting from "./pages/Accounting";
 // import Maintenance from "./Dashboards/Maintenance/Maintenance";
 // import HouseKeeping from "./Dashboards/HouseKeeping/HouseKeeping";
-import Landing_page from "./home";
+// import Landing_page from "./home";
 
 // function App() {
 //   const location = useLocation();
@@ -51,12 +51,12 @@ import Dashboard from "./pages/Dashboard";
 import DashboardTemplate from './components/DashboardTemplate';
 // import ReceptionDashboard from './components/ReceptionDashboard';
 import PendingUsersTable from "./pages/PendingUsers";
-import AdminDashboard from './components/AdminDashboard';
+import Landing_page from "./home";
 import Login from './pages/Login';
 import Signup from "./pages/register";
 
 import "./css/style.css";
-import HouseKeeping from "./Dashboards/HouseKeeping/HouseKeeping";
+import HouseKeepingDashboard from "./Dashboards/HouseKeeping/HouseKeepingDashboard";
 
 const getUserRolePath = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -107,9 +107,9 @@ const App = () => {
 
         <Route path="/housekeeping" element={
           userRolePath === '/admin' || userRolePath === '/housekeeping' ? (
-            <DashboardTemplate title="Housekeeping Dashboard">
-              <HouseKeeping />
-            </DashboardTemplate>
+            // <DashboardTemplate title="Housekeeping Dashboard">
+              <HouseKeepingDashboard />
+            // </DashboardTemplate>
           ) : (
             <Navigate to="/unauthorized" />
           )
