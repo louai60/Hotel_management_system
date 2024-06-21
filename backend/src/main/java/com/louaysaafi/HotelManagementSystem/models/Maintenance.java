@@ -28,10 +28,12 @@ public class Maintenance {
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @org.hibernate.annotations.CreationTimestamp
     private Date createdAt;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
+    @org.hibernate.annotations.UpdateTimestamp
     private Date updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,20 +45,20 @@ public class Maintenance {
 
     @ManyToMany
     @JoinTable(
-        name = "maintenances_has_rooms",
-        joinColumns = @JoinColumn(name = "maintenance_id"),
-        inverseJoinColumns = @JoinColumn(name = "room_id")
+            name = "maintenances_has_rooms",
+            joinColumns = @JoinColumn(name = "maintenance_id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id")
     )
     private List<Room> rooms;
-    
+
     @ManyToMany
     @JoinTable(
-        name = "maintenances_has_restaurants",
-        joinColumns = @JoinColumn(name = "maintenance_id"),
-        inverseJoinColumns = @JoinColumn(name = "restaurant_id")
+            name = "maintenances_has_restaurants",
+            joinColumns = @JoinColumn(name = "maintenance_id"),
+            inverseJoinColumns = @JoinColumn(name = "restaurant_id")
     )
     private List<Restaurant> restaurants;
-    
+
     // Constructor
     public Maintenance() {
         super();
@@ -107,17 +109,13 @@ public class Maintenance {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+    // No setter for createdAt
 
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    // No setter for updatedAt
 
     public Pool getPool() {
         return pool;

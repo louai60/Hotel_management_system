@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,7 +19,7 @@ public class MaintenanceController {
     private MaintenanceService maintenanceService;
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
+    @PermitAll
     public ResponseEntity<?> createMaintenance(@RequestBody Maintenance maintenance) {
         Maintenance createdMaintenance = maintenanceService.createMaintenance(maintenance);
         return ResponseEntity.ok(createdMaintenance);
@@ -27,17 +29,17 @@ public class MaintenanceController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('TECHNICIAN')")
     public ResponseEntity<?> viewMaintenance(@PathVariable("id") Long id) {
         Optional<Maintenance> maintenance = maintenanceService.getMaintenanceById(id);
-        if (maintenance == null) {
+        if (!maintenance.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(maintenance);
+        return ResponseEntity.ok(maintenance.get());
     }
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('TECHNICIAN')")
     public ResponseEntity<?> updateMaintenance(@PathVariable("id") Long id, @RequestBody Maintenance maintenance) {
         Optional<Maintenance> existingMaintenance = maintenanceService.getMaintenanceById(id);
-        if (existingMaintenance == null) {
+        if (!existingMaintenance.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         maintenance.setId(id);
@@ -49,10 +51,18 @@ public class MaintenanceController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<?> deleteMaintenance(@PathVariable("id") Long id) {
         Optional<Maintenance> existingMaintenance = maintenanceService.getMaintenanceById(id);
-        if (existingMaintenance == null) {
+        if (!existingMaintenance.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         maintenanceService.deleteMaintenance(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/all")
+    @PermitAll
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('TECHNICIAN')")
+    public ResponseEntity<List<Maintenance>> getAllMaintenances() {
+        List<Maintenance> maintenances = maintenanceService.getAllMaintenances();
+        return ResponseEntity.ok(maintenances);
     }
 }

@@ -13,15 +13,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -36,15 +39,10 @@ public class AdminController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-//        if (userRepository.existsByEmail(signUpRequest.getFirstName())) {
-//            return ResponseEntity.badRequest().body(new MessageResponse("Error: User Name is already taken!"));
-//        }
-
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        // Create new user's account with pending role
         User user = new User(
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
@@ -70,8 +68,7 @@ public class AdminController {
     }
 
     @PostMapping("/verify-user/{userId}")
-    // @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> verifyUser(@PathVariable Long userId, @RequestParam String roleName) {
+    public ResponseEntity<?> verifyUser(@PathVariable Long userId, @RequestParam String roleName) throws MessagingException {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Error: User not found."));
         Role role = roleRepository.findByName(ERole.valueOf(roleName.toUpperCase()))
@@ -83,8 +80,8 @@ public class AdminController {
 
         // Send email notification
         String subject = "Account Verified";
-        String text = "Dear " + user.getFirstName() + " " + user.getLastName() + ",\n\nYour account has been verified and you now have access to the dashboard.\n\nBest regards,\nHotel Management System";
-        emailService.sendEmail(user.getEmail(), subject, text);
+        String userName = user.getFirstName() + " " + user.getLastName();
+        emailService.sendEmail(user.getEmail(), subject, userName);
 
         return ResponseEntity.ok(new MessageResponse("User verified and role assigned successfully!"));
     }

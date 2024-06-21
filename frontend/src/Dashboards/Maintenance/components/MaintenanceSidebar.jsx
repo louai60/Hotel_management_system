@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import HouseKeepingSidebarLinkGroup from './HouseKeepingSidebarLinkGroup';
+import MaintenanceSidebarLinkGroup from './MaintenanceSidebarLinkGroup';
 
-function HouseKeepingSidebar({ sidebarOpen, setSidebarOpen }) {
+function MaintenanceSidebar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
   const { pathname } = location;
 
@@ -115,7 +115,7 @@ function HouseKeepingSidebar({ sidebarOpen, setSidebarOpen }) {
             </h3>
             <ul className="mt-3">
               {/* Dashboard */}
-              <HouseKeepingSidebarLinkGroup activecondition={pathname === '/' || pathname.includes('dashboard')}>
+              <MaintenanceSidebarLinkGroup activecondition={pathname === '/' || pathname.includes('dashboard')}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
@@ -152,7 +152,7 @@ function HouseKeepingSidebar({ sidebarOpen, setSidebarOpen }) {
                               />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                            Room Management
+                            Maintenance Management
                             </span>
                           </div>
                           {/* Icon */}
@@ -168,7 +168,7 @@ function HouseKeepingSidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/"
+                              to="/maintenance"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -209,13 +209,13 @@ function HouseKeepingSidebar({ sidebarOpen, setSidebarOpen }) {
                     </React.Fragment>
                   );
                 }}
-              </HouseKeepingSidebarLinkGroup>
+              </MaintenanceSidebarLinkGroup>
 
               {/* Room Management */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('campaigns') && 'bg-slate-900'}`}>
                 <NavLink
                   end
-                  to="/campaigns"
+                  to="/test"
                   className={`block text-slate-200 truncate transition duration-150 ${
                     pathname.includes('campaigns') ? 'hover:text-slate-200' : 'hover:text-white'
                   }`}
@@ -232,7 +232,7 @@ function HouseKeepingSidebar({ sidebarOpen, setSidebarOpen }) {
                       />
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                      Reciption
+                      Staff
                     </span>
                   </div>
                 </NavLink>
@@ -259,4 +259,4 @@ function HouseKeepingSidebar({ sidebarOpen, setSidebarOpen }) {
   );
 }
 
-export default HouseKeepingSidebar;
+export default MaintenanceSidebar;
