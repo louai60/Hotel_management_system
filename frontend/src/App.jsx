@@ -9,16 +9,18 @@ import HouseKeepingDashboard from "./Dashboards/HouseKeeping/HouseKeepingDashboa
 import ReceptionDashboard from './Dashboards/Reception/ReceptionDashboard';
 import MaintenanceDashboard from './Dashboards/Maintenance/MaintenanceDashboard';
 import Test from './Dashboards/Maintenance/Test';
+import AccountingDashboard from './Dashboards/Accounting/AccountingDashboard';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const roles = user?.roles || [];
-  
+
   const roleToPathMap = {
     ROLE_ADMIN: '/admin',
     ROLE_RECEPTIONIST: '/reception',
     ROLE_HOUSEKEEPING: '/housekeeping',
-    ROLE_TECHNICIAN: '/maintenance', // Adjusted role name
+    ROLE_TECHNICIAN: '/maintenance', 
+    ROLE_ACCOUNTING: '/accounting',
     // Add more roles as necessary
   };
 
@@ -36,7 +38,7 @@ const App = () => {
         <Route path="/test" element={<Test />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
-        
+
         <Route path="/admin" element={
           userRolePath === '/admin' ? (
             <Dashboard />
@@ -44,7 +46,7 @@ const App = () => {
             <Navigate to="/unauthorized" />
           )
         } />
-        
+
         <Route path="/reception" element={
           userRolePath === '/admin' || userRolePath === '/reception' ? (
             <ReceptionDashboard />
@@ -52,7 +54,7 @@ const App = () => {
             <Navigate to="/unauthorized" />
           )
         } />
-        
+
         <Route path="/housekeeping" element={
           userRolePath === '/admin' || userRolePath === '/housekeeping' ? (
             <HouseKeepingDashboard />
@@ -60,7 +62,7 @@ const App = () => {
             <Navigate to="/unauthorized" />
           )
         } />
-        
+
         <Route path="/maintenance" element={
           userRolePath === '/admin' || userRolePath === '/maintenance' ? (
             <MaintenanceDashboard />
@@ -68,10 +70,18 @@ const App = () => {
             <Navigate to="/unauthorized" />
           )
         } />
-        
+
+        <Route path="/accounting" element={
+          userRolePath === '/admin' || userRolePath === '/accounting' ? (
+            <AccountingDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
         <Route path="/pending" element={<PendingUsersTable />} />
         <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
-        
+
         {/* Default route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
