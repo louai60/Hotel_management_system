@@ -74,9 +74,9 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private List<Accounting> accountings;
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//	@JsonIgnore
+//	private List<Accounting> accountings;
 
 
     // Getters and setters
@@ -161,8 +161,8 @@ public class User {
 		this.roles = roles;
 	}
 
-	public List<Accounting> getAccountings() {
-		return accountings;
-	}
+//	public List<Accounting> getAccountings() {
+//		return accountings;
+//	}
 
 }

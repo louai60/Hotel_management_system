@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/maintenance")
+@RequestMapping("/api/maintenance")
 public class MaintenanceController {
 
     @Autowired
     private MaintenanceService maintenanceService;
 
-    @PostMapping("/create")
+    @PostMapping
     @PermitAll
     public ResponseEntity<?> createMaintenance(@RequestBody Maintenance maintenance) {
         Maintenance createdMaintenance = maintenanceService.createMaintenance(maintenance);
@@ -26,7 +26,7 @@ public class MaintenanceController {
     }
 
     @GetMapping("/view/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('TECHNICIAN')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('TECHNICIAN')")
     public ResponseEntity<?> viewMaintenance(@PathVariable("id") Long id) {
         Optional<Maintenance> maintenance = maintenanceService.getMaintenanceById(id);
         if (!maintenance.isPresent()) {
@@ -35,8 +35,8 @@ public class MaintenanceController {
         return ResponseEntity.ok(maintenance.get());
     }
 
-    @PutMapping("/update/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('TECHNICIAN')")
+    @PutMapping("/{id}")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('TECHNICIAN')")
     public ResponseEntity<?> updateMaintenance(@PathVariable("id") Long id, @RequestBody Maintenance maintenance) {
         Optional<Maintenance> existingMaintenance = maintenanceService.getMaintenanceById(id);
         if (!existingMaintenance.isPresent()) {
@@ -47,8 +47,8 @@ public class MaintenanceController {
         return ResponseEntity.ok(updatedMaintenance);
     }
 
-    @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
+    @DeleteMapping("/{id}")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<?> deleteMaintenance(@PathVariable("id") Long id) {
         Optional<Maintenance> existingMaintenance = maintenanceService.getMaintenanceById(id);
         if (!existingMaintenance.isPresent()) {
@@ -58,7 +58,7 @@ public class MaintenanceController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/all")
+    @GetMapping
     @PermitAll
 //    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('TECHNICIAN')")
     public ResponseEntity<List<Maintenance>> getAllMaintenances() {

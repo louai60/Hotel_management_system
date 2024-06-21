@@ -18,26 +18,22 @@ public class OrderManagementController {
     private OrderManagementService OrderManagementService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('RECEPTIONIST')")
     public List<OrderManagement> getAllOrderManagements() {
         return OrderManagementService.getAllOrderManagements();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('RECEPTIONIST')")
     public ResponseEntity<OrderManagement> getOrderManagementById(@PathVariable Long id) {
         Optional<OrderManagement> OrderManagement = OrderManagementService.getOrderManagementById(id);
         return OrderManagement.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public OrderManagement createOrderManagement(@RequestBody OrderManagement OrderManagement) {
         return OrderManagementService.createOrderManagement(OrderManagement);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<OrderManagement> updateOrderManagement(@PathVariable Long id, @RequestBody OrderManagement OrderManagementDetails) {
         Optional<OrderManagement> OrderManagement = OrderManagementService.getOrderManagementById(id);
         if (OrderManagement.isPresent()) {
@@ -51,7 +47,6 @@ public class OrderManagementController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<Void> deleteOrderManagement(@PathVariable Long id) {
         OrderManagementService.deleteOrderManagement(id);
         return ResponseEntity.noContent().build();

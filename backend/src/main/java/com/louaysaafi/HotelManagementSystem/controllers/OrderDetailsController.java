@@ -18,26 +18,22 @@ public class OrderDetailsController {
     private OrderDetailsService OrderDetailsService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('RECEPTIONIST')")
     public List<OrderDetails> getAllOrderDetailss() {
         return OrderDetailsService.getAllOrderDetails();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('RECEPTIONIST')")
     public ResponseEntity<OrderDetails> getOrderDetailsById(@PathVariable Long id) {
         Optional<OrderDetails> OrderDetails = OrderDetailsService.getOrderDetailsById(id);
         return OrderDetails.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public OrderDetails createOrderDetails(@RequestBody OrderDetails OrderDetails) {
         return OrderDetailsService.createOrderDetails(OrderDetails);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<OrderDetails> updateOrderDetails(@PathVariable Long id, @RequestBody OrderDetails OrderDetailsDetails) {
         Optional<OrderDetails> OrderDetails = OrderDetailsService.getOrderDetailsById(id);
         if (OrderDetails.isPresent()) {
@@ -54,7 +50,6 @@ public class OrderDetailsController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<Void> deleteOrderDetails(@PathVariable Long id) {
         OrderDetailsService.deleteOrderDetails(id);
         return ResponseEntity.noContent().build();
