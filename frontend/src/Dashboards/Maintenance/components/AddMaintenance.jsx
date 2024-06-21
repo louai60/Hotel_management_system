@@ -49,17 +49,16 @@ const AddMaintenance = ({ onMaintenanceAdded }) => {
         onMaintenanceAdded(response.data);
       }
       // Show success toast
-      toast.success('Maintenance request submitted successfully!', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000 // Close the toast after 3 seconds
-      });
+      toast.success('Maintenance request submitted successfully!!');
+      // Clear form fields
+      setInterventionDate('');
+      setLocation('');
+      setResponsibleTechnician('');
+      setPriority('');
     } catch (error) {
       console.error('Error submitting maintenance request:', error);
       // Show error toast
-      toast.error('Error submitting maintenance request. Please try again later.', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000 // Close the toast after 3 seconds
-      });
+      toast.error('Error submitting maintenance request. Please try again later.');
     }
   };
 
