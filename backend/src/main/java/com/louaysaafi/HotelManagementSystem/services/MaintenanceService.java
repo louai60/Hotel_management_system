@@ -42,9 +42,11 @@ public class MaintenanceService {
     }
 
     public void deleteMaintenance(Long id) {
-        if (maintenanceRepository.existsById(id)) {
-            maintenanceRepository.deleteById(id);
+        Optional<Maintenance> maintenanceOptional = maintenanceRepository.findById(id);
+        if (maintenanceOptional.isPresent()) {
+            maintenanceRepository.delete(maintenanceOptional.get());
         } else {
+            throw new IllegalArgumentException("Maintenance record not found for id: " + id);
         }
     }
 

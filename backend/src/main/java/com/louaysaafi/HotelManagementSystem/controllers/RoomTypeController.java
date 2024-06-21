@@ -17,13 +17,11 @@ public class RoomTypeController {
     private RoomTypeService roomTypeService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('RECEPTIONIST')")
     public List<RoomType> getAllRoomTypes() {
         return roomTypeService.getAllRoomTypes();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER') or hasRole('RECEPTIONIST')")
     public ResponseEntity<RoomType> getRoomTypeById(@PathVariable Long id) {
         Optional<RoomType> roomType = roomTypeService.getRoomTypeById(id);
         if (roomType.isPresent()) {
@@ -34,13 +32,11 @@ public class RoomTypeController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public RoomType createRoomType(@RequestBody RoomType roomType) {
         return roomTypeService.saveRoomType(roomType);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<RoomType> updateRoomType(@PathVariable Long id, @RequestBody RoomType roomTypeDetails) {
         Optional<RoomType> roomType = roomTypeService.getRoomTypeById(id);
         if (roomType.isPresent()) {
@@ -55,7 +51,6 @@ public class RoomTypeController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteRoomType(@PathVariable Long id) {
         roomTypeService.deleteRoomType(id);
         return ResponseEntity.noContent().build();

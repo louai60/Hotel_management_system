@@ -18,7 +18,7 @@ import com.louaysaafi.HotelManagementSystem.models.Accounting;
 import com.louaysaafi.HotelManagementSystem.services.AccountingService;
 
 @RestController
-@RequestMapping("/api/accountings")
+@RequestMapping("/api/accounting")
 public class AccountingController {
 
     @Autowired
@@ -49,7 +49,7 @@ public class AccountingController {
             updatedAccounting.setTotalExpenses(accountingDetails.getTotalExpenses());
             updatedAccounting.setTotalRooms(accountingDetails.getTotalRooms());
             updatedAccounting.setReportAuthor(accountingDetails.getReportAuthor());
-            updatedAccounting.setUser(accountingDetails.getUser());
+//            updatedAccounting.setUser(accountingDetails.getUser());
             return ResponseEntity.ok(accountingService.createAccounting(updatedAccounting));
         } else {
             return ResponseEntity.notFound().build();

@@ -18,13 +18,11 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public List<Role> getAllRoles() {
         return roleService.getAllRoles();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Role> getRoleById(@PathVariable Long id) {
         Optional<Role> role = roleService.getRoleById(id);
         if (role.isPresent()) {
@@ -35,13 +33,11 @@ public class RoleController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public Role createRole(@RequestBody Role role) {
         return roleService.saveRole(role);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Role> updateRole(@PathVariable Long id, @RequestBody Role roleDetails) {
         Optional<Role> role = roleService.getRoleById(id);
         if (role.isPresent()) {
@@ -54,7 +50,6 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteRole(@PathVariable Long id) {
         roleService.deleteRole(id);
         return ResponseEntity.noContent().build();

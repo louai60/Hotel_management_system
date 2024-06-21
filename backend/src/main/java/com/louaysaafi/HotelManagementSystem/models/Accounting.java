@@ -33,9 +33,9 @@ public class Accounting {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", nullable = false)
+//    private User user;
 
     public Long getId() {
 		return id;
@@ -99,13 +99,13 @@ public class Accounting {
         this.updatedAt = updatedAt;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     @PrePersist
     protected void onCreate() {

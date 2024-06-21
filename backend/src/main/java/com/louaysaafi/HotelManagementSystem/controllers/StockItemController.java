@@ -17,14 +17,12 @@ public class StockItemController {
     private StockItemService stockItemService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<List<StockItem>> getAllStockItems() {
         List<StockItem> stockItems = stockItemService.getAllStockItems();
         return ResponseEntity.ok(stockItems);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<StockItem> getStockItemById(@PathVariable Long id) {
         return stockItemService.getStockItemById(id)
                 .map(ResponseEntity::ok)
@@ -32,14 +30,12 @@ public class StockItemController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<StockItem> createStockItem(@RequestBody StockItem stockItem) {
         StockItem savedStockItem = stockItemService.saveStockItem(stockItem);
         return ResponseEntity.ok(savedStockItem);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<StockItem> updateStockItem(@PathVariable Long id, @RequestBody StockItem stockItem) {
         return stockItemService.updateStockItem(id, stockItem)
                 .map(ResponseEntity::ok)
@@ -47,7 +43,6 @@ public class StockItemController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteStockItem(@PathVariable Long id) {
         stockItemService.deleteStockItem(id);
         return ResponseEntity.noContent().build();

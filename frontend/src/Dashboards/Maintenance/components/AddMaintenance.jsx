@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
@@ -9,12 +9,24 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const AddMaintenance = ({ onMaintenanceAdded }) => {
+const AddMaintenance = ({ onMaintenanceAdded, editingMaintenance, onMaintenanceUpdated, setEditingMaintenance }) => {
   const [open, setOpen] = useState(false);
   const [interventionDate, setInterventionDate] = useState('');
   const [location, setLocation] = useState('');
   const [responsibleTechnician, setResponsibleTechnician] = useState('');
   const [priority, setPriority] = useState('');
+
+  useEffect(() => {
+    if (editingMaintenance) {
+      setInterventionDate(editingMaintenance.interventionDate);
+      setLocation(editingMaintenance.location);
+      setResponsibleTechnician(editingMaintenance.responsibleTechnician);
+      setPriority(editingMaintenance.priority);
+      setOpen(true);
+    } else {
+      clearForm();
+    }
+  }, [editingMaintenance]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,6 +34,15 @@ const AddMaintenance = ({ onMaintenanceAdded }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setEditingMaintenance(null);
+    clearForm();
+  };
+
+  const clearForm = () => {
+    setInterventionDate('');
+    setLocation('');
+    setResponsibleTechnician('');
+    setPriority('');
   };
 
   const handleSubmit = async () => {
@@ -37,27 +58,36 @@ const AddMaintenance = ({ onMaintenanceAdded }) => {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/maintenance/create', maintenanceData, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-          'X-User-Roles': roles.join(',')
+      let response;
+      if (editingMaintenance) {
+        // Update existing maintenance
+        response = await axios.put(`http://localhost:8080/api/maintenance/${editingMaintenance.id}`, maintenanceData, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            'X-User-Roles': roles.join(',')
+          }
+        });
+        if (onMaintenanceUpdated) {
+          onMaintenanceUpdated(response.data);
         }
-      });
-      console.log('Maintenance request submitted:', response.data);
-      handleClose();
-      if (onMaintenanceAdded) {
-        onMaintenanceAdded(response.data);
+        toast.success('Maintenance updated successfully!');
+      } else {
+        // Add new maintenance
+        response = await axios.post('http://localhost:8080/api/maintenance', maintenanceData, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            'X-User-Roles': roles.join(',')
+          }
+        });
+        if (onMaintenanceAdded) {
+          onMaintenanceAdded(response.data);
+        }
+        toast.success('Maintenance request submitted successfully!');
       }
-      // Show success toast
-      toast.success('Maintenance request submitted successfully!!');
-      // Clear form fields
-      setInterventionDate('');
-      setLocation('');
-      setResponsibleTechnician('');
-      setPriority('');
+
+      handleClose();
     } catch (error) {
       console.error('Error submitting maintenance request:', error);
-      // Show error toast
       toast.error('Error submitting maintenance request. Please try again later.');
     }
   };
@@ -65,16 +95,17 @@ const AddMaintenance = ({ onMaintenanceAdded }) => {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Request Maintenance
+        {editingMaintenance ? 'Edit Maintenance' : 'Request Maintenance'}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Maintenance Request</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          {editingMaintenance ? 'Edit Maintenance' : 'Maintenance Request'}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please fill out the form below to request maintenance.
+            Please fill out the form below to {editingMaintenance ? 'update' : 'request'} maintenance.
           </DialogContentText>
           <div className="space-y-4">
-            {/* Date picker UI */}
             <div className="relative max-w-sm">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -120,7 +151,7 @@ const AddMaintenance = ({ onMaintenanceAdded }) => {
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            Submit
+            {editingMaintenance ? 'Update' : 'Submit'}
           </Button>
         </DialogActions>
       </Dialog>

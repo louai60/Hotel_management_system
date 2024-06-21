@@ -8,8 +8,9 @@ import Signup from "./pages/register";
 import HouseKeepingDashboard from "./Dashboards/HouseKeeping/HouseKeepingDashboard";
 import ReceptionDashboard from './Dashboards/Reception/ReceptionDashboard';
 import MaintenanceDashboard from './Dashboards/Maintenance/MaintenanceDashboard';
-import Test from './Dashboards/Maintenance/Test';
 import AccountingDashboard from './Dashboards/Accounting/AccountingDashboard';
+import Test from './Dashboards/Maintenance/Test';
+import "./css/style.css";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
