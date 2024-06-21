@@ -23,6 +23,10 @@ export default function Login() {
       console.log(response.data);
       localStorage.setItem('user', JSON.stringify(response.data)); // Store user data in local storage
 
+      // Extract JWT token from response headers
+      const token = response.headers['set-cookie']; // Adjust if the token is returned differently
+      localStorage.setItem('jwtToken', token); // Store JWT token in local storage
+
       const roles = response.data.roles;
       const roleToPathMap = {
         ROLE_ADMIN: '/admin',
@@ -45,6 +49,20 @@ export default function Login() {
       setLoading(false);
     }
   };
+
+  // Configure Axios to use the JWT token in all requests
+  axios.interceptors.request.use(
+    config => {
+      const token = localStorage.getItem('jwtToken');
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
 
   return (
     <>

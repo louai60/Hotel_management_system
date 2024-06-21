@@ -1,50 +1,3 @@
-// import React, { useEffect } from "react";
-// import { Routes, Route, useLocation } from "react-router-dom";
-
-// import "./css/style.css";
-
-// import "./charts/ChartjsConfig";
-
-// // Import pages
-// import Dashboard from "./pages/Dashboard";
-// import Login from "./pages/Login";
-// import Signup from "./pages/register";
-// import CurrentUserDisplay from "./pages/CurrentUser";
-// import PendingUsersTable from "./pages/PendingUsers";
-// import Accounting from "./pages/Accounting";
-// import Maintenance from "./Dashboards/Maintenance/Maintenance";
-// import HouseKeeping from "./Dashboards/HouseKeeping/HouseKeeping";
-// import Landing_page from "./home";
-
-// function App() {
-//   const location = useLocation();
-
-//   useEffect(() => {
-//     document.querySelector("html").style.scrollBehavior = "auto";
-//     window.scroll({ top: 0 });
-//     document.querySelector("html").style.scrollBehavior = "";
-//   }, [location.pathname]); // triggered on route change
-
-//   return (
-//     <>
-//       <Routes>
-//       <Route exact path="/" element={<Landing_page />} />
-//         <Route exact path="/dashboard" element={<Dashboard />} />
-//         <Route exact path="/login" element={<Login />} />
-//         <Route exact path="/register" element={<Signup />} />
-//         <Route exact path="/user" element={<CurrentUserDisplay />} />
-//         <Route path="/pending" element={<PendingUsersTable />} />
-//         <Route path="/accounting" element={<Accounting />} />
-//         <Route path="/housekeeping" element={<HouseKeeping />} />
-
-//         <Route path="/maintenance" element={<Maintenance />} />
-//       </Routes>
-//     </>
-//   );
-// }
-
-// export default App;
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from "./pages/Dashboard";
@@ -58,6 +11,8 @@ import Signup from "./pages/register";
 import "./css/style.css";
 import HouseKeepingDashboard from "./Dashboards/HouseKeeping/HouseKeepingDashboard";
 import ReceptionDashboard from './Dashboards/Reception/ReceptionDashboard';
+import MaintenanceDashboard from './Dashboards/Maintenance/MaintenanceDashboard';
+import Test from './Dashboards/Maintenance/Test';
 
 const getUserRolePath = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -82,6 +37,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route exact path="/" element={<Landing_page />} />
+        <Route exact path="/test" element={<Test />} />
         <Route path="/login" element={<Login />} />
         <Route exact path="/register" element={<Signup />} />
         <Route exact path="/admin" element={<Dashboard />} />
@@ -96,8 +52,8 @@ const App = () => {
           )
         } />
 
-        <Route path="/Reception" element={
-          userRolePath === '/admin' || userRolePath === '/Reception' ? (
+        <Route path="/reception" element={
+          userRolePath === '/admin' || userRolePath === '/reception' ? (
             // <DashboardTemplate title="Reception Dashboard">
             <ReceptionDashboard />
             // {/* </DashboardTemplate> */}
@@ -119,7 +75,7 @@ const App = () => {
         <Route path="/maintenance" element={
           userRolePath === '/admin' || userRolePath === '/technician' ? (
             // <DashboardTemplate title="Housekeeping Dashboard">
-              <HouseKeepingDashboard />
+              <MaintenanceDashboard />
             // </DashboardTemplate>
           ) : (
             <Navigate to="/unauthorized" />

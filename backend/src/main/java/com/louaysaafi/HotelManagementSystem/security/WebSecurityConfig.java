@@ -20,10 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-        prePostEnabled = true
-)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
   @Autowired
   UserDetailsServiceImpl userDetailsService;
 
@@ -35,9 +34,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     return new AuthTokenFilter();
   }
 
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
   @Override
   public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-    authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    authenticationManagerBuilder
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder());
   }
 
   @Bean
@@ -46,24 +52,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     return super.authenticationManagerBean();
   }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+//  @Override
+//  protected void configure(HttpSecurity http) throws Exception {
+//    http.cors().and().csrf().disable()
+//            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//            .authorizeRequests()
+//            .antMatchers("/api/auth/**").permitAll()
+//            .antMatchers("/api/admin/**").permitAll()
+//            .antMatchers(HttpMethod.POST, "/api/admin/signup").permitAll()
+//            .anyRequest().authenticated();
+//
+//    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//  }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.cors().and().csrf().disable()
-            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+    http
+            .csrf().disable() // Disable CSRF for simplicity (you might want to enable it in production)
+            .cors().and() // Enable CORS
             .authorizeRequests()
-            .antMatchers("/api/auth/**").permitAll()
-            .antMatchers("/api/admin/**").permitAll()
-            .antMatchers(HttpMethod.POST, "/api/admin/signup").permitAll()
-//            .antMatchers("/api/admin/**").hasRole("ADMIN")
-            .anyRequest().authenticated();
-
-    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+            .antMatchers("/**").permitAll() // Allow public access to all endpoints
+            .anyRequest().authenticated(); // Require authentication for all other requests
   }
+
 }
+
+
+
 
