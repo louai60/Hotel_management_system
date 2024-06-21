@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
   @Autowired
   AuthenticationManager authenticationManager;
 
@@ -71,6 +73,7 @@ public class AuthController {
 
       return ResponseEntity.ok()
               .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+              .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtCookie.getValue()) // Add this line
               .body(userInfoResponse);
     } catch (AuthenticationException e) {
       // Handle authentication failure
