@@ -21,12 +21,10 @@ export default function Login() {
       });
 
       console.log(response.data);
-      localStorage.setItem('user', JSON.stringify(response.data)); // Store user data in local storage
+      localStorage.setItem('user', JSON.stringify(response.data)); 
 
-      // Extract JWT token from response headers
-      const token = response.headers['set-cookie']; // Adjust if the token is returned differently
-      localStorage.setItem('jwtToken', token); // Store JWT token in local storage
-
+      const token = response.headers['set-cookie']; 
+      localStorage.setItem('jwtToken', token); 
       const roles = response.data.roles;
       const roleToPathMap = {
         ROLE_ADMIN: '/admin',
