@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TitleCard from "../../../components/Cards/TitleCard";
 import axios from 'axios';
-import AddAccounting from './AddAccounting'; 
+import AddAccounting from './AddAccounting';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
 
@@ -55,12 +55,12 @@ const AccountingHistory = () => {
 
   return (
     <div className="flex flex-col items-end px-4 pt-4">
-      <AddAccounting 
-        onAccountingAdded={handleAccountingAdded} 
+      <AddAccounting
+        onAccountingAdded={handleAccountingAdded}
         editingAccounting={editingAccounting}
         onAccountingUpdated={handleUpdateAccounting}
         setEditingAccounting={setEditingAccounting}
-      /> 
+      />
       <TitleCard>
         <div className="overflow-x-auto w-full">
           <table className="min-w-full bg-white border-gray-200 shadow-sm rounded-lg overflow-hidden">

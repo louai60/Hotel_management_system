@@ -9,6 +9,7 @@ import HouseKeepingDashboard from "./Dashboards/HouseKeeping/HouseKeepingDashboa
 import ReceptionDashboard from './Dashboards/Reception/ReceptionDashboard';
 import MaintenanceDashboard from './Dashboards/Maintenance/MaintenanceDashboard';
 import AccountingDashboard from './Dashboards/Accounting/AccountingDashboard';
+import StockCategoryDashboard from './Dashboards/StockCategory/StockCategoryDashboard';
 import Test from './Dashboards/Maintenance/Test';
 import "./css/style.css";
 
@@ -20,7 +21,7 @@ const App = () => {
     ROLE_ADMIN: '/admin',
     ROLE_RECEPTIONIST: '/reception',
     ROLE_HOUSEKEEPING: '/housekeeping',
-    ROLE_TECHNICIAN: '/maintenance', 
+    ROLE_TECHNICIAN: '/maintenance',
     ROLE_ACCOUNTING: '/accounting',
     // Add more roles as necessary
   };
@@ -75,6 +76,14 @@ const App = () => {
         <Route path="/accounting" element={
           userRolePath === '/admin' || userRolePath === '/accounting' ? (
             <AccountingDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/stockcategory" element={
+          userRolePath === '/admin' || userRolePath === '/stockcategory' ? (
+            <StockCategoryDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
