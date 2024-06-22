@@ -12,6 +12,9 @@ import AccountingDashboard from './Dashboards/Accounting/AccountingDashboard';
 import StockCategoryDashboard from './Dashboards/StockCategory/StockCategoryDashboard';
 import Test from './Dashboards/Maintenance/Test';
 import "./css/style.css";
+import StockItemDashboard from './Dashboards/StockItem/StockItemDashboard';
+import OrderManagementDashboard from './Dashboards/OrderManagement/OrderManagementDashboard';
+import PaymentDashboard from './Dashboards/Payment/PaymentDashboard';
 import ResetPasswordForm from './pages/ResetPasswordForm';
 import RequestResetPasswordPage from './pages/RequestResetPasswordPage';
 
@@ -88,6 +91,30 @@ const App = () => {
         <Route path="/stockcategory" element={
           userRolePath === '/admin' || userRolePath === '/stockcategory' ? (
             <StockCategoryDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/stockitem" element={
+          userRolePath === '/admin' || userRolePath === '/stockitem' ? (
+            <StockItemDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/ordermanagement" element={
+          userRolePath === '/admin' || userRolePath === '/ordermanagement' ? (
+            <OrderManagementDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/payment" element={
+          userRolePath === '/admin' || userRolePath === '/payment' ? (
+            <PaymentDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )

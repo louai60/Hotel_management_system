@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,8 @@ public class PaymentService {
     }
 
     public Payment createPayment(Payment payment) {
+    	payment.setCreatedAt(new Date());
+    	payment.setUpdatedAt(new Date());
         return paymentRepository.save(payment);
     }
 
