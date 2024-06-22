@@ -1,16 +1,15 @@
 import React from 'react';
 import AccountingLayout from './AccountingLayout';
 import AccountingHistory from './Components/AccountingHistory';
-import AddAccounting from './Components/AddAccounting';
 
 const AccountingDashboard = () => {
   return (
     <AccountingLayout>
       <div className="relative ">
       </div>
-        <div>
-          <AccountingHistory />
-        </div>
+      <div>
+        <AccountingHistory />
+      </div>
     </AccountingLayout>
   );
 }
