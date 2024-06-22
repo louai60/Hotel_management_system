@@ -12,6 +12,7 @@ import AccountingDashboard from './Dashboards/Accounting/AccountingDashboard';
 import StockCategoryDashboard from './Dashboards/StockCategory/StockCategoryDashboard';
 import Test from './Dashboards/Maintenance/Test';
 import "./css/style.css";
+import StockItemDashboard from './Dashboards/StockItem/StockItemDashboard';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -84,6 +85,14 @@ const App = () => {
         <Route path="/stockcategory" element={
           userRolePath === '/admin' || userRolePath === '/stockcategory' ? (
             <StockCategoryDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/stockitem" element={
+          userRolePath === '/admin' || userRolePath === '/stockitem' ? (
+            <StockItemDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )

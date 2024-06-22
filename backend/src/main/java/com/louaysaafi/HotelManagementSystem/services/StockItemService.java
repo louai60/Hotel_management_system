@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.StockItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,8 @@ public class StockItemService {
     }
 
     public StockItem saveStockItem(StockItem stockItem) {
+    	stockItem.setCreatedAt(new Date());
+    	stockItem.setUpdatedAt(new Date());
         return stockItemRepository.save(stockItem);
     }
 
