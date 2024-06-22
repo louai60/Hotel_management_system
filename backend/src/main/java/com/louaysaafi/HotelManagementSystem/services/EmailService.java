@@ -39,4 +39,25 @@ public class EmailService {
         // Send the email
         emailSender.send(message);
     }
+
+    public void sendPasswordResetEmail(String to, String resetUrl) throws MessagingException {
+        // Create a MimeMessage
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        // Set email attributes
+        helper.setTo(to);
+        helper.setSubject("Password Reset Request");
+
+        // Create the HTML content using Thymeleaf
+        Context context = new Context();
+        context.setVariable("resetUrl", resetUrl);
+        String htmlContent = templateEngine.process("passwordResetTemplate", context);
+
+        // Set the email content
+        helper.setText(htmlContent, true);
+
+        // Send the email
+        emailSender.send(message);
+    }
 }

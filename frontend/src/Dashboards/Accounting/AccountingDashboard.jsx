@@ -1,7 +1,7 @@
 import React from 'react';
 import AccountingLayout from './AccountingLayout';
 import AccountingHistory from './Components/AccountingHistory';
-import AddAccounting from './components/AddAccounting';
+import AddAccounting from './Components/AddAccounting';
 
 const AccountingDashboard = () => {
   return (
