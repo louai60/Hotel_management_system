@@ -1,7 +1,6 @@
 import React from 'react';
 import AccountingLayout from './AccountingLayout';
 import AccountingHistory from './Components/AccountingHistory';
-// import AddAccounting from './components/AddAccounting';
 
 const AccountingDashboard = () => {
   return (

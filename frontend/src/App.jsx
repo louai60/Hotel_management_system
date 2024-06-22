@@ -12,6 +12,8 @@ import AccountingDashboard from './Dashboards/Accounting/AccountingDashboard';
 import StockCategoryDashboard from './Dashboards/StockCategory/StockCategoryDashboard';
 import Test from './Dashboards/Maintenance/Test';
 import "./css/style.css";
+import ResetPasswordForm from './pages/ResetPasswordForm';
+import RequestResetPasswordPage from './pages/RequestResetPasswordPage';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -39,6 +41,8 @@ const App = () => {
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/test" element={<Test />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/request-reset-password" element={<RequestResetPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordForm />} />
         <Route path="/register" element={<Signup />} />
 
         <Route path="/admin" element={
