@@ -15,6 +15,8 @@ import "./css/style.css";
 import StockItemDashboard from './Dashboards/StockItem/StockItemDashboard';
 import OrderManagementDashboard from './Dashboards/OrderManagement/OrderManagementDashboard';
 import PaymentDashboard from './Dashboards/Payment/PaymentDashboard';
+import ResetPasswordForm from './pages/ResetPasswordForm';
+import RequestResetPasswordPage from './pages/RequestResetPasswordPage';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -42,6 +44,8 @@ const App = () => {
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/test" element={<Test />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/request-reset-password" element={<RequestResetPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordForm />} />
         <Route path="/register" element={<Signup />} />
 
         <Route path="/admin" element={
@@ -106,7 +110,7 @@ const App = () => {
           ) : (
             <Navigate to="/unauthorized" />
           )
-        } />OrderManagement
+        } />
 
         <Route path="/payment" element={
           userRolePath === '/admin' || userRolePath === '/payment' ? (
@@ -114,7 +118,7 @@ const App = () => {
           ) : (
             <Navigate to="/unauthorized" />
           )
-        } />PaymentDashboard
+        } />
 
         <Route path="/pending" element={<PendingUsersTable />} />
         <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
