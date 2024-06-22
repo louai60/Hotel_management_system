@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.OrderManagementReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,8 @@ public class OrderManagementService {
     }
 
     public OrderManagement createOrderManagement(OrderManagement orderManagement) {
+    	orderManagement.setCreatedAt(new Date());
+    	orderManagement.setUpdatedAt(new Date());
         return orderManagementRepository.save(orderManagement);
     }
 

@@ -13,6 +13,7 @@ import StockCategoryDashboard from './Dashboards/StockCategory/StockCategoryDash
 import Test from './Dashboards/Maintenance/Test';
 import "./css/style.css";
 import StockItemDashboard from './Dashboards/StockItem/StockItemDashboard';
+import OrderManagementDashboard from './Dashboards/OrderManagement/OrderManagementDashboard';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -97,6 +98,14 @@ const App = () => {
             <Navigate to="/unauthorized" />
           )
         } />
+
+        <Route path="/ordermanagement" element={
+          userRolePath === '/admin' || userRolePath === '/ordermanagement' ? (
+            <OrderManagementDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />OrderManagement
 
         <Route path="/pending" element={<PendingUsersTable />} />
         <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
