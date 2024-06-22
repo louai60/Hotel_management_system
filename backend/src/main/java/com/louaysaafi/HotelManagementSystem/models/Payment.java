@@ -105,4 +105,13 @@ public class Payment {
     public void setReception(Reception reception) {
         this.reception = reception;
     }
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
 }
