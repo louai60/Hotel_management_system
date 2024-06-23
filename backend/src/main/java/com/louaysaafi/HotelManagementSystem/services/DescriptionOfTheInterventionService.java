@@ -1,12 +1,14 @@
 package com.louaysaafi.HotelManagementSystem.services;
 
-import com.louaysaafi.HotelManagementSystem.models.DescriptionOfTheIntervention;
-import com.louaysaafi.HotelManagementSystem.repositories.DescriptionOfTheInterventionRepository;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.louaysaafi.HotelManagementSystem.models.DescriptionOfTheIntervention;
+import com.louaysaafi.HotelManagementSystem.repositories.DescriptionOfTheInterventionRepository;
 
 @Service
 public class DescriptionOfTheInterventionService {
@@ -28,7 +30,9 @@ public class DescriptionOfTheInterventionService {
     }
 
     public DescriptionOfTheIntervention createDescriptionOfTheIntervention(DescriptionOfTheIntervention descriptionOfTheIntervention) {
-        return descriptionOfTheInterventionRepository.save(descriptionOfTheIntervention);
+    	descriptionOfTheIntervention.setCreatedAt(new Date());
+    	descriptionOfTheIntervention.setUpdatedAt(new Date());
+    	return descriptionOfTheInterventionRepository.save(descriptionOfTheIntervention);
     }
 
     public DescriptionOfTheIntervention updateDescriptionOfTheIntervention(Long id, DescriptionOfTheIntervention updatedDescriptionOfTheIntervention) {
