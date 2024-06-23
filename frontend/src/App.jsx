@@ -17,6 +17,7 @@ import OrderManagementDashboard from './Dashboards/OrderManagement/OrderManageme
 import PaymentDashboard from './Dashboards/Payment/PaymentDashboard';
 import ResetPasswordForm from './pages/ResetPasswordForm';
 import RequestResetPasswordPage from './pages/RequestResetPasswordPage';
+import DescriptionOfTheInterventionDashboard from './Dashboards/DescriptionOfTheIntervent/DescriptionOfTheInterventDashboard';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -115,6 +116,14 @@ const App = () => {
         <Route path="/payment" element={
           userRolePath === '/admin' || userRolePath === '/payment' ? (
             <PaymentDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/descriptionoftheintervention" element={
+          userRolePath === '/admin' || userRolePath === '/descriptionoftheintervention' ? (
+            <DescriptionOfTheInterventionDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )

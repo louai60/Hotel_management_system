@@ -40,9 +40,9 @@ public class DescriptionOfTheIntervention {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    // Relationship to Maintenance
-    @ManyToOne
-    @JoinColumn(name = "maintenance_id", nullable = false)
+//    // Relationship to Maintenance
+    @ManyToOne(fetch = FetchType.LAZY) // Adjust FetchType based on your requirements
+    @JoinColumn(name = "maintenance_id", referencedColumnName = "id")
     private Maintenance maintenance;
 
     // Relationship to StocksCategory
@@ -50,7 +50,7 @@ public class DescriptionOfTheIntervention {
     @JoinColumn(name = "stock_category_id", nullable = false)
     private StockCategory stockCategory;
 
-    // Relationship to Room
+//    // Relationship to Room
     @ManyToOne
     @JoinColumn(name = "maintenance_room_id", nullable = false)
     private Room room;
@@ -156,4 +156,13 @@ public class DescriptionOfTheIntervention {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
+	@PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
 }
