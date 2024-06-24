@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import TitleCard from "../../../components/Cards/TitleCard";
 import axios from 'axios';
-import AddMaintenance from './AddMaintenance'; 
+import TitleCard from '../../../components/Cards/TitleCard';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
+import AddMaintenance from './AddMaintenance'; // Ensure this import is correct
 
 const MaintenanceHistory = () => {
   const [maintenances, setMaintenances] = useState([]);
@@ -19,11 +19,13 @@ const MaintenanceHistory = () => {
       setMaintenances(response.data);
     } catch (error) {
       console.error('Error fetching maintenances:', error);
+      toast.error('Error fetching maintenances.');
     }
   };
 
   const handleMaintenanceAdded = (newMaintenance) => {
     setMaintenances([...maintenances, newMaintenance]);
+    toast.success('Maintenance added successfully!');
   };
 
   const handleEditClick = (maintenance) => {
@@ -33,67 +35,90 @@ const MaintenanceHistory = () => {
   const handleUpdateMaintenance = async (updatedMaintenance) => {
     try {
       const response = await axios.put(`http://localhost:8080/api/maintenance/${updatedMaintenance.id}`, updatedMaintenance);
-      setMaintenances(maintenances.map(maintenance => maintenance.id === updatedMaintenance.id ? response.data : maintenance));
+      setMaintenances(maintenances.map(m => m.id === updatedMaintenance.id ? response.data : m));
       setEditingMaintenance(null);
       toast.success('Maintenance updated successfully!');
     } catch (error) {
       console.error('Error updating maintenance:', error);
-      toast.error('Error updating maintenance. Please try again later.');
+      toast.error('Error updating maintenance.');
     }
   };
 
   const handleDeleteClick = async (id) => {
     try {
       await axios.delete(`http://localhost:8080/api/maintenance/${id}`);
-      setMaintenances(maintenances.filter(maintenance => maintenance.id !== id));
+      setMaintenances(maintenances.filter(m => m.id !== id));
       toast.success('Maintenance deleted successfully!');
     } catch (error) {
       console.error('Error deleting maintenance:', error);
-      toast.error('Error deleting maintenance. Please try again later.');
+      toast.error('Error deleting maintenance.');
     }
   };
 
   return (
-    <div className="flex flex-col items-end px-4 pt-4">
-      <AddMaintenance 
-        onMaintenanceAdded={handleMaintenanceAdded} 
-        editingMaintenance={editingMaintenance}
-        onMaintenanceUpdated={handleUpdateMaintenance}
-        setEditingMaintenance={setEditingMaintenance}
-      /> 
-      <TitleCard>
-        <div className="overflow-x-auto w-full">
-          <table className="min-w-full bg-white border-gray-200 shadow-sm rounded-lg overflow-hidden">
-            <thead className="bg-gray-50 border-b">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Intervention Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Responsible Technician</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {maintenances.map((maintenance) => (
-                <tr key={maintenance.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">{new Date(maintenance.interventionDate).toLocaleDateString()}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{maintenance.location}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{maintenance.responsibleTechnician}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{maintenance.priority}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <Button onClick={() => handleEditClick(maintenance)} color="primary">
-                      Edit
-                    </Button>
-                    <Button onClick={() => handleDeleteClick(maintenance.id)} color="secondary">
-                      Delete
-                    </Button>
-                  </td>
+    <div className="col-span-full xl:col-span-8 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+      <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Maintenance </h2>
+      </header>
+      <div className="p-3 flex flex-col items-end px-4 pt-4">
+        <AddMaintenance
+          onMaintenanceAdded={handleMaintenanceAdded}
+          editingMaintenance={editingMaintenance}
+          onMaintenanceUpdated={handleUpdateMaintenance}
+          setEditingMaintenance={setEditingMaintenance}
+        />
+        <TitleCard>
+          <div className="overflow-x-auto">
+            <table className="table-auto w-full dark:text-slate-300">
+              <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
+                <tr>
+                  <th className="p-2">
+                    <div className="font-semibold text-left">Intervention Date</div>
+                  </th>
+                  <th className="p-2">
+                    <div className="font-semibold text-left">Location</div>
+                  </th>
+                  <th className="p-2">
+                    <div className="font-semibold text-left">Responsible Technician</div>
+                  </th>
+                  <th className="p-2">
+                    <div className="font-semibold text-left">Priority</div>
+                  </th>
+                  <th className="p-2">
+                    <div className="font-semibold text-left">Actions</div>
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </TitleCard>
+              </thead>
+              <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
+                {maintenances.map((maintenance) => (
+                  <tr key={maintenance.id}>
+                    <td className="p-2">
+                      <div className="text-slate-800 dark:text-slate-100">{new Date(maintenance.interventionDate).toLocaleDateString()}</div>
+                    </td>
+                    <td className="p-2">
+                      <div className="text-slate-800 dark:text-slate-100">{maintenance.location}</div>
+                    </td>
+                    <td className="p-2">
+                      <div className="text-slate-800 dark:text-slate-100">{maintenance.responsibleTechnician}</div>
+                    </td>
+                    <td className="p-2">
+                      <div className="text-slate-800 dark:text-slate-100">{maintenance.priority}</div>
+                    </td>
+                    <td className="p-2">
+                      <Button onClick={() => handleEditClick(maintenance)} variant="contained" color="primary">
+                        Edit
+                      </Button>
+                      <Button onClick={() => handleDeleteClick(maintenance.id)} variant="contained" color="secondary">
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </TitleCard>
+      </div>
     </div>
   );
 };

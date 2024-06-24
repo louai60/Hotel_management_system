@@ -17,13 +17,11 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MANAGER')")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
         Optional<Employee> employee = employeeService.getEmployeeById(id);
         if (employee.isPresent()) {
@@ -34,13 +32,11 @@ public class EmployeeController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public Employee createEmployee(@RequestBody Employee employee) {
         return employeeService.saveEmployee(employee);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employeeDetails) {
         Optional<Employee> employee = employeeService.getEmployeeById(id);
         if (employee.isPresent()) {
@@ -56,7 +52,6 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();

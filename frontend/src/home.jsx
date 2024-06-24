@@ -8,9 +8,9 @@ import GetStarted from "./Landingpage_components/GetStarted";
 const Landing_page = () => (
   <div className="bg-primary w-full overflow-hidden">
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-      {/* <div className={`${styles.boxWidth}`}>
+      <div className={`${styles.boxWidth}`}>
         <Navbar />
-      </div> */}
+      </div>
     </div>
     {/* 
     <div className="absolute z-[99] w-[10%] h-[100%] rounded-full blue__gradient bottom-2" />
