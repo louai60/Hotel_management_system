@@ -25,6 +25,9 @@ import OrderDetailsDashboard from './Dashboards/OrderDetails/OrderDetailsDashboa
 import HouseKeepingServiceDashboard from './Dashboards/HouseKeepingService/HouseKeepingServiceDashboard';
 import PoolDashboard from './Dashboards/Pool/PoolDashboard';
 import RestaurantDashboard from './Dashboards/Restaurant/RestaurantDashboard';
+import RoomDashboard from './Dashboards/Room/RoomDashboard';
+import RoomTypeDashboard from './Dashboards/RoomType/RoomTypeDashboard';
+
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -179,6 +182,22 @@ const App = () => {
         <Route path="/restaurant" element={
           userRolePath === '/admin' || userRolePath === '/restaurant' ? (
             <RestaurantDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/roomtype" element={
+          userRolePath === '/admin' || userRolePath === '/roomtype' ? (
+            <RoomTypeDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/room" element={
+          userRolePath === '/admin' || userRolePath === '/room' ? (
+            <RoomDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
