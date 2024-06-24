@@ -13,8 +13,15 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public List<Employee> getAllEmployeesWithUserDetails() {
+        List<Employee> employees = employeeRepository.findAll();
+        employees.forEach(employee -> {
+            // Load user details eagerly if necessary
+            employee.getUser().getFirstName();
+            employee.getUser().getLastName();
+            employee.getUser().getEmail();
+        });
+        return employees;
     }
 
     public Optional<Employee> getEmployeeById(Long id) {

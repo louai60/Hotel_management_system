@@ -1,51 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
+import ReceptionLayout from './ReceptionLayout';
+import Reception from './components/Reception';
 
-
-import WelcomeBanner from '../../partials/dashboard/WelcomeBanner';
-import DashboardAvatars from '../../partials/dashboard/DashboardAvatars';
-import ReceptionSidebar from './ReceptionSidebar'
-import ReceptionHeader from './ReceptionHeader'
-import Reception from './Components/Reception'
-
-
-function ReceptionDashboard() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
+const ReceptionDashboard = () => {
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <ReceptionSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-
-        {/*  Site header */}
-        <ReceptionHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-        <main>
-          <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-
-            {/* Welcome banner */}
-            <WelcomeBanner />
-
-            {/* Dashboard actions */}
-            {/* <div className="sm:flex sm:justify-between sm:items-center mb-8"> */}
-
-            {/* Left: Avatars */}
-            {/* <DashboardAvatars /> */}
-
-            <Reception />
-
-
-            {/* </div> */}
-          </div>
-        </main>
-
-
+    <ReceptionLayout>
+      <div className="relative ">
       </div>
-    </div>
+      <div className="col-span-full xl:col-span-8 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+        <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+          <Reception />
+        </header>
+      </div>
+    </ReceptionLayout>
   );
 }
 
