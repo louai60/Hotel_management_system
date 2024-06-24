@@ -19,6 +19,7 @@ import ResetPasswordForm from './pages/ResetPasswordForm';
 import RequestResetPasswordPage from './pages/RequestResetPasswordPage';
 import DescriptionOfTheInterventionDashboard from './Dashboards/DescriptionOfTheIntervent/DescriptionOfTheInterventDashboard';
 import AdminDashboard from './partials/AdminDashboard';
+import CleaningDetailDashboard from './Dashboards/CleaningDetail/CleaningDetailDashboard';
 import FollowUpAndValidationDashboard from './Dashboards/FollowUpAndValidation/FollowUpAndValidationDashboard';
 
 const App = () => {
@@ -134,6 +135,14 @@ const App = () => {
         <Route path="/followupandvalidation" element={
           userRolePath === '/admin' || userRolePath === '/followupandvalidation' ? (
             <FollowUpAndValidationDashboard Dashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/cleaningdetail" element={
+          userRolePath === '/admin' || userRolePath === '/cleaningdetail' ? (
+            <CleaningDetailDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
