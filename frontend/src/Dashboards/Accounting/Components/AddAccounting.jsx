@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { toast } from 'react-toastify';
 
-const AddAccounting = ({ onAccountingAdded, editingAccounting, onAccountingUpdated, setEditingAccounting }) => {
+const AddHouseKeepingService = ({ onServiceAdded, editingService, onServiceUpdated, setEditingService }) => {
   const [open, setOpen] = useState(false);
-  const [periodCovered, setPeriodCovered] = useState('');
-  const [totalExpenses, setTotalExpenses] = useState('');
-  const [totalRooms, setTotalRooms] = useState('');
-  const [reportAuthor, setReportAuthor] = useState('');
+  const [cleaningDate, setCleaningDate] = useState('');
+  const [houseKeepingAgent, setHouseKeepingAgent] = useState('');
+  const [priority, setPriority] = useState('');
 
   useEffect(() => {
-    if (editingAccounting) {
-      setPeriodCovered(editingAccounting.periodCovered);
-      setTotalExpenses(editingAccounting.totalExpenses);
-      setTotalRooms(editingAccounting.totalRooms);
-      setReportAuthor(editingAccounting.reportAuthor);
+    if (editingService) {
+      setCleaningDate(editingService.cleaningDate);
+      setHouseKeepingAgent(editingService.houseKeepingAgent);
+      setPriority(editingService.priority);
       setOpen(true);
     }
-  }, [editingAccounting]);
+  }, [editingService]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,105 +30,74 @@ const AddAccounting = ({ onAccountingAdded, editingAccounting, onAccountingUpdat
 
   const handleClose = () => {
     setOpen(false);
-    setEditingAccounting(null);
     clearForm();
+    setEditingService(null);
   };
 
   const clearForm = () => {
-    setPeriodCovered('');
-    setTotalExpenses('');
-    setTotalRooms('');
-    setReportAuthor('');
+    setCleaningDate('');
+    setHouseKeepingAgent('');
+    setPriority('');
   };
 
   const handleSubmit = async () => {
-    const authToken = localStorage.getItem('auth');
-    const user = JSON.parse(localStorage.getItem('user'));
-    const roles = user.roles;
-
-    const accountingData = {
-      periodCovered,
-      totalExpenses: parseFloat(totalExpenses),
-      totalRooms: parseInt(totalRooms, 10),
-      reportAuthor
+    const serviceData = {
+      cleaningDate,
+      houseKeepingAgent,
+      priority,
     };
 
     try {
-      if (editingAccounting) {
-        accountingData.id = editingAccounting.id;
-        const response = await axios.put(`http://localhost:8080/api/accounting/${editingAccounting.id}`, accountingData, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            'X-User-Roles': roles.join(',')
-          }
-        });
-        console.log('Accounting updated:', response.data);
-        onAccountingUpdated(response.data);
+      if (editingService) {
+        const response = await axios.put(`http://localhost:8080/api/house-keeping-services/${editingService.id}`, serviceData);
+        onServiceUpdated(response.data);
+        toast.success('Housekeeping service updated successfully!');
       } else {
-        const response = await axios.post('http://localhost:8080/api/accounting', accountingData, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            'X-User-Roles': roles.join(',')
-          }
-        });
-        console.log('Accounting request submitted:', response.data);
-        onAccountingAdded(response.data);
+        const response = await axios.post('http://localhost:8080/api/house-keeping-services', serviceData);
+        onServiceAdded(response.data);
+        toast.success('Housekeeping service added successfully!');
       }
       handleClose();
-      // Show success toast
-      toast.success(editingAccounting ? 'Accounting updated successfully!' : 'Accounting request submitted successfully!');
-      // Clear form fields
-      clearForm();
     } catch (error) {
-      console.error('Error submitting accounting request:', error);
-      // Show error toast
-      toast.error(editingAccounting ? 'Error updating accounting. Please try again later.' : 'Error submitting accounting request. Please try again later.');
+      console.error('Error submitting service request:', error);
+      toast.error('Error submitting service request. Please try again later.');
     }
   };
 
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        {editingAccounting ? 'Edit Accounting' : 'Request Accounting'}
+        {editingService ? 'Edit Service' : 'Add Service'}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">{editingAccounting ? 'Edit Accounting' : 'Accounting Request'}</DialogTitle>
+        <DialogTitle id="form-dialog-title">{editingService ? 'Edit Housekeeping Service' : 'Add Housekeeping Service'}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please fill out the form below to {editingAccounting ? 'update' : 'request'} accounting.
+            Please fill out the form below to {editingService ? 'update' : 'add'} a housekeeping service.
           </DialogContentText>
           <div className="space-y-4">
-            <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-              id="periodCovered"
-              placeholder="Period Covered"
-              type="text"
-              value={periodCovered}
-              onChange={(e) => setPeriodCovered(e.target.value)}
+            <TextField
+              label="Cleaning Date"
+              type="date"
+              value={cleaningDate}
+              onChange={(e) => setCleaningDate(e.target.value)}
+              fullWidth
+              required
+              InputLabelProps={{ shrink: true }}
             />
-            <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-              id="totalExpenses"
-              placeholder="Total Expenses"
-              type="number"
-              value={totalExpenses}
-              onChange={(e) => setTotalExpenses(e.target.value)}
+            <TextField
+              label="Housekeeping Agent"
+              value={houseKeepingAgent}
+              onChange={(e) => setHouseKeepingAgent(e.target.value)}
+              fullWidth
+              required
             />
-            <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-              id="totalRooms"
-              placeholder="Total Rooms"
-              type="number"
-              value={totalRooms}
-              onChange={(e) => setTotalRooms(e.target.value)}
-            />
-            <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-              id="reportAuthor"
-              placeholder="Report Author"
-              type="text"
-              value={reportAuthor}
-              onChange={(e) => setReportAuthor(e.target.value)}
+            <TextField
+              label="Priority"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+              fullWidth
+              required
             />
           </div>
         </DialogContent>
@@ -139,7 +106,7 @@ const AddAccounting = ({ onAccountingAdded, editingAccounting, onAccountingUpdat
             Cancel
           </Button>
           <Button onClick={handleSubmit} color="primary">
-            {editingAccounting ? 'Update' : 'Submit'}
+            {editingService ? 'Update' : 'Add'}
           </Button>
         </DialogActions>
       </Dialog>
@@ -147,4 +114,4 @@ const AddAccounting = ({ onAccountingAdded, editingAccounting, onAccountingUpdat
   );
 }
 
-export default AddAccounting;
+export default AddHouseKeepingService;

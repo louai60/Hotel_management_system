@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.HouseKeepingServiceRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,9 @@ public class HouseKeepingServiceService {
     }
 
     public HouseKeepingService createHouseKeepingService(HouseKeepingService houseKeepingService) {
-        return houseKeepingServiceRepository.save(houseKeepingService);
+    	houseKeepingService.setCreatedAt(new Date());
+    	houseKeepingService.setUpdatedAt(new Date());
+    	return houseKeepingServiceRepository.save(houseKeepingService);
     }
 
     public HouseKeepingService updateHouseKeepingService(Long id, HouseKeepingService updatedHouseKeepingService) {
