@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.OrderDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,8 @@ public class OrderDetailsService {
     }
 
     public OrderDetails createOrderDetails(OrderDetails orderDetails) {
+    	orderDetails.setCreatedAt(new Date());
+    	orderDetails.setUpdatedAt(new Date());
         return orderDetailsRepository.save(orderDetails);
     }
 

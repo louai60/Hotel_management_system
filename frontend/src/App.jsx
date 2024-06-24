@@ -21,6 +21,7 @@ import DescriptionOfTheInterventionDashboard from './Dashboards/DescriptionOfThe
 import AdminDashboard from './partials/AdminDashboard';
 import CleaningDetailDashboard from './Dashboards/CleaningDetail/CleaningDetailDashboard';
 import FollowUpAndValidationDashboard from './Dashboards/FollowUpAndValidation/FollowUpAndValidationDashboard';
+import OrderDetailsDashboard from './Dashboards/OrderDetails/OrderDetailsDashboard';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -143,6 +144,14 @@ const App = () => {
         <Route path="/cleaningdetail" element={
           userRolePath === '/admin' || userRolePath === '/cleaningdetail' ? (
             <CleaningDetailDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/orderdetails" element={
+          userRolePath === '/admin' || userRolePath === '/orderdetails' ? (
+            <OrderDetailsDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
