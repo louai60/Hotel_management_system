@@ -5,9 +5,10 @@ function DashboardCard07() {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/employees')  
+    axios.get('http://localhost:8080/api/employees')
       .then(response => {
         setEmployees(response.data);
+        console.log(response.data)
       })
       .catch(error => {
         console.error('There was an error fetching the employees!', error);
@@ -60,31 +61,31 @@ function DashboardCard07() {
               {employees.map((employee) => (
                 <tr key={employee.id}>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{employee.firstName}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.user ? employee.user.firstName : ''}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{employee.lastName}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.user ? employee.user.lastName : ''}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{employee.email}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.user ? employee.user.email : ''}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{new Date(employee.dateOfBirth).toLocaleDateString()}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.dateOfBirth ? new Date(employee.dateOfBirth).toLocaleDateString() : ''}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{new Date(employee.dateOfHire).toLocaleDateString()}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.dateOfHire ? new Date(employee.dateOfHire).toLocaleDateString() : ''}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{employee.phone}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.phone || ''}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">${employee.salary.toFixed(2)}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.salary != null ? `$${employee.salary.toFixed(2)}` : ''}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">${employee.bonuses.toFixed(2)}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.bonuses != null ? `$${employee.bonuses.toFixed(2)}` : ''}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{employee.benefits}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.benefits || ''}</div>
                   </td>
                 </tr>
               ))}
