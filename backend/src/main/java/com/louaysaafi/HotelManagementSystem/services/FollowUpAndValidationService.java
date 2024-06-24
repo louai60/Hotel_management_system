@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.FollowUpAndValidationRe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,9 @@ public class FollowUpAndValidationService {
     }
 
     public FollowUpAndValidation createFollowUpAndValidation(FollowUpAndValidation followUpAndValidation) {
-        return followUpAndValidationRepository.save(followUpAndValidation);
+    	followUpAndValidation.setCreatedAt(new Date());
+    	followUpAndValidation.setUpdatedAt(new Date());
+    	return followUpAndValidationRepository.save(followUpAndValidation);
     }
 
     public FollowUpAndValidation updateFollowUpAndValidation(Long id, FollowUpAndValidation updatedFollowUpAndValidation) {
