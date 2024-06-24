@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,8 @@ public class RestaurantService {
     }
 
     public Restaurant createRestaurant(Restaurant restaurant) {
+    	restaurant.setCreatedAt(new Date());
+    	restaurant.setUpdatedAt(new Date());
         return restaurantRepository.save(restaurant);
     }
 
