@@ -104,5 +104,14 @@ public class HouseKeepingService {
 	public void setCleaningDetails(List<CleaningDetail> cleaningDetails) {
 		this.cleaningDetails = cleaningDetails;
 	}
+	@PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
 
 }

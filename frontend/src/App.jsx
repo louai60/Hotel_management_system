@@ -22,6 +22,7 @@ import AdminDashboard from './partials/AdminDashboard';
 import CleaningDetailDashboard from './Dashboards/CleaningDetail/CleaningDetailDashboard';
 import FollowUpAndValidationDashboard from './Dashboards/FollowUpAndValidation/FollowUpAndValidationDashboard';
 import OrderDetailsDashboard from './Dashboards/OrderDetails/OrderDetailsDashboard';
+import HouseKeepingServiceDashboard from './Dashboards/HouseKeepingService/HouseKeepingServiceDashboard';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -152,6 +153,14 @@ const App = () => {
         <Route path="/orderdetails" element={
           userRolePath === '/admin' || userRolePath === '/orderdetails' ? (
             <OrderDetailsDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/housekeepingservice" element={
+          userRolePath === '/admin' || userRolePath === '/housekeepingservice' ? (
+            <HouseKeepingServiceDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
