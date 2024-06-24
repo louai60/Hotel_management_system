@@ -104,4 +104,13 @@ public class OrderDetails {
     public void setOrderManagement(OrderManagement orderManagement) {
         this.orderManagement = orderManagement;
     }
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
 }
