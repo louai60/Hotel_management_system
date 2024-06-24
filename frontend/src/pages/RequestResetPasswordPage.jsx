@@ -25,9 +25,7 @@ const RequestResetPasswordPage = () => {
 
       if (response.ok) {
         toast.success('Password reset email sent successfully!');
-        setTimeout(() => {
-          navigate('/reset-password'); // Redirect to the reset password page after successful request
-        }, 1500);
+        setEmail('');
       } else {
         const errorData = await response.json();
         toast.error(errorData.message || 'Failed to request password reset.');

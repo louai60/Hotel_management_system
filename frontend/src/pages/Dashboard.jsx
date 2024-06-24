@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
+import Sidebar from '../partials/components/Sidebar';
+import Header from '../partials/components/Header';
 import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
 import DashboardAvatars from '../partials/dashboard/DashboardAvatars';
 import FilterButton from '../components/DropdownFilter';
@@ -19,8 +19,8 @@ import DashboardCard10 from '../partials/dashboard/DashboardCard10';
 import DashboardCard11 from '../partials/dashboard/DashboardCard11';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
 import DashboardCard13 from '../partials/dashboard/DashboardCard13';
-import Banner from '../partials/Banner';
-import PendingUsersTable from '../partials/dashboard/PendingUsers';
+import Banner from '../partials/components/Banner';
+import PendingUsersTable from '../partials/components/PendingUsers';
 
 function Dashboard() {
 
@@ -70,17 +70,17 @@ function Dashboard() {
             <div className="grid grid-cols-12 gap-6">
 
               {/* Line chart (Acme Plus) */}
-              <DashboardCard01 />
+              {/* <DashboardCard01 /> */}
               {/* Line chart (Acme Advanced) */}
-              <DashboardCard02 />
+              {/* <DashboardCard02 /> */}
               {/* Line chart (Acme Professional) */}
-              <DashboardCard03 />
+              {/* <DashboardCard03 /> */}
               {/* Bar chart (Direct vs Indirect) */}
-              <DashboardCard04 />
+              {/* <DashboardCard04 /> */}
               {/* Line chart (Real Time Value) */}
-              <DashboardCard05 />
+              {/* <DashboardCard05 /> */}
               {/* Doughnut chart (Top Countries) */}
-              <DashboardCard06 />
+              {/* <DashboardCard06 /> */}
               {/* Table (Top Channels) */}
               <DashboardCard07 />
               {/* Line chart (Sales Over Time) */}

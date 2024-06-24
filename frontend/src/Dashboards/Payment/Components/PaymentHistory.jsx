@@ -19,11 +19,13 @@ const PaymentHistory = () => {
             setPayments(response.data);
         } catch (error) {
             console.error('Error fetching payments:', error);
+            toast.error('Error fetching payments.');
         }
     };
 
     const handlePaymentAdded = (newPayment) => {
         setPayments([...payments, newPayment]);
+        toast.success('Payment added successfully!');
     };
 
     const handleEditClick = (payment) => {
@@ -54,43 +56,66 @@ const PaymentHistory = () => {
     };
 
     return (
-        <div className="flex flex-col items-end px-4 pt-4">
-            <AddPayment
-                onPaymentAdded={handlePaymentAdded}
-                editingPayment={editingPayment}
-                onPaymentUpdated={handleUpdatePayment}
-                setEditingPayment={setEditingPayment}
-            />
-            <div className="overflow-x-auto w-full">
-                <table className="min-w-full bg-white border-gray-200 shadow-sm rounded-lg overflow-hidden">
-                    <thead className="bg-gray-50 border-b">
-                        <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Date</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Method</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                        {payments.map((payment) => (
-                            <tr key={payment.id}>
-                                <td className="px-6 py-4 whitespace-nowrap">{payment.amount}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{payment.paymentDate.split('T')[0]}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{payment.paymentMethod}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{payment.status}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <Button onClick={() => handleEditClick(payment)} color="primary">
-                                        Edit
-                                    </Button>
-                                    <Button onClick={() => handleDeleteClick(payment.id)} color="secondary">
-                                        Delete
-                                    </Button>
-                                </td>
+        <div className="col-span-full xl:col-span-8 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+            <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+                <h2 className="font-semibold text-slate-800 dark:text-slate-100">Payment</h2>
+            </header>
+            <div className="p-3 flex flex-col items-end px-4 pt-4">
+                <AddPayment
+                    onPaymentAdded={handlePaymentAdded}
+                    editingPayment={editingPayment}
+                    onPaymentUpdated={handleUpdatePayment}
+                    setEditingPayment={setEditingPayment}
+                />
+                <div className="overflow-x-auto">
+                    <table className="table-auto w-full dark:text-slate-300">
+                        <thead className="text-xs uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50 rounded-sm">
+                            <tr>
+                                <th className="p-2">
+                                    <div className="font-semibold text-left">Amount</div>
+                                </th>
+                                <th className="p-2">
+                                    <div className="font-semibold text-left">Payment Date</div>
+                                </th>
+                                <th className="p-2">
+                                    <div className="font-semibold text-left">Payment Method</div>
+                                </th>
+                                <th className="p-2">
+                                    <div className="font-semibold text-left">Status</div>
+                                </th>
+                                <th className="p-2">
+                                    <div className="font-semibold text-left">Actions</div>
+                                </th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
+                            {payments.map((payment) => (
+                                <tr key={payment.id}>
+                                    <td className="p-2">
+                                        <div className="text-slate-800 dark:text-slate-100">{payment.amount}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-slate-800 dark:text-slate-100">{payment.paymentDate.split('T')[0]}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-slate-800 dark:text-slate-100">{payment.paymentMethod}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="text-slate-800 dark:text-slate-100">{payment.status}</div>
+                                    </td>
+                                    <td className="p-2">
+                                        <Button onClick={() => handleEditClick(payment)} variant="contained" color="primary">
+                                            Edit
+                                        </Button>
+                                        <Button onClick={() => handleDeleteClick(payment.id)} variant="contained" color="secondary">
+                                            Delete
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

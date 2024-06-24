@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from "./pages/Dashboard";
-import PendingUsersTable from "./partials/dashboard/PendingUsers";
+import PendingUsersTable from "./partials/components/PendingUsers";
 import LandingPage from "./home";
 import Login from './pages/Login';
 import Signup from "./pages/register";
@@ -18,6 +18,7 @@ import PaymentDashboard from './Dashboards/Payment/PaymentDashboard';
 import ResetPasswordForm from './pages/ResetPasswordForm';
 import RequestResetPasswordPage from './pages/RequestResetPasswordPage';
 import DescriptionOfTheInterventionDashboard from './Dashboards/DescriptionOfTheIntervent/DescriptionOfTheInterventDashboard';
+import AdminDashboard from './partials/AdminDashboard';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -51,7 +52,7 @@ const App = () => {
 
         <Route path="/admin" element={
           userRolePath === '/admin' ? (
-            <Dashboard />
+            <AdminDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
@@ -129,7 +130,7 @@ const App = () => {
           )
         } />
 
-        <Route path="/pending" element={<PendingUsersTable />} />
+        <Route path="/admin/pending" element={<PendingUsersTable />} />
         <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
 
         {/* Default route */}
