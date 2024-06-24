@@ -19,6 +19,7 @@ import ResetPasswordForm from './pages/ResetPasswordForm';
 import RequestResetPasswordPage from './pages/RequestResetPasswordPage';
 import DescriptionOfTheInterventionDashboard from './Dashboards/DescriptionOfTheIntervent/DescriptionOfTheInterventDashboard';
 import AdminDashboard from './partials/AdminDashboard';
+import FollowUpAndValidationDashboard from './Dashboards/FollowUpAndValidation/FollowUpAndValidationDashboard';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -125,6 +126,14 @@ const App = () => {
         <Route path="/descriptionoftheintervention" element={
           userRolePath === '/admin' || userRolePath === '/descriptionoftheintervention' ? (
             <DescriptionOfTheInterventionDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/followupandvalidation" element={
+          userRolePath === '/admin' || userRolePath === '/followupandvalidation' ? (
+            <FollowUpAndValidationDashboard Dashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
