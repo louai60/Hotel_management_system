@@ -79,7 +79,7 @@ const CleaningDetailHistory = () => {
                                     <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.towelsReplaced ? 'Yes' : 'No'}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.amenitiesReplaced ? 'Yes' : 'No'}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.productsUsed}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.houseKeepingService ? cleaningDetail.houseKeepingService.id : ''}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.agentName}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <Button onClick={() => handleEditClick(cleaningDetail)} color="primary">
                                             Edit

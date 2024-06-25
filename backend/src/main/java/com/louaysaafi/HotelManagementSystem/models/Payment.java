@@ -1,13 +1,13 @@
 package com.louaysaafi.HotelManagementSystem.models;
 
 import javax.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "payment")
 public class Payment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,22 +23,23 @@ public class Payment {
 
     @Column(name = "status")
     private String status;
-    
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+//    @Column(nullable = false, updatable = false)
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date createdAt;
+//
+//    @Column(nullable = false)
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date updatedAt;
 
     // Relationships
-    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "reception_id", referencedColumnName = "id")
     private Reception reception;
-    
-    public Payment () {
-		super();
-	}
+
+    public Payment() {
+        super();
+    }
 
     // Getters and Setters
 
@@ -82,21 +83,21 @@ public class Payment {
         this.status = status;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+//    public Date getCreatedAt() {
+//        return createdAt;
+//    }
+//
+//    public void setCreatedAt(Date createdAt) {
+//        this.createdAt = createdAt;
+//    }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+//    public Date getUpdatedAt() {
+//        return updatedAt;
+//    }
+//
+//    public void setUpdatedAt(Date updatedAt) {
+//        this.updatedAt = updatedAt;
+//    }
 
     public Reception getReception() {
         return reception;
@@ -105,13 +106,14 @@ public class Payment {
     public void setReception(Reception reception) {
         this.reception = reception;
     }
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = new Date();
-    }
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = new Date();
-    }
+//    @PrePersist
+//    protected void onCreate() {
+//        this.createdAt = new Date();
+//    }
+//
+//    @PreUpdate
+//    protected void onUpdate() {
+//        this.updatedAt = new Date();
+//    }
 }

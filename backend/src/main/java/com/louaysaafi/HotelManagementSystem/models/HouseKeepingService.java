@@ -38,9 +38,9 @@ public class HouseKeepingService {
 	inverseJoinColumns = @JoinColumn(name = "room_id"))
 	private List<Room> rooms;
 
-	@OneToMany(mappedBy = "houseKeepingService", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<CleaningDetail> cleaningDetails;
+//	@OneToMany(mappedBy = "houseKeepingService", cascade = CascadeType.ALL)
+//	@JsonManagedReference
+//	private List<CleaningDetail> cleaningDetails;
 
 	// Getters and Setters
 
@@ -100,13 +100,13 @@ public class HouseKeepingService {
 		this.rooms = rooms;
 	}
 
-	public List<CleaningDetail> getCleaningDetails() {
-		return cleaningDetails;
-	}
-
-	public void setCleaningDetails(List<CleaningDetail> cleaningDetails) {
-		this.cleaningDetails = cleaningDetails;
-	}
+//	public List<CleaningDetail> getCleaningDetails() {
+//		return cleaningDetails;
+//	}
+//
+//	public void setCleaningDetails(List<CleaningDetail> cleaningDetails) {
+//		this.cleaningDetails = cleaningDetails;
+//	}
 	@PrePersist
     protected void onCreate() {
         this.createdAt = new Date();

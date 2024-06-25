@@ -51,13 +51,13 @@ public class Room {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    @JsonManagedReference
+//    @JsonManagedReference
     // Ignore serialization of 'rooms' in RoomType
     private RoomType type;
 
     // Relationships
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private List<Reception> receptions;
+//    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+//    private List<Reception> receptions;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -133,13 +133,13 @@ public class Room {
 		this.type = type;
 	}
 
-	public List<Reception> getReceptions() {
-		return receptions;
-	}
-
-	public void setReceptions(List<Reception> receptions) {
-		this.receptions = receptions;
-	}
+//	public List<Reception> getReceptions() {
+//		return receptions;
+//	}
+//
+//	public void setReceptions(List<Reception> receptions) {
+//		this.receptions = receptions;
+//	}
 
 	public List<HouseKeepingService> getHouseKeepingServices() {
 		return houseKeepingServices;

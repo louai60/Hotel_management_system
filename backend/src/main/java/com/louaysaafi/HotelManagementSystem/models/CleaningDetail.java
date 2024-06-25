@@ -10,50 +10,44 @@ import java.util.Date;
 @Entity
 @Table(name = "cleaning_details")
 public class CleaningDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "beds_made")
-    private Boolean bedsMade;
+	@Column(name = "beds_made")
+	private Boolean bedsMade;
 
-    @Column(name = "bathrooms_cleaned")
-    private Boolean bathroomsCleaned;
+	@Column(name = "bathrooms_cleaned")
+	private Boolean bathroomsCleaned;
 
-    @Column(name = "trash_emptied")
-    private Boolean trashEmptied;
+	@Column(name = "trash_emptied")
+	private Boolean trashEmptied;
 
-    @Column(name = "towels_replaced")
-    private Boolean towelsReplaced;
+	@Column(name = "towels_replaced")
+	private Boolean towelsReplaced;
 
-    @Column(name = "amenities_replaced")
-    private Boolean amenitiesReplaced;
+	@Column(name = "amenities_replaced")
+	private Boolean amenitiesReplaced;
 
-    @Column(name = "products_used")
-    private String productsUsed;
+	@Column(name = "products_used")
+	private String productsUsed;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+	@Column(name = "agent_name")
+	private String agentName;
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+	@Column(nullable = false, updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-	@JsonBackReference
-    @JoinColumn(name = "houseKeeping_service_id", nullable = false)
-    private HouseKeepingService houseKeepingService;
+	@Column(nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-	@JsonBackReference
-    @JoinColumn(name = "stock_category_id", nullable = false)
-    private StockCategory stockCategory;
-
-    public CleaningDetail () {
+	public CleaningDetail() {
 		super();
 	}
-    // Getters and setters
+
+	// Getters and setters
 
 	public Long getId() {
 		return id;
@@ -111,6 +105,14 @@ public class CleaningDetail {
 		this.productsUsed = productsUsed;
 	}
 
+	public String getAgentName() {
+		return agentName;
+	}
+
+	public void setAgentName(String agentName) {
+		this.agentName = agentName;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -126,22 +128,6 @@ public class CleaningDetail {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	public HouseKeepingService getHouseKeepingService() {
-		return houseKeepingService;
-	}
-
-	public void setHouseKeepingService(HouseKeepingService houseKeepingService) {
-		this.houseKeepingService = houseKeepingService;
-	}
-
-//	public StockCategory getStockCategory() {
-//		return stockCategory;
-//	}
-//
-//	public void setStockCategory(StockCategory stockCategory) {
-//		this.stockCategory = stockCategory;
-//	}
 
 	@PrePersist
 	protected void onCreate() {
