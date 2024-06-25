@@ -20,6 +20,7 @@ import RequestResetPasswordPage from './pages/RequestResetPasswordPage';
 import DescriptionOfTheInterventionDashboard from './Dashboards/DescriptionOfTheIntervent/DescriptionOfTheInterventDashboard';
 import AdminDashboard from './partials/AdminDashboard';
 import FollowUpAndValidationDashboard from './Dashboards/FollowUpAndValidation/FollowUpAndValidationDashboard';
+import { Unauthorized } from './pages/Unauthorized';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -140,7 +141,7 @@ const App = () => {
         } />
 
         <Route path="/admin/pending" element={<PendingUsersTable />} />
-        <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
 
         {/* Default route */}
         <Route path="*" element={<Navigate to="/" replace />} />
