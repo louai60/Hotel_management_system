@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.RoomTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,8 @@ public class RoomTypeService {
     }
 
     public RoomType saveRoomType(RoomType roomType) {
+    	roomType.setCreatedAt(new Date());
+    	roomType.setUpdatedAt(new Date());
         // Additional logic, if needed, before saving the roomType
         return roomTypeRepository.save(roomType);
     }

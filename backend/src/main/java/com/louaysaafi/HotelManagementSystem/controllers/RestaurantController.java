@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/restaurants")
+@RequestMapping("/api/restaurants") 
 public class RestaurantController {
+
     private final RestaurantService restaurantService;
 
     @Autowired
@@ -32,8 +33,9 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public Restaurant createRestaurant(@RequestBody Restaurant restaurant) {
-        return restaurantService.createRestaurant(restaurant);
+    public ResponseEntity<Restaurant> createRestaurant(@RequestBody Restaurant restaurant) {
+        Restaurant createdRestaurant = restaurantService.createRestaurant(restaurant);
+        return ResponseEntity.ok(createdRestaurant);
     }
 
     @PutMapping("/{id}")
