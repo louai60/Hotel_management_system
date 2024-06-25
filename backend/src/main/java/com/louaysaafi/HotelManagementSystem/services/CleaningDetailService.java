@@ -35,7 +35,6 @@ public class CleaningDetailService {
     }
 
     public CleaningDetail updateCleaningDetail(Long id, CleaningDetail updatedCleaningDetail) {
-        // Check if the cleaningDetail with the given id exists
         if (cleaningDetailRepository.existsById(id)) {
             updatedCleaningDetail.setId(id); // Set the ID of the updated cleaningDetail
             return cleaningDetailRepository.save(updatedCleaningDetail);

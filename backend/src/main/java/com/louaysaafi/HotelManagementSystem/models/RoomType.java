@@ -62,7 +62,6 @@ public class RoomType {
     // Relationships
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     @JsonBackReference  // Ignore serialization of 'type' in Room
-    
     private List<Room> rooms;
     
     public RoomType () {

@@ -42,12 +42,13 @@ public class CleaningDetail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "houseKeeping_service_id", nullable = false)
-    private HouseKeepingService houseKeepingService;
-
-    @ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference
-    @JoinColumn(name = "stock_category_id", nullable = false)
-    private StockCategory stockCategory;
+	private HouseKeepingService houseKeepingService;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//	@JsonBackReference
+//    @JoinColumn(name = "stock_category_id", nullable = false)
+//    private StockCategory stockCategory;
 
     public CleaningDetail () {
 		super();
@@ -134,13 +135,13 @@ public class CleaningDetail {
 		this.houseKeepingService = houseKeepingService;
 	}
 
-	public StockCategory getStockCategory() {
-		return stockCategory;
-	}
-
-	public void setStockCategory(StockCategory stockCategory) {
-		this.stockCategory = stockCategory;
-	}
+//	public StockCategory getStockCategory() {
+//		return stockCategory;
+//	}
+//
+//	public void setStockCategory(StockCategory stockCategory) {
+//		this.stockCategory = stockCategory;
+//	}
 
 	@PrePersist
 	protected void onCreate() {
@@ -152,5 +153,4 @@ public class CleaningDetail {
 		this.updatedAt = new Date();
 	}
 
-	
 }

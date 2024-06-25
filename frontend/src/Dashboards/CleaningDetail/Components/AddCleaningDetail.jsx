@@ -1,5 +1,3 @@
-// AddCleaningDetail.jsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
@@ -72,6 +70,7 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
             setTowelsReplaced(editingCleaningDetail.towelsReplaced);
             setAmenitiesReplaced(editingCleaningDetail.amenitiesReplaced);
             setProductsUsed(editingCleaningDetail.productsUsed);
+
             setHouseKeepingServiceId(editingCleaningDetail.houseKeepingServiceId);
             setOpen(true);
         }
@@ -118,6 +117,7 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
             towelsReplaced,
             amenitiesReplaced,
             productsUsed,
+
             houseKeepingServiceId,
             stockCategory: editingCleaningDetail ? editingCleaningDetail.stockCategory : null
         };
