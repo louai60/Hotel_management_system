@@ -73,6 +73,7 @@ const AddRoom = ({ onRoomAdded, editingRoom, onRoomUpdated, setEditingRoom }) =>
             } else {
                 response = await axios.post('http://localhost:8080/api/rooms', roomData);
                 onRoomAdded(response.data);
+                console.log(roomData);
                 toast.success('Room added successfully!');
             }
             handleClose();
@@ -125,7 +126,7 @@ const AddRoom = ({ onRoomAdded, editingRoom, onRoomUpdated, setEditingRoom }) =>
                             required
                         >
                             {roomTypes.map((roomType) => (
-                                <MenuItem key={roomType.id} value={roomType.id}>
+                                <MenuItem key={roomType.id} value={roomType.id} >
                                     {roomType.typeName}
                                 </MenuItem>
                             ))}

@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "rooms")
@@ -50,7 +50,7 @@ public class Room {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    @JsonIgnore  // Ignore serialization of 'type' in Room
+    @JsonBackReference  // Ignore serialization of 'type' in Room
     private RoomType type;
 
     // Relationships
