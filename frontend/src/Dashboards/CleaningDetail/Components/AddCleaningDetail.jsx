@@ -116,11 +116,10 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
             towelsReplaced,
             amenitiesReplaced,
             productsUsed,
-            houseKeepingService: { id: houseKeepingServiceId } // Ensure the correct structure for houseKeepingService
+            houseKeepingService: { id: houseKeepingServiceId }
         };
 
-        console.log('Submitting cleaning detail data:', cleaningDetailData); // Add logging
-
+        console.log('Submitting cleaning detail data:', cleaningDetailData); 
         try {
             if (editingCleaningDetail) {
                 const response = await axios.put(`http://localhost:8080/api/cleaning-details/${editingCleaningDetail.id}`, cleaningDetailData);

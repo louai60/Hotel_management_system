@@ -66,7 +66,7 @@ const CleaningDetailHistory = () => {
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Towels Replaced</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amenities Replaced</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Products Used</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Housekeeping Service ID</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Housekeeping Agent</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
@@ -79,7 +79,7 @@ const CleaningDetailHistory = () => {
                                     <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.towelsReplaced ? 'Yes' : 'No'}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.amenitiesReplaced ? 'Yes' : 'No'}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.productsUsed}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.houseKeepingService ? cleaningDetail.houseKeepingService.houseKeepingAgent : ''}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{cleaningDetail.houseKeepingService ? cleaningDetail.houseKeepingService.id : ''}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <Button onClick={() => handleEditClick(cleaningDetail)} color="primary">
                                             Edit

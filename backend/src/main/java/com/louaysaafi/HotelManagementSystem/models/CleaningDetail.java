@@ -44,7 +44,6 @@ public class CleaningDetail {
 	@JsonBackReference
     @JoinColumn(name = "houseKeeping_service_id", nullable = false)
     private HouseKeepingService houseKeepingService;
-
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "stock_category_id", nullable = false)
 //    private StockCategory stockCategory;
@@ -152,5 +151,5 @@ public class CleaningDetail {
 		this.updatedAt = new Date();
 	}
 
-	
+
 }
