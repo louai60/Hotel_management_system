@@ -41,6 +41,7 @@ public class CleaningDetail {
     private Date updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
     @JoinColumn(name = "houseKeeping_service_id", nullable = false)
     private HouseKeepingService houseKeepingService;
 
@@ -134,13 +135,13 @@ public class CleaningDetail {
 		this.houseKeepingService = houseKeepingService;
 	}
 
-	public StockCategory getStockCategory() {
-		return stockCategory;
-	}
-
-	public void setStockCategory(StockCategory stockCategory) {
-		this.stockCategory = stockCategory;
-	}
+//	public StockCategory getStockCategory() {
+//		return stockCategory;
+//	}
+//
+//	public void setStockCategory(StockCategory stockCategory) {
+//		this.stockCategory = stockCategory;
+//	}
 
 	@PrePersist
 	protected void onCreate() {
@@ -152,5 +153,4 @@ public class CleaningDetail {
 		this.updatedAt = new Date();
 	}
 
-	
 }
