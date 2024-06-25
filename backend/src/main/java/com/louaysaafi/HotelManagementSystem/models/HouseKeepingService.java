@@ -1,5 +1,7 @@
 package com.louaysaafi.HotelManagementSystem.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 import java.util.Date;
@@ -37,6 +39,7 @@ public class HouseKeepingService {
 	private List<Room> rooms;
 
 	@OneToMany(mappedBy = "houseKeepingService", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<CleaningDetail> cleaningDetails;
 
 	// Getters and Setters

@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.CleaningDetailRepositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,8 @@ public class CleaningDetailService {
     }
 
     public CleaningDetail createCleaningDetail(CleaningDetail cleaningDetail) {
+        cleaningDetail.setCreatedAt(new Date());
+        cleaningDetail.setUpdatedAt(new Date());
         return cleaningDetailRepository.save(cleaningDetail);
     }
 
@@ -37,19 +40,14 @@ public class CleaningDetailService {
             updatedCleaningDetail.setId(id); // Set the ID of the updated cleaningDetail
             return cleaningDetailRepository.save(updatedCleaningDetail);
         } else {
-            // Handle error: cleaningDetail not found
             return null;
         }
     }
 
     public void deleteCleaningDetail(Long id) {
-        // Check if the cleaningDetail with the given id exists
         if (cleaningDetailRepository.existsById(id)) {
             cleaningDetailRepository.deleteById(id);
         } else {
-            // Handle error: cleaningDetail not found
         }
     }
-
-    // Add any additional methods as needed for specific business logic
 }
