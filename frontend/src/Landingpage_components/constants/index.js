@@ -1,4 +1,4 @@
-import { people01, people02, people03, facebook, instagram, linkedin, twitter, airbnb, binance, coinbase, dropbox, send, shield, star  } from "../assets";
+import { people01, people02, people03, facebook, instagram, linkedin, twitter, airbnb, binance, coinbase, dropbox, send, shield, star } from "../assets";
 
 export const navLinks = [
   {
@@ -7,16 +7,9 @@ export const navLinks = [
   },
   {
     id: "features",
-    title: "Features",
+    title: "About Us",
   },
-  {
-    id: "product",
-    title: "Product",
-  },
-  {
-    id: "clients",
-    title: "Clients",
-  },
+
 ];
 
 export const features = [
@@ -25,21 +18,21 @@ export const features = [
     icon: star,
     title: "Rewards",
     content:
-      "The best credit cards offer some tantalizing combinations of promotions and prizes",
+      "Quick check-in/check-out process",
   },
   {
     id: "feature-2",
     icon: shield,
     title: "100% Secured",
     content:
-      "We take proactive steps make sure your information and transactions are secure.",
+      "Automated confirmation emails.",
   },
   {
     id: "feature-3",
     icon: send,
     title: "Balance Transfer",
     content:
-      "A balance transfer credit card can save you a lot of money in interest charges.",
+      "Restaurant and bar billing.",
   },
 ];
 

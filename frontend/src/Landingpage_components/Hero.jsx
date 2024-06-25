@@ -1,5 +1,6 @@
 import styles from "../style";
 import { discount, robot, cap } from "./assets";
+// import GetStarted from "../Landingpage_components/GetStarted";
 
 const Hero = () => {
   return (
@@ -17,7 +18,7 @@ const Hero = () => {
         <div className="flex-3 flex-row justify-between items-center w-full">
 
 
-          <h1 className="flex-1 font-poppins font-semibold ss:text-[100px] text-[80px] text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-black ss:leading-[120px] leading-[90px]">
+          <h1 className="flex-1 font-poppins font-semibold ss:text-[100px] text-[80px] text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-black ss:leading-[100px] leading-[90px]">
             Welcome <br className="sm:block hidden" />{" "}
             <span >To our working space</span>{" "}
           </h1>
@@ -25,28 +26,30 @@ const Hero = () => {
           <div className="ss:flex hidden md:mr-4 mr-0">
           </div>
         </div>
+        {/* 
         <h1 className="">
 
 
-        </h1>
+        </h1> */}
         <p className={`${styles.paragraph} max-w-[470px] text-2xl font-bold bg-gradient-to-r from-blue-400 to-black  text-transparent bg-clip-text animate-gradient`}>
           Our team of experts uses a methodology to identify the credit cards
           most likely to fit your needs. We examine annual percentage rates,
           annual fees.
         </p>
+
       </div>
 
-
-        <img src={robot} alt="billing" className="w-[100%] h-[90%] relative z-[9]" />
+      {/* <GetStarted /> */}
       <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
 
         {/* gradient start */}
-        {/* <div className="absolute z-[99] w-[60%] h-[10%] rounded-full blue__gradient bottom-2" />
+        <div className="absolute z-[99] w-[60%] h-[10%] rounded-full blue__gradient bottom-2" />
         <div className="absolute z-[99] w-[60%] h-[10%] right-92 bottom-22 blue__gradient" />
-        <div className="absolute z-[99] w-[60%] h-[100%] top-5 blue__gradient" /> */}
+        <div className="absolute z-[99] w-[60%] h-[100%] top-5 blue__gradient" />
         {/* gradient end */}
       </div>
 
+      <img src={robot} alt="billing" className="w-[50%] h-[0%] relative z-[9]" />
       <div className={`ss:hidden ${styles.flexCenter}`}>
 
       </div>

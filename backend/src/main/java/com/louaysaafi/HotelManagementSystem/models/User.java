@@ -64,9 +64,9 @@ public class User {
 	@JsonIgnore
 	private List<OrderManagement> order;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private List<Reception> receptions;
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//	@JsonIgnore
+//	private List<Reception> receptions;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles",
@@ -145,13 +145,13 @@ public class User {
 		this.order = order;
 	}
 
-	public List<Reception> getReceptions() {
-		return receptions;
-	}
-
-	public void setReceptions(List<Reception> receptions) {
-		this.receptions = receptions;
-	}
+//	public List<Reception> getReceptions() {
+//		return receptions;
+//	}
+//
+//	public void setReceptions(List<Reception> receptions) {
+//		this.receptions = receptions;
+//	}
 
 	public Set<Role> getRoles() {
 		return roles;

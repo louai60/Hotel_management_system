@@ -18,8 +18,6 @@ public class ReceptionService {
         this.receptionRepository = receptionRepository;
     }
 
-    // CRUD operations
-
     public List<Reception> getAllReceptions() {
         return receptionRepository.findAll();
     }
@@ -35,10 +33,18 @@ public class ReceptionService {
     }
 
     public Reception updateReception(Long id, Reception updatedReception) {
-        // Check if the reception with the given id exists
-        if (receptionRepository.existsById(id)) {
-            updatedReception.setId(id); // Set the ID of the updated reception
-            return receptionRepository.save(updatedReception);
+        Optional<Reception> existingReception = receptionRepository.findById(id);
+        if (existingReception.isPresent()) {
+            Reception receptionToUpdate = existingReception.get();
+            receptionToUpdate.setClientName(updatedReception.getClientName());
+            receptionToUpdate.setCheckInDate(updatedReception.getCheckInDate());
+            receptionToUpdate.setCheckOutDate(updatedReception.getCheckOutDate());
+            receptionToUpdate.setStatus(updatedReception.getStatus());
+            receptionToUpdate.setNumberOfGuests(updatedReception.getNumberOfGuests());
+            receptionToUpdate.setSpecialRequests(updatedReception.getSpecialRequests());
+            receptionToUpdate.setUpdatedAt(new Date());
+
+            return receptionRepository.save(receptionToUpdate);
         } else {
             // Handle error: reception not found
             return null;
@@ -46,7 +52,6 @@ public class ReceptionService {
     }
 
     public void deleteReception(Long id) {
-        // Check if the reception with the given id exists
         if (receptionRepository.existsById(id)) {
             receptionRepository.deleteById(id);
         } else {
@@ -54,5 +59,7 @@ public class ReceptionService {
         }
     }
 
-    // Add any additional methods as needed for specific business logic
+    public Reception findById(Long receptionId) {
+        return receptionRepository.findById(receptionId).orElse(null);
+    }
 }

@@ -13,7 +13,6 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -61,6 +60,7 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
     const [productsUsed, setProductsUsed] = useState('');
     const [houseKeepingServiceId, setHouseKeepingServiceId] = useState('');
     const [houseKeepingServices, setHouseKeepingServices] = useState([]);
+    const [agentName, setAgentName] = useState('');
 
     useEffect(() => {
         if (editingCleaningDetail) {
@@ -70,8 +70,8 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
             setTowelsReplaced(editingCleaningDetail.towelsReplaced);
             setAmenitiesReplaced(editingCleaningDetail.amenitiesReplaced);
             setProductsUsed(editingCleaningDetail.productsUsed);
-
             setHouseKeepingServiceId(editingCleaningDetail.houseKeepingServiceId);
+            setAgentName(editingCleaningDetail.agentName);
             setOpen(true);
         }
     }, [editingCleaningDetail]);
@@ -88,6 +88,21 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
 
         fetchHouseKeepingServices();
     }, []);
+
+    useEffect(() => {
+        const fetchAgentName = async () => {
+            if (houseKeepingServiceId) {
+                try {
+                    const response = await axios.get(`http://localhost:8080/api/house-keeping-services/${houseKeepingServiceId}`);
+                    setAgentName(response.data.houseKeepingAgent);
+                } catch (error) {
+                    console.error('Error fetching agent name:', error);
+                }
+            }
+        };
+
+        fetchAgentName();
+    }, [houseKeepingServiceId]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -107,6 +122,7 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
         setAmenitiesReplaced(false);
         setProductsUsed('');
         setHouseKeepingServiceId('');
+        setAgentName('');
     };
 
     const handleSubmit = async () => {
@@ -117,12 +133,12 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
             towelsReplaced,
             amenitiesReplaced,
             productsUsed,
-
             houseKeepingServiceId,
+            agentName, // Include agentName in the data object
             stockCategory: editingCleaningDetail ? editingCleaningDetail.stockCategory : null
         };
 
-        console.log('Submitting cleaning detail data:', cleaningDetailData); // Add logging
+        console.log('Submitting cleaning detail data:', cleaningDetailData);
 
         try {
             if (editingCleaningDetail) {
@@ -180,19 +196,13 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
                             value={productsUsed}
                             onChange={(e) => setProductsUsed(e.target.value)}
                         />
-                        <FormControl fullWidth>
-                            <InputLabel>House Keeping Service</InputLabel>
-                            <Select
-                                value={houseKeepingServiceId}
-                                onChange={(e) => setHouseKeepingServiceId(e.target.value)}
-                            >
-                                {houseKeepingServices.map((service) => (
-                                    <MenuItem key={service.id} value={service.id}>
-                                        {service.houseKeepingAgent}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                        <TextField
+                            fullWidth
+                            label="Housekeeping Agent"
+                            variant="outlined"
+                            value={agentName}
+                            onChange={(e) => setAgentName(e.target.value)}
+                        />
                     </Box>
                 </DialogContent>
                 <DialogActions>

@@ -6,8 +6,9 @@ import coinbase from "./coinbase.png";
 import dropbox from "./dropbox.png";
 import logo from "./logo.svg";
 import quotes from "./quotes.svg";
-import robot from "./noback.png";
-import cap from "./Capture d’écran 2024-06-12 à 2.13.15 PM.png";
+import robot from "./finalbrand.png";
+import cap from "./finalfigmapc.png";
+import backgroundImage from "./backgroundImage.jpg";
 import captwo from "./ddss.png";
 import capthree from "./jhhj.png";
 import send from "./Send.svg";
@@ -30,6 +31,7 @@ import people03 from "./people03.png";
 export {
   airbnb,
   cap,
+  backgroundImage,
   captwo,
   capthree,
   bill,

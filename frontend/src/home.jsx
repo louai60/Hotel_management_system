@@ -35,16 +35,15 @@ const Landing_page = () => (
       <div className={`${styles.boxWidth}`}>
         <img src={cap} alt="billing" className="w-[100%] h-[90%] relative z-[0]" />
 
-        <Stats />
-        <img src={captwo} alt="billing" className="w-[100%] h-[90%] relative z-[0]" />
-        <img src={capthree} alt="billing" className="w-[100%] h-[90%] relative z-[0]" />
+        {/* <Stats /> */}
+
 
         <Business />
-        <Billing />
+        {/* <Billing />
         <CardDeal />
         <Testimonials />
         <Clients />
-        <CTA />
+        <CTA /> */}
         <Footer />
       </div>
     </div>

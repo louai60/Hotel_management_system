@@ -11,7 +11,7 @@ public class Reception {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "clientName")
+    @Column(name = "client_name")
     private String clientName;
 
     @Column(name = "check_in_date", nullable = false)
@@ -30,7 +30,7 @@ public class Reception {
 
     @Column(name = "special_requests")
     private String specialRequests;
-    
+
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -39,21 +39,12 @@ public class Reception {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private Room room;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToOne
-    @JoinColumn(name = "payment_id", nullable = false)
+    @OneToOne(mappedBy = "reception", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Payment payment;
-    
-    public Reception () {
-		super();
-	}
+
+    public Reception() {
+        super();
+    }
 
     // Getters and Setters
 
@@ -63,6 +54,14 @@ public class Reception {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public Date getCheckInDate() {
@@ -121,28 +120,15 @@ public class Reception {
         this.updatedAt = updatedAt;
     }
 
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Payment getPayment() {
         return payment;
     }
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+        if (payment != null) {
+            payment.setReception(this);
+        }
     }
 
     @PrePersist

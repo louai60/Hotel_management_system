@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { robot } from "../Landingpage_components/assets";
+
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -67,8 +69,11 @@ export default function Login() {
       <ToastContainer />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img className="mx-auto h-10 w-auto" alt="Logo" />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
+        <img
+          src={robot}
+          alt="hoobank"
+          className="w-[266px] h-[72.14px] object-contain "
+        />          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
             Sign in to your account
           </h2>
         </div>
