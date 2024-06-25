@@ -15,6 +15,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 
 // Custom styled Switch
 const Android12Switch = styled((props) => (
@@ -57,6 +61,8 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
     const [towelsReplaced, setTowelsReplaced] = useState(false);
     const [amenitiesReplaced, setAmenitiesReplaced] = useState(false);
     const [productsUsed, setProductsUsed] = useState('');
+    const [houseKeepingServiceId, setHouseKeepingServiceId] = useState('');
+    const [houseKeepingServices, setHouseKeepingServices] = useState([]);
 
     useEffect(() => {
         if (editingCleaningDetail) {
@@ -66,9 +72,23 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
             setTowelsReplaced(editingCleaningDetail.towelsReplaced);
             setAmenitiesReplaced(editingCleaningDetail.amenitiesReplaced);
             setProductsUsed(editingCleaningDetail.productsUsed);
+            setHouseKeepingServiceId(editingCleaningDetail.houseKeepingServiceId);
             setOpen(true);
         }
     }, [editingCleaningDetail]);
+
+    useEffect(() => {
+        const fetchHouseKeepingServices = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/house-keeping-services');
+                setHouseKeepingServices(response.data);
+            } catch (error) {
+                console.error('Error fetching house keeping services:', error);
+            }
+        };
+
+        fetchHouseKeepingServices();
+    }, []);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -87,6 +107,7 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
         setTowelsReplaced(false);
         setAmenitiesReplaced(false);
         setProductsUsed('');
+        setHouseKeepingServiceId('');
     };
 
     const handleSubmit = async () => {
@@ -97,9 +118,11 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
             towelsReplaced,
             amenitiesReplaced,
             productsUsed,
-            houseKeepingService: editingCleaningDetail ? editingCleaningDetail.houseKeepingService : null,
+            houseKeepingServiceId,
             stockCategory: editingCleaningDetail ? editingCleaningDetail.stockCategory : null
         };
+
+        console.log('Submitting cleaning detail data:', cleaningDetailData); // Add logging
 
         try {
             if (editingCleaningDetail) {
@@ -157,6 +180,19 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
                             value={productsUsed}
                             onChange={(e) => setProductsUsed(e.target.value)}
                         />
+                        <FormControl fullWidth>
+                            <InputLabel>House Keeping Service</InputLabel>
+                            <Select
+                                value={houseKeepingServiceId}
+                                onChange={(e) => setHouseKeepingServiceId(e.target.value)}
+                            >
+                                {houseKeepingServices.map((service) => (
+                                    <MenuItem key={service.id} value={service.id}>
+                                        {service.houseKeepingAgent}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     </Box>
                 </DialogContent>
                 <DialogActions>

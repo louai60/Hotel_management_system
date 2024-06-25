@@ -35,7 +35,6 @@ public class HouseKeepingServiceService {
     }
 
     public HouseKeepingService updateHouseKeepingService(Long id, HouseKeepingService updatedHouseKeepingService) {
-        // Check if the houseKeepingService with the given id exists
         if (houseKeepingServiceRepository.existsById(id)) {
             updatedHouseKeepingService.setId(id); // Set the ID of the updated houseKeepingService
             return houseKeepingServiceRepository.save(updatedHouseKeepingService);
@@ -53,6 +52,4 @@ public class HouseKeepingServiceService {
             // Handle error: houseKeepingService not found
         }
     }
-
-    // Add any additional methods as needed for specific business logic
 }

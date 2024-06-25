@@ -1,5 +1,8 @@
 package com.louaysaafi.HotelManagementSystem.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 import java.util.Date;
@@ -42,6 +45,7 @@ public class CleaningDetail {
     private HouseKeepingService houseKeepingService;
 
     @ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
     @JoinColumn(name = "stock_category_id", nullable = false)
     private StockCategory stockCategory;
 
@@ -136,6 +140,16 @@ public class CleaningDetail {
 
 	public void setStockCategory(StockCategory stockCategory) {
 		this.stockCategory = stockCategory;
+	}
+
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = new Date();
 	}
 
 	
