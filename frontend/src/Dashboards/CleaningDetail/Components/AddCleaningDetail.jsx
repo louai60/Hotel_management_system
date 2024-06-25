@@ -70,7 +70,8 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
             setTowelsReplaced(editingCleaningDetail.towelsReplaced);
             setAmenitiesReplaced(editingCleaningDetail.amenitiesReplaced);
             setProductsUsed(editingCleaningDetail.productsUsed);
-            setHouseKeepingServiceId(editingCleaningDetail.houseKeepingService.id);
+
+            setHouseKeepingServiceId(editingCleaningDetail.houseKeepingServiceId);
             setOpen(true);
         }
     }, [editingCleaningDetail]);
@@ -116,10 +117,13 @@ const AddCleaningDetail = ({ onCleaningDetailAdded, editingCleaningDetail, onCle
             towelsReplaced,
             amenitiesReplaced,
             productsUsed,
-            houseKeepingService: { id: houseKeepingServiceId }
+
+            houseKeepingServiceId,
+            stockCategory: editingCleaningDetail ? editingCleaningDetail.stockCategory : null
         };
 
-        console.log('Submitting cleaning detail data:', cleaningDetailData); 
+        console.log('Submitting cleaning detail data:', cleaningDetailData); // Add logging
+
         try {
             if (editingCleaningDetail) {
                 const response = await axios.put(`http://localhost:8080/api/cleaning-details/${editingCleaningDetail.id}`, cleaningDetailData);

@@ -11,6 +11,7 @@ const RoomHistory = () => {
 
     useEffect(() => {
         fetchRooms();
+        // rooms.map((r, i) => console.log(r))
     }, []);
 
     const fetchRooms = async () => {
