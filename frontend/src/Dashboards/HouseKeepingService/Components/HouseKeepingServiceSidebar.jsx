@@ -75,7 +75,7 @@ function HouseKeepingServiceSidebar({ sidebarOpen, setSidebarOpen }) {
                         </svg>
                     </button>
                     {/* Logo */}
-                    <NavLink end to="/" className="block">
+                    <NavLink end to="/admin" className="block">
                         <svg width="32" height="32" viewBox="0 0 32 32">
                             <defs>
                                 <linearGradient x1="28.538%" y1="20.229%" x2="100%" y2="108.156%" id="logo-a">
@@ -209,7 +209,7 @@ function HouseKeepingServiceSidebar({ sidebarOpen, setSidebarOpen }) {
                             <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('campaigns') && 'bg-slate-900'}`}>
                                 <NavLink
                                     end
-                                    to="/test"
+                                    to="/cleaningdetail"
                                     className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('campaigns') ? 'hover:text-slate-200' : 'hover:text-white'
                                         }`}
                                 >
@@ -225,7 +225,7 @@ function HouseKeepingServiceSidebar({ sidebarOpen, setSidebarOpen }) {
                                             />
                                         </svg>
                                         <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                            Staff
+                                            Cleaning Details
                                         </span>
                                     </div>
                                 </NavLink>
