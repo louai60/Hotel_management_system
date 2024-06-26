@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/receptions")
 public class ReceptionController {
@@ -16,6 +18,11 @@ public class ReceptionController {
     @Autowired
     private ReceptionService receptionService;
 
+    @GetMapping
+    public ResponseEntity<List<Reception>> getAllReceptions() {
+        List<Reception> receptions = receptionService.getAllReceptions();
+        return ResponseEntity.ok(receptions);
+    }
     @PostMapping
     public ResponseEntity<?> createReception(@RequestBody Reception reception) {
         try {

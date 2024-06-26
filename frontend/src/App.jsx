@@ -27,6 +27,7 @@ import PoolDashboard from './Dashboards/Pool/PoolDashboard';
 import RestaurantDashboard from './Dashboards/Restaurant/RestaurantDashboard';
 import RoomDashboard from './Dashboards/Room/RoomDashboard';
 import RoomTypeDashboard from './Dashboards/RoomType/RoomTypeDashboard';
+import ReservationHistory from './Dashboards/Reception/Components/ReservationHistory';
 
 
 const App = () => {
@@ -204,6 +205,8 @@ const App = () => {
         } />
 
         <Route path="/admin/pending" element={<PendingUsersTable />} />
+        <Route path="/reception/history" element={<ReservationHistory />} />
+
         <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
 
         {/* Default route */}

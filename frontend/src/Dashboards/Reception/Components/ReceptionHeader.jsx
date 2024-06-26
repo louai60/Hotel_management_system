@@ -1,14 +1,3 @@
-// import React from 'react'
-
-// const ReceptionHeader = () => {
-//   return (
-//     <div>ReceptionHeader</div>
-//   )
-// }
-
-// export default ReceptionHeader
-
-
 import React, { useState } from 'react';
 
 import SearchModal from '../../../components/ModalSearch';

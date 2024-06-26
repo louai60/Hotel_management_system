@@ -41,9 +41,7 @@ const CreateBooking = () => {
 
   const handleNext = async () => {
     if (activeStep === 0) {
-      // Validate reception data if necessary
-
-      // Example: Check if clientName is filled
+    
       if (!receptionData.clientName) {
         alert('Please enter client name.');
         return;
@@ -53,16 +51,14 @@ const CreateBooking = () => {
         const receptionResponse = await axios.post('http://localhost:8080/api/receptions', receptionData);
         const createdReception = receptionResponse.data;
         console.log('Reception created:', createdReception);
-        setIsFirstStep(false); // Move forward from the first step
-        setActiveStep(1); // Move to payment step
+        setIsFirstStep(false); 
+        setActiveStep(1); 
       } catch (error) {
         console.error('Error creating reception:', error);
         alert('Error creating reception. Please try again.');
       }
     } else if (activeStep === 1) {
-      // Validate payment data if necessary
 
-      // Example: Check if amount is valid
       if (paymentData.amount <= 0) {
         alert('Please enter valid payment amount.');
         return;
@@ -72,9 +68,8 @@ const CreateBooking = () => {
         const paymentResponse = await axios.post(`http://localhost:8080/api/receptions/${receptionData.id}/payments`, paymentData);
         const createdPayment = paymentResponse.data;
         console.log('Payment created for reception:', createdPayment);
-        setIsLastStep(true); // No more steps after payment
+        setIsLastStep(true); 
 
-        // Optionally, you can add further logic here after successful payment creation
       } catch (error) {
         console.error('Error creating payment:', error);
         alert('Error creating payment. Please try again.');
@@ -84,13 +79,12 @@ const CreateBooking = () => {
 
   const handlePrev = () => {
     setActiveStep((cur) => cur - 1);
-    setIsLastStep(false); // Allow progression forward
+    setIsLastStep(false); 
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Step 1: Create Reception
       const receptionResponse = await axios.post('http://localhost:8080/api/receptions', receptionData);
       const createdReception = receptionResponse.data;
       console.log('Reception created:', createdReception);

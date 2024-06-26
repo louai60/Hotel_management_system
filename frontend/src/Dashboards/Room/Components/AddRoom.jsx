@@ -24,7 +24,7 @@ const AddRoom = ({ onRoomAdded, editingRoom, onRoomUpdated, setEditingRoom }) =>
             setRoomNumber(editingRoom.roomNumber);
             setPrice(editingRoom.price.toString());
             setStatus(editingRoom.status);
-            setType(editingRoom.type.id); // Assuming type is an object with an id
+            setType(editingRoom.type.id); 
             setOpen(true);
         }
     }, [editingRoom]);
@@ -61,7 +61,7 @@ const AddRoom = ({ onRoomAdded, editingRoom, onRoomUpdated, setEditingRoom }) =>
             roomNumber,
             price: parseFloat(price),
             status,
-            type: { id: type } // Assuming type is selected from a list or dropdown
+            type: { id: type } 
         };
 
         try {
