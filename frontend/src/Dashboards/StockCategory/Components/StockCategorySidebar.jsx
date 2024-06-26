@@ -75,7 +75,7 @@ function StockCategorySidebar({ sidebarOpen, setSidebarOpen }) {
                         </svg>
                     </button>
                     {/* Logo */}
-                    <NavLink end to="/stockcategory" className="block">
+                    <NavLink end to="/admin" className="block">
                         <svg width="32" height="32" viewBox="0 0 32 32">
                             <defs>
                                 <linearGradient x1="28.538%" y1="20.229%" x2="100%" y2="108.156%" id="logo-a">
@@ -205,8 +205,8 @@ function StockCategorySidebar({ sidebarOpen, setSidebarOpen }) {
                                 }}
                             </StockCategorySidebarLinkGroup>
 
-                             {/* Room Management */}
-                             <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('campaigns') && 'bg-slate-900'}`}>
+                            {/* Room Management */}
+                            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('campaigns') && 'bg-slate-900'}`}>
                                 <NavLink
                                     end
                                     to="/stockitem"

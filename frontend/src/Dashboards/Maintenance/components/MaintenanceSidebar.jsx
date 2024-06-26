@@ -75,7 +75,7 @@ function MaintenanceSidebar({ sidebarOpen, setSidebarOpen }) {
             </svg>
           </button>
           {/* Logo */}
-          <NavLink end to="/" className="block">
+          <NavLink end to="/admin" className="block">
             <svg width="32" height="32" viewBox="0 0 32 32">
               <defs>
                 <linearGradient x1="28.538%" y1="20.229%" x2="100%" y2="108.156%" id="logo-a">
