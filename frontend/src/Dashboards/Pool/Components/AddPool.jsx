@@ -35,9 +35,7 @@ const AddPool = ({ onPoolAdded, editingPool, onPoolUpdated, setEditingPool }) =>
     };
 
     const handleSubmit = async () => {
-        const poolData = {
-            name,
-        };
+        const poolData = { name };
 
         try {
             if (editingPool) {
@@ -88,6 +86,6 @@ const AddPool = ({ onPoolAdded, editingPool, onPoolUpdated, setEditingPool }) =>
             </Dialog>
         </div>
     );
-}
+};
 
 export default AddPool;

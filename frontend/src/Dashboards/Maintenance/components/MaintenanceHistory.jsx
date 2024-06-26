@@ -3,7 +3,7 @@ import axios from 'axios';
 import TitleCard from '../../../components/Cards/TitleCard';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
-import AddMaintenance from './AddMaintenance'; // Ensure this import is correct
+import AddMaintenance from './AddMaintenance';
 
 const MaintenanceHistory = () => {
   const [maintenances, setMaintenances] = useState([]);
@@ -58,7 +58,7 @@ const MaintenanceHistory = () => {
   return (
     <div className="col-span-full xl:col-span-8 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
-        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Maintenance </h2>
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">Maintenance</h2>
       </header>
       <div className="p-3 flex flex-col items-end px-4 pt-4">
         <AddMaintenance
@@ -89,26 +89,26 @@ const MaintenanceHistory = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="text-sm font-medium divide-y divide-slate-100 dark:divide-slate-700">
+              <tbody className="divide-y divide-gray-200">
                 {maintenances.map((maintenance) => (
                   <tr key={maintenance.id}>
                     <td className="p-2">
-                      <div className="text-slate-800 dark:text-slate-100">{new Date(maintenance.interventionDate).toLocaleDateString()}</div>
+                      <div className="px-6 py-4 whitespace-nowrap">{new Date(maintenance.interventionDate).toLocaleDateString()}</div>
                     </td>
                     <td className="p-2">
-                      <div className="text-slate-800 dark:text-slate-100">{maintenance.location}</div>
+                      <div className="px-6 py-4 whitespace-nowrap">{maintenance.location}</div>
                     </td>
                     <td className="p-2">
-                      <div className="text-slate-800 dark:text-slate-100">{maintenance.responsibleTechnician}</div>
+                      <div className="px-6 py-4 whitespace-nowrap">{maintenance.responsibleTechnician}</div>
                     </td>
                     <td className="p-2">
-                      <div className="text-slate-800 dark:text-slate-100">{maintenance.priority}</div>
+                      <div className="px-6 py-4 whitespace-nowrap">{maintenance.priority}</div>
                     </td>
-                    <td className="p-2">
-                      <Button onClick={() => handleEditClick(maintenance)} variant="contained" color="primary">
+                    <td className="p-2 space-x-2">
+                      <Button onClick={() => handleEditClick(maintenance)} color="primary" >
                         Edit
                       </Button>
-                      <Button onClick={() => handleDeleteClick(maintenance.id)} variant="contained" color="secondary">
+                      <Button onClick={() => handleDeleteClick(maintenance.id)} color="secondary" >
                         Delete
                       </Button>
                     </td>

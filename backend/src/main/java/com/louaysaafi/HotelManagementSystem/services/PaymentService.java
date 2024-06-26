@@ -29,8 +29,8 @@ public class PaymentService {
     }
 
     public Payment createPayment(Payment payment) {
-//    	payment.setCreatedAt(new Date());
-//    	payment.setUpdatedAt(new Date());
+    	payment.setCreatedAt(new Date());
+    	payment.setUpdatedAt(new Date());
         return paymentRepository.save(payment);
     }
 

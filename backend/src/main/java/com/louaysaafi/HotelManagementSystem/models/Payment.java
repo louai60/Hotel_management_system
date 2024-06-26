@@ -24,13 +24,13 @@ public class Payment {
     @Column(name = "status")
     private String status;
 
-//    @Column(nullable = false, updatable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date createdAt;
-//
-//    @Column(nullable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date updatedAt;
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
     // Relationships
     @OneToOne
@@ -107,13 +107,33 @@ public class Payment {
         this.reception = reception;
     }
 
-//    @PrePersist
-//    protected void onCreate() {
-//        this.createdAt = new Date();
-//    }
-//
-//    @PreUpdate
-//    protected void onUpdate() {
-//        this.updatedAt = new Date();
-//    }
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	
+		
+	
 }

@@ -121,6 +121,14 @@ public class FollowUpAndValidation {
 //	public void setHouseKeepingService(HouseKeepingService houseKeepingService) {
 //		this.houseKeepingService = houseKeepingService;
 //	}
-    
+	@PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
     
 }

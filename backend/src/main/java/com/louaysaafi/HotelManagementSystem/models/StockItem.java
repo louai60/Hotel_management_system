@@ -116,6 +116,15 @@ public class StockItem {
 	public void setCategory(StockCategory category) {
 		this.category = category;
 	}
+	@PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
 
     
 }

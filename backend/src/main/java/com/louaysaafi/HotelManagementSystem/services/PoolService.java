@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.PoolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,8 @@ public class PoolService {
     }
 
     public Pool createPool(Pool pool) {
+    	pool.setCreatedAt(new Date());
+    	pool.setUpdatedAt(new Date());
         return poolRepository.save(pool);
     }
 

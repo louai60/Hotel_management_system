@@ -16,8 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "room_type")
@@ -61,8 +60,8 @@ public class RoomType {
 
     // Relationships
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
-    @JsonBackReference  // Ignore serialization of 'type' in Room
-    
+    //@JsonBackReference  // Ignore serialization of 'type' in Room
+    @JsonIgnore
     private List<Room> rooms;
     
     public RoomType () {

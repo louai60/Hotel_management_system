@@ -5,6 +5,7 @@ import com.louaysaafi.HotelManagementSystem.repositories.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,8 @@ public class MaintenanceService {
     }
 
     public Maintenance createMaintenance(Maintenance maintenance) {
+    	maintenance.setCreatedAt(new Date());
+    	maintenance.setUpdatedAt(new Date());
         return maintenanceRepository.save(maintenance);
     }
 
