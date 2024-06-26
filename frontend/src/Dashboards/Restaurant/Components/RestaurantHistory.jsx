@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import TitleCard from "../../../components/Cards/TitleCard";
 import axios from 'axios';
+import AddRestaurant from './AddRestaurant';
 import Button from '@mui/material/Button';
 import { toast } from 'react-toastify';
-import AddRestaurant from './AddRestaurant'; // Importer le composant AddRestaurant pour la mise à jour
 
 const RestaurantHistory = () => {
     const [restaurants, setRestaurants] = useState([]);
-    const [editingRestaurant, setEditingRestaurant] = useState(null); // État pour gérer le restaurant en cours de modification
+    const [editingRestaurant, setEditingRestaurant] = useState(null);
 
     useEffect(() => {
         fetchRestaurants();
@@ -22,10 +22,29 @@ const RestaurantHistory = () => {
         }
     };
 
+    const handleRestaurantAdded = (newRestaurant) => {
+        setRestaurants([...restaurants, newRestaurant]);
+    };
+
+    const handleEditClick = (restaurant) => {
+        setEditingRestaurant(restaurant);
+    };
+
+    const handleUpdateRestaurant = async (updatedRestaurant) => {
+        try {
+            const response = await axios.put(`http://localhost:8080/api/restaurants/${updatedRestaurant.id}`, updatedRestaurant);
+            setRestaurants(restaurants.map(rest => rest.id === updatedRestaurant.id ? response.data : rest));
+            setEditingRestaurant(null);
+        } catch (error) {
+            console.error('Error updating restaurant:', error);
+            toast.error('Error updating restaurant. Please try again later.');
+        }
+    };
+
     const handleDeleteClick = async (id) => {
         try {
             await axios.delete(`http://localhost:8080/api/restaurants/${id}`);
-            setRestaurants(restaurants.filter(restaurant => restaurant.id !== id));
+            setRestaurants(restaurants.filter(rest => rest.id !== id));
             toast.success('Restaurant deleted successfully!');
         } catch (error) {
             console.error('Error deleting restaurant:', error);
@@ -33,20 +52,14 @@ const RestaurantHistory = () => {
         }
     };
 
-    const handleEditClick = (restaurant) => {
-        setEditingRestaurant(restaurant); // Définir le restaurant à modifier dans l'état d'édition
-    };
-
-    const handleRestaurantUpdated = (updatedRestaurant) => {
-        // Mettre à jour la liste des restaurants après modification
-        const updatedRestaurants = restaurants.map(restaurant =>
-            restaurant.id === updatedRestaurant.id ? updatedRestaurant : restaurant
-        );
-        setRestaurants(updatedRestaurants);
-    };
-
     return (
         <div className="flex flex-col items-end px-4 pt-4">
+            <AddRestaurant
+                onRestaurantAdded={handleRestaurantAdded}
+                editingRestaurant={editingRestaurant}
+                onRestaurantUpdated={handleUpdateRestaurant}
+                setEditingRestaurant={setEditingRestaurant}
+            />
             <TitleCard>
                 <div className="overflow-x-auto w-full">
                     <table className="min-w-full bg-white border-gray-200 shadow-sm rounded-lg overflow-hidden">
@@ -78,14 +91,6 @@ const RestaurantHistory = () => {
                     </table>
                 </div>
             </TitleCard>
-            {/* Ajouter le composant AddRestaurant pour la modification */}
-            {editingRestaurant && (
-                <AddRestaurant
-                    editingRestaurant={editingRestaurant}
-                    onRestaurantUpdated={handleRestaurantUpdated}
-                    setEditingRestaurant={setEditingRestaurant}
-                />
-            )}
         </div>
     );
 };

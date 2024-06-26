@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/pools")
+@RequestMapping("api/pools")
 public class PoolController {
     private final PoolService poolService;
 

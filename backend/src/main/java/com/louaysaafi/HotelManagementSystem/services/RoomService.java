@@ -29,7 +29,7 @@ public class RoomService {
     public Room saveRoom(Room room) {
     	room.setCreatedAt(new Date());
     	room.setUpdatedAt(new Date());
-    	System.out.println(room.getType());
+    	//System.out.println(room.getType());
         // Additional logic, if needed, before saving the room
         return roomRepository.save(room);
     }

@@ -8,11 +8,12 @@ import AddRoom from './AddRoom';
 const RoomHistory = () => {
     const [rooms, setRooms] = useState([]);
     const [editingRoom, setEditingRoom] = useState(null);
+    const [updateD, setUpdateD] = useState(false);
 
     useEffect(() => {
         fetchRooms();
         // rooms.map((r, i) => console.log(r))
-    }, []);
+    }, [updateD]);
 
     const fetchRooms = async () => {
         try {
@@ -26,6 +27,7 @@ const RoomHistory = () => {
 
     const handleRoomAdded = (newRoom) => {
         setRooms([...rooms, newRoom]);
+        setUpdateD(!updateD)
     };
 
     const handleEditClick = (room) => {

@@ -23,10 +23,10 @@ export default function Login() {
       });
 
       console.log(response.data);
-      localStorage.setItem('user', JSON.stringify(response.data)); 
+      localStorage.setItem('user', JSON.stringify(response.data));
 
-      const token = response.headers['set-cookie']; 
-      localStorage.setItem('jwtToken', token); 
+      const token = response.headers['set-cookie'];
+      localStorage.setItem('jwtToken', token);
       const roles = response.data.roles;
       const roleToPathMap = {
         ROLE_ADMIN: '/admin',
@@ -68,12 +68,13 @@ export default function Login() {
     <>
       <ToastContainer />
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          src={robot}
-          alt="hoobank"
-          className="w-[266px] h-[72.14px] object-contain "
-        />          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
+        <div className="flex sm:mx-auto sm:w-full sm:max-w-sm">
+          <img
+            src={robot}
+            alt="hoobank"
+            className="w-[80.14px] h-[100.14px] object-contain "
+          />
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white-900">
             Sign in to your account
           </h2>
         </div>

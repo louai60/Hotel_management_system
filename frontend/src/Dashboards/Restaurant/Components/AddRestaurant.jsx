@@ -12,14 +12,10 @@ import { toast } from 'react-toastify';
 const AddRestaurant = ({ onRestaurantAdded, editingRestaurant, onRestaurantUpdated, setEditingRestaurant }) => {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
-    const [createdAt, setCreatedAt] = useState('');
-    const [updatedAt, setUpdatedAt] = useState('');
 
     useEffect(() => {
         if (editingRestaurant) {
             setName(editingRestaurant.name);
-            setCreatedAt(editingRestaurant.createdAt.substring(0, 10)); // Keep only the date part
-            setUpdatedAt(editingRestaurant.updatedAt.substring(0, 10)); // Keep only the date part
             setOpen(true);
         }
     }, [editingRestaurant]);
@@ -36,15 +32,11 @@ const AddRestaurant = ({ onRestaurantAdded, editingRestaurant, onRestaurantUpdat
 
     const clearForm = () => {
         setName('');
-        setCreatedAt('');
-        setUpdatedAt('');
     };
 
     const handleSubmit = async () => {
         const restaurantData = {
             name,
-            createdAt: `${createdAt}T00:00:00`, // Combine date with time (midnight)
-            updatedAt: `${updatedAt}T00:00:00`, // Combine date with time (midnight)
         };
 
         try {
@@ -80,22 +72,6 @@ const AddRestaurant = ({ onRestaurantAdded, editingRestaurant, onRestaurantUpdat
                             label="Name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            fullWidth
-                            required
-                        />
-                        <TextField
-                            label="Created At"
-                            type="date"
-                            value={createdAt}
-                            onChange={(e) => setCreatedAt(e.target.value)}
-                            fullWidth
-                            required
-                        />
-                        <TextField
-                            label="Updated At"
-                            type="date"
-                            value={updatedAt}
-                            onChange={(e) => setUpdatedAt(e.target.value)}
                             fullWidth
                             required
                         />
