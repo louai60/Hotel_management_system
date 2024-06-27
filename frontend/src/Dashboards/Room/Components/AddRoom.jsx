@@ -24,7 +24,7 @@ const AddRoom = ({ onRoomAdded, editingRoom, onRoomUpdated, setEditingRoom }) =>
             setRoomNumber(editingRoom.roomNumber);
             setPrice(editingRoom.price.toString());
             setStatus(editingRoom.status);
-            setType(editingRoom.type.id); // Assuming type is an object with an id
+            setType(editingRoom.type.id); 
             setOpen(true);
         }
     }, [editingRoom]);

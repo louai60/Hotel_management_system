@@ -52,9 +52,9 @@ public class User {
 	}
 
 	// Relationships
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-	@JsonIgnore
-	private Employee employee;
+//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+//	@JsonIgnore
+//	private Employee employee;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -121,13 +121,13 @@ public class User {
 		this.password = password;
 	}
 
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
+//	public Employee getEmployee() {
+//		return employee;
+//	}
+//
+//	public void setEmployee(Employee employee) {
+//		this.employee = employee;
+//	}
 
 	public List<StockCategory> getStockCategory() {
 		return stockCategory;

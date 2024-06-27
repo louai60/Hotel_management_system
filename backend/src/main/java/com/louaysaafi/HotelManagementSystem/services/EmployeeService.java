@@ -11,18 +11,12 @@ import java.util.Optional;
 
 @Service
 public class EmployeeService {
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public List<Employee> getAllEmployeesWithUserDetails() {
-        List<Employee> employees = employeeRepository.findAll();
-        employees.forEach(employee -> {
-            // Load user details eagerly if necessary
-            employee.getUser().getFirstName();
-            employee.getUser().getLastName();
-            employee.getUser().getEmail();
-        });
-        return employees;
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
     }
 
     public Optional<Employee> getEmployeeById(Long id) {
@@ -30,20 +24,25 @@ public class EmployeeService {
     }
 
     public Employee saveEmployee(Employee employee) {
-    	employee.setCreatedAt(new Date());
-    	employee.setUpdatedAt(new Date());
+        // Set timestamps for creation and update
+        employee.setCreatedAt(new Date());
+        employee.setUpdatedAt(new Date());
         return employeeRepository.save(employee);
     }
 
-    public Optional<Employee> updateEmployee(Long id, Employee employee) {
+    public Optional<Employee> updateEmployee(Long id, Employee updatedEmployee) {
         return employeeRepository.findById(id).map(existingEmployee -> {
-            existingEmployee.setUser(employee.getUser());
-            existingEmployee.setDateOfBirth(employee.getDateOfBirth());
-            existingEmployee.setDateOfHire(employee.getDateOfHire());
-            existingEmployee.setSalary(employee.getSalary());
-            existingEmployee.setPhone(employee.getPhone());
-            existingEmployee.setCreatedAt(employee.getCreatedAt());
-            existingEmployee.setUpdatedAt(employee.getUpdatedAt());
+            existingEmployee.setDateOfBirth(updatedEmployee.getDateOfBirth());
+            existingEmployee.setDateOfHire(updatedEmployee.getDateOfHire());
+            existingEmployee.setSalary(updatedEmployee.getSalary());
+            existingEmployee.setBonuses(updatedEmployee.getBonuses());
+            existingEmployee.setBenefits(updatedEmployee.getBenefits());
+            existingEmployee.setFirstName(updatedEmployee.getFirstName());
+            existingEmployee.setLastName(updatedEmployee.getLastName());
+            existingEmployee.setEmail(updatedEmployee.getEmail());
+            existingEmployee.setRole(updatedEmployee.getRole());
+            existingEmployee.setPhone(updatedEmployee.getPhone());
+            existingEmployee.setUpdatedAt(new Date()); // Update the timestamp
             return employeeRepository.save(existingEmployee);
         });
     }
