@@ -28,6 +28,7 @@ import PoolDashboard from './Dashboards/Pool/PoolDashboard';
 import RestaurantDashboard from './Dashboards/Restaurant/RestaurantDashboard';
 import RoomDashboard from './Dashboards/Room/RoomDashboard';
 import RoomTypeDashboard from './Dashboards/RoomType/RoomTypeDashboard';
+import Unauthorized from './components/Unauthorized';
 
 
 const App = () => {
@@ -206,7 +207,7 @@ const App = () => {
 
         <Route path="/admin/pending" element={<PendingUsersTable />} />
         <Route path="/admin/addEmployee" element={<AddEmployee />} />
-        <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
 
         {/* Default route */}
         <Route path="*" element={<Navigate to="/" replace />} />
