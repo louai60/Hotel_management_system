@@ -8,7 +8,7 @@ function DashboardCard07() {
     axios.get('http://localhost:8080/api/employees')
       .then(response => {
         setEmployees(response.data);
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch(error => {
         console.error('There was an error fetching the employees!', error);
@@ -54,6 +54,9 @@ function DashboardCard07() {
                 <th className="p-2">
                   <div className="font-semibold text-left">Benefits</div>
                 </th>
+                <th className="p-2">
+                  <div className="font-semibold text-left">Role</div>
+                </th>
               </tr>
             </thead>
             {/* Table body */}
@@ -61,13 +64,13 @@ function DashboardCard07() {
               {employees.map((employee) => (
                 <tr key={employee.id}>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{employee.user ? employee.user.firstName : ''}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.firstName}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{employee.user ? employee.user.lastName : ''}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.lastName}</div>
                   </td>
                   <td className="p-2">
-                    <div className="text-slate-800 dark:text-slate-100">{employee.user ? employee.user.email : ''}</div>
+                    <div className="text-slate-800 dark:text-slate-100">{employee.email}</div>
                   </td>
                   <td className="p-2">
                     <div className="text-slate-800 dark:text-slate-100">{employee.dateOfBirth ? new Date(employee.dateOfBirth).toLocaleDateString() : ''}</div>
@@ -86,6 +89,9 @@ function DashboardCard07() {
                   </td>
                   <td className="p-2">
                     <div className="text-slate-800 dark:text-slate-100">{employee.benefits || ''}</div>
+                  </td>
+                  <td className="p-2">
+                    <div className="text-slate-800 dark:text-slate-100">{employee.role || ''}</div>
                   </td>
                 </tr>
               ))}

@@ -22,7 +22,7 @@ const CreateBooking = () => {
 
   const [activeStep, setActiveStep] = useState(0);
   const [isLastStep, setIsLastStep] = useState(false);
-  const [isFirstStep, setIsFirstStep] = useState(true); // Start at first step
+  const [isFirstStep, setIsFirstStep] = useState(true); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,9 +41,7 @@ const CreateBooking = () => {
 
   const handleNext = async () => {
     if (activeStep === 0) {
-      // Validate reception data if necessary
 
-      // Example: Check if clientName is filled
       if (!receptionData.clientName) {
         alert('Please enter client name.');
         return;
@@ -53,16 +51,14 @@ const CreateBooking = () => {
         const receptionResponse = await axios.post('http://localhost:8080/api/receptions', receptionData);
         const createdReception = receptionResponse.data;
         console.log('Reception created:', createdReception);
-        setIsFirstStep(false); // Move forward from the first step
-        setActiveStep(1); // Move to payment step
+        setIsFirstStep(false); 
+        setActiveStep(1); 
       } catch (error) {
         console.error('Error creating reception:', error);
         alert('Error creating reception. Please try again.');
       }
     } else if (activeStep === 1) {
-      // Validate payment data if necessary
 
-      // Example: Check if amount is valid
       if (paymentData.amount <= 0) {
         alert('Please enter valid payment amount.');
         return;
@@ -72,9 +68,7 @@ const CreateBooking = () => {
         const paymentResponse = await axios.post(`http://localhost:8080/api/receptions/${receptionData.id}/payments`, paymentData);
         const createdPayment = paymentResponse.data;
         console.log('Payment created for reception:', createdPayment);
-        setIsLastStep(true); // No more steps after payment
-
-        // Optionally, you can add further logic here after successful payment creation
+        setIsLastStep(true);
       } catch (error) {
         console.error('Error creating payment:', error);
         alert('Error creating payment. Please try again.');
@@ -84,7 +78,7 @@ const CreateBooking = () => {
 
   const handlePrev = () => {
     setActiveStep((cur) => cur - 1);
-    setIsLastStep(false); // Allow progression forward
+    setIsLastStep(false); 
   };
 
   const handleSubmit = async (e) => {
@@ -101,11 +95,9 @@ const CreateBooking = () => {
       console.log('Payment created for reception:', createdPayment);
 
       alert('Booking successfully created!');
-      // Optionally, you can redirect to a success page or update UI state
     } catch (error) {
       console.error('Error creating booking:', error);
       alert('Error creating booking. Please try again.');
-      // Handle error, show message to user, etc.
     }
   };
 
@@ -115,7 +107,7 @@ const CreateBooking = () => {
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
         isFirstStep={(value) => setIsFirstStep(value)}
-        color="blue" // Set your desired color here
+        color="blue" 
       >
         <Step onClick={() => setActiveStep(0)} className="relative">
           <UserIcon className="h-5 w-5" />

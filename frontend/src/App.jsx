@@ -5,6 +5,7 @@ import PendingUsersTable from "./partials/components/PendingUsers";
 import LandingPage from "./home";
 import Login from './pages/Login';
 import Signup from "./pages/register";
+import AddEmployee from "./partials/components/AddEmployee";
 import HouseKeepingDashboard from "./Dashboards/HouseKeeping/HouseKeepingDashboard";
 import ReceptionDashboard from './Dashboards/Reception/ReceptionDashboard';
 import MaintenanceDashboard from './Dashboards/Maintenance/MaintenanceDashboard';
@@ -204,6 +205,7 @@ const App = () => {
         } />
 
         <Route path="/admin/pending" element={<PendingUsersTable />} />
+        <Route path="/admin/addEmployee" element={<AddEmployee />} />
         <Route path="/unauthorized" element={<div>Unauthorized access</div>} />
 
         {/* Default route */}
