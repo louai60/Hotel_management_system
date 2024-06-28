@@ -29,6 +29,7 @@ import RestaurantDashboard from './Dashboards/Restaurant/RestaurantDashboard';
 import RoomDashboard from './Dashboards/Room/RoomDashboard';
 import RoomTypeDashboard from './Dashboards/RoomType/RoomTypeDashboard';
 import Unauthorized from './components/Unauthorized';
+import ReservationHistory from './Dashboards/Reception/Components/ReservationHistory';
 
 
 const App = () => {
@@ -72,6 +73,13 @@ const App = () => {
         <Route path="/reception" element={
           userRolePath === '/admin' || userRolePath === '/reception' ? (
             <ReceptionDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+        <Route path="/ReservationHistory" element={
+          userRolePath === '/admin' || userRolePath === '/reception' ? (
+            <ReservationHistory />
           ) : (
             <Navigate to="/unauthorized" />
           )

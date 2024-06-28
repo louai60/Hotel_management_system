@@ -1,13 +1,20 @@
 package com.louaysaafi.HotelManagementSystem.controllers;
 
-import com.louaysaafi.HotelManagementSystem.models.Reception;
-import com.louaysaafi.HotelManagementSystem.models.Payment;
-import com.louaysaafi.HotelManagementSystem.services.ReceptionService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.louaysaafi.HotelManagementSystem.models.Payment;
+import com.louaysaafi.HotelManagementSystem.models.Reception;
+import com.louaysaafi.HotelManagementSystem.services.ReceptionService;
 
 @RestController
 @RequestMapping("/api/receptions")
@@ -15,6 +22,12 @@ public class ReceptionController {
 
     @Autowired
     private ReceptionService receptionService;
+
+    @GetMapping
+    public ResponseEntity<List<Reception>> getAllReceptions() {
+        List<Reception> receptions = receptionService.getAllReceptions();
+        return ResponseEntity.ok(receptions);
+    }
 
     @PostMapping
     public ResponseEntity<?> createReception(@RequestBody Reception reception) {

@@ -1,117 +1,115 @@
-import React from 'react';
-
-import Image01 from '../../images/user-36-05.jpg';
-import Image02 from '../../images/user-36-06.jpg';
-import Image03 from '../../images/user-36-07.jpg';
-import Image04 from '../../images/user-36-08.jpg';
-import Image05 from '../../images/user-36-09.jpg';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function DashboardCard10() {
+  const [receptions, setReceptions] = useState([]);
+  const [receptionData, setReceptionData] = useState({
+    clientName: '',
+    checkInDate: '',
+    checkOutDate: '',
+    status: '',
+    numberOfGuests: 0,
+    specialRequests: ''
+  });
 
-  const customers = [
-    {
-      id: '0',
-      image: Image01,
-      name: 'Alex Shatov',
-      email: 'alexshatov@gmail.com',
-      location: '🇺🇸',
-      spent: '$2,890.66',
-    },
-    {
-      id: '1',
-      image: Image02,
-      name: 'Philip Harbach',
-      email: 'philip.h@gmail.com',
-      location: '🇩🇪',
-      spent: '$2,767.04',
-    },
-    {
-      id: '2',
-      image: Image03,
-      name: 'Mirko Fisuk',
-      email: 'mirkofisuk@gmail.com',
-      location: '🇫🇷',
-      spent: '$2,996.00',
-    },
-    {
-      id: '3',
-      image: Image04,
-      name: 'Olga Semklo',
-      email: 'olga.s@cool.design',
-      location: '🇮🇹',
-      spent: '$1,220.66',
-    },
-    {
-      id: '4',
-      image: Image05,
-      name: 'Burak Long',
-      email: 'longburak@gmail.com',
-      location: '🇬🇧',
-      spent: '$1,890.66',
-    },
-  ];
+  useEffect(() => {
+    fetchReceptions();
+  }, []);
+
+  const fetchReceptions = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/receptions');
+      setReceptions(response.data);
+    } catch (error) {
+      console.error('Error fetching receptions:', error);
+      alert('Error fetching receptions. Please try again.');
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setReceptionData({
+      ...receptionData,
+      [name]: value
+    });
+  };
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/api/receptions', receptionData);
+      const createdReception = response.data;
+      console.log('Reception created:', createdReception);
+      // Update receptions state with the newly created reception
+      setReceptions([...receptions, createdReception]);
+      // Clear form data after successful submission if needed
+      setReceptionData({
+        clientName: '',
+        checkInDate: '',
+        checkOutDate: '',
+        status: '',
+        numberOfGuests: 0,
+        specialRequests: ''
+      });
+    } catch (error) {
+      console.error('Error creating reception:', error);
+      alert('Error creating reception. Please try again.');
+    }
+  };
 
   return (
-    <div className="col-span-full xl:col-span-6 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+    <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
       <header className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
         <h2 className="font-semibold text-slate-800 dark:text-slate-100">Customers</h2>
       </header>
-      <div className="p-3">
-
+      <div className="p-10">
         {/* Table */}
         <div className="overflow-x-auto">
-          <table className="table-auto w-full">
+          <table className="table-auto w-full xl:w-full">
             {/* Table header */}
-            <thead className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-700 dark:bg-opacity-50">
+            <thead className="bg-gray-50">
               <tr>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Name</div>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Client Name
                 </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Email</div>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Check-in Date
                 </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Spent</div>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Check-out Date
                 </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">Country</div>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Number of Guests
+                </th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Special Requests
                 </th>
               </tr>
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-100 dark:divide-slate-700">
-              {
-                customers.map(customer => {
-                  return (
-                    <tr key={customer.id}>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                            <img className="rounded-full" src={customer.image} width="40" height="40" alt={customer.name} />
-                          </div>
-                          <div className="font-medium text-slate-800 dark:text-slate-100">{customer.name}</div>
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{customer.email}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">{customer.spent}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-lg text-center">{customer.location}</div>
-                      </td>
-                    </tr>
-                  )
-                })
-              }
+              {receptions.map(reception => (
+                <tr key={reception.id}>
+                  <td className="px-6 py-4 whitespace-nowrap">{reception.clientName}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{reception.checkInDate}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{reception.checkOutDate}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{reception.status}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{reception.numberOfGuests}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{reception.specialRequests}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
-
         </div>
-
       </div>
     </div>
+
+
   );
 }
 
