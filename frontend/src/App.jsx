@@ -29,6 +29,7 @@ import RestaurantDashboard from './Dashboards/Restaurant/RestaurantDashboard';
 import RoomDashboard from './Dashboards/Room/RoomDashboard';
 import RoomTypeDashboard from './Dashboards/RoomType/RoomTypeDashboard';
 import Unauthorized from './components/Unauthorized';
+import PaymentForm from './pages/Payment';
 
 
 const App = () => {
@@ -207,6 +208,7 @@ const App = () => {
 
         <Route path="/admin/pending" element={<PendingUsersTable />} />
         <Route path="/admin/addEmployee" element={<AddEmployee />} />
+        <Route path="/paymentForm" element={<PaymentForm />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
 
         {/* Default route */}

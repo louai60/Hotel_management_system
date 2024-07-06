@@ -32,8 +32,7 @@ const Hero = () => {
 
         </h1> */}
         <p className={`${styles.paragraph} max-w-[470px] text-2xl font-bold bg-gradient-to-r from-blue-400 to-black  text-transparent bg-clip-text animate-gradient`}>
-          Together, they form a dedicated team committed to providing exceptional service and creating memorable experiences for every guest.
-        </p>
+        Discover unparalleled comfort and convenience with Assist Hotel. Enjoy effortless bookings, exceptional service, and a memorable stay with our state-of-the-art hotel management system. Your comfort is our priority.        </p>
 
       </div>
 
