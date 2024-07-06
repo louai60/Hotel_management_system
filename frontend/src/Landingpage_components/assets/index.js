@@ -6,7 +6,7 @@ import coinbase from "./coinbase.png";
 import dropbox from "./dropbox.png";
 import logo from "./logo.svg";
 import quotes from "./quotes.svg";
-import robot from "./finallogo.png";
+import robot from "./hotel_management_system_logo.png";
 import cap from "./finalfigmapc.png";
 import backgroundImage from "./backgroundImage.jpg";
 import captwo from "./ddss.png";
