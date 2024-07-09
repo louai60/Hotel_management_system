@@ -1,6 +1,6 @@
-import React from 'react';
+// src/App.js
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Dashboard from "./pages/Dashboard";
 import PendingUsersTable from "./partials/components/PendingUsers";
 import LandingPage from "./home";
 import Login from './pages/Login';
@@ -30,7 +30,9 @@ import RoomDashboard from './Dashboards/Room/RoomDashboard';
 import RoomTypeDashboard from './Dashboards/RoomType/RoomTypeDashboard';
 import Unauthorized from './components/Unauthorized';
 import PaymentForm from './pages/Payment';
-
+import UserList from './partials/Chat/UserList';
+import ChatBox from './partials/Chat/ChatBox';
+import Chat from './partials/Chat/Chat';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -42,7 +44,6 @@ const App = () => {
     ROLE_HOUSEKEEPING: '/housekeeping',
     ROLE_TECHNICIAN: '/maintenance',
     ROLE_ACCOUNTING: '/accounting',
-    // Add more roles as necessary
   };
 
   const getUserRolePath = () => {
@@ -51,6 +52,8 @@ const App = () => {
   };
 
   const userRolePath = getUserRolePath();
+
+  const [selectedUser, setSelectedUser] = useState(null);
 
   return (
     <Router>
@@ -61,6 +64,7 @@ const App = () => {
         <Route path="/request-reset-password" element={<RequestResetPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordForm />} />
         <Route path="/register" element={<Signup />} />
+        <Route path="/chat" element={<Chat />} />
 
         <Route path="/admin" element={
           userRolePath === '/admin' ? (

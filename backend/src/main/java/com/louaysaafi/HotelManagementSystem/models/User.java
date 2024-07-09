@@ -56,6 +56,14 @@ public class User {
 //	@JsonIgnore
 //	private Employee employee;
 
+	@OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Message> sentMessages;
+
+	@OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Message> receivedMessages;
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<StockCategory> stockCategory;
@@ -165,4 +173,35 @@ public class User {
 //		return accountings;
 //	}
 
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public List<Message> getSentMessages() {
+		return sentMessages;
+	}
+
+	public void setSentMessages(List<Message> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+
+	public List<Message> getReceivedMessages() {
+		return receivedMessages;
+	}
+
+	public void setReceivedMessages(List<Message> receivedMessages) {
+		this.receivedMessages = receivedMessages;
+	}
 }

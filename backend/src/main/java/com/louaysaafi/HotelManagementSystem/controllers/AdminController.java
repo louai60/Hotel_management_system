@@ -8,6 +8,7 @@ import com.louaysaafi.HotelManagementSystem.payload.response.MessageResponse;
 import com.louaysaafi.HotelManagementSystem.repositories.RoleRepository;
 import com.louaysaafi.HotelManagementSystem.repositories.UserRepository;
 import com.louaysaafi.HotelManagementSystem.services.EmailService;
+import com.louaysaafi.HotelManagementSystem.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,8 +20,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
@@ -37,28 +36,39 @@ public class AdminController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private NotificationController notificationController; // Inject NotificationController
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
         }
 
+        // Create new user instance
         User user = new User(
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
                 signUpRequest.getFirstName(),
                 signUpRequest.getLastName());
 
+        // Assign default role for pending users
         Role pendingRole = roleRepository.findByName(ERole.ROLE_PENDING)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         Set<Role> roles = new HashSet<>();
         roles.add(pendingRole);
 
         user.setRoles(roles);
+
         userRepository.save(user);
+
+        notificationController.notifyFrontend();
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully! Please wait for admin verification."));
     }
+
 
     @GetMapping("/pending-users")
     public List<User> getPendingUsers() {
