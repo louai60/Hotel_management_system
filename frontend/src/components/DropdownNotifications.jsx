@@ -1,17 +1,61 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Transition from '../utils/Transition';
+import { Client } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
 
-function DropdownNotifications({
-  align
-}) {
-
+function DropdownNotifications({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notifications, setNotifications] = useState(() => {
+    const savedNotifications = localStorage.getItem('notifications');
+    return savedNotifications ? JSON.parse(savedNotifications) : [];
+  });
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
-  // close on click outside
+  useEffect(() => {
+    const websocketUrl = 'http://localhost:8080/ws'; 
+    const stompClient = new Client({
+      webSocketFactory: () => new SockJS(websocketUrl),
+      debug: function (str) {
+        console.log(`[STOMP Debug] ${str}`);
+      },
+      onConnect: (frame) => {
+        console.log('[STOMP] Connected to WebSocket');
+        console.log('[STOMP] Connected frame:', frame);
+        stompClient.subscribe('/topic/notifications', (message) => {
+          console.log('Received notification:', message.body);
+          const newNotification = {
+            message: message.body,
+            timestamp: new Date().toLocaleString(),
+          };
+          setNotifications((prevNotifications) => {
+            const updatedNotifications = [...prevNotifications, newNotification];
+            localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+            return updatedNotifications;
+          });
+        });
+      },
+      onStompError: (frame) => {
+        console.error('[STOMP Error] STOMP error frame:', frame);
+      },
+      onWebSocketClose: (evt) => {
+        console.log(`[STOMP] WebSocket closed. Code: ${evt.code}, Reason: ${evt.reason}`);
+      },
+      onWebSocketError: (evt) => {
+        console.error('[STOMP] WebSocket error', evt);
+      },
+    });
+
+    console.log(`[STOMP] Opening Web Socket to ${websocketUrl}`);
+    stompClient.activate();
+
+    return () => {
+      stompClient.deactivate();
+    };
+  }, []);
+
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
@@ -22,7 +66,6 @@ function DropdownNotifications({
     return () => document.removeEventListener('click', clickHandler);
   });
 
-  // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
       if (!dropdownOpen || keyCode !== 27) return;
@@ -66,41 +109,23 @@ function DropdownNotifications({
         >
           <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase pt-1.5 pb-2 px-4">Notifications</div>
           <ul>
-            <li className="border-b border-slate-200 dark:border-slate-700 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <span className="block text-sm mb-2">📣 <span className="font-medium text-slate-800 dark:text-slate-100">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-slate-400 dark:text-slate-500">Feb 12, 2021</span>
-              </Link>
-            </li>
-            <li className="border-b border-slate-200 dark:border-slate-700 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <span className="block text-sm mb-2">📣 <span className="font-medium text-slate-800 dark:text-slate-100">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-slate-400 dark:text-slate-500">Feb 9, 2021</span>
-              </Link>
-            </li>
-            <li className="border-b border-slate-200 dark:border-slate-700 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <span className="block text-sm mb-2">🚀<span className="font-medium text-slate-800 dark:text-slate-100">Say goodbye to paper receipts!</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-slate-400 dark:text-slate-500">Jan 24, 2020</span>
-              </Link>
-            </li>
+            {notifications.map((notification, index) => (
+              <li key={index} className="border-b border-slate-200 dark:border-slate-700 last:border-0">
+                <Link
+                  className="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20"
+                  to="/admin/pending"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                >
+                  <span className="block text-sm mb-2">📣 <span className="font-medium text-slate-800 dark:text-slate-100">{notification.message}</span></span>
+                  <span className="block text-xs font-medium text-slate-400 dark:text-slate-500">{notification.timestamp}</span>
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </Transition>
     </div>
-  )
+  );
 }
 
 export default DropdownNotifications;

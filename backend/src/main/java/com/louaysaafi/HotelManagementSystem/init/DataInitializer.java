@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class DataInitializer implements CommandLineRunner {
 
@@ -18,16 +20,25 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         logger.info("Inserting default roles into database...");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_ADMIN');");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_EMPLOYEE');");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_GUEST');");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_MANAGER');");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_RECEPTIONIST');");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_CHEF');");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_HOUSEKEEPING');");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_MAINTENANCE');");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_MODERATOR');");
-        jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('ROLE_PENDING');");
+
+        // List of default roles
+        List<String> defaultRoles = List.of("ROLE_ADMIN", "ROLE_EMPLOYEE", "ROLE_GUEST",
+                "ROLE_MANAGER", "ROLE_RECEPTIONIST", "ROLE_CHEF", "ROLE_HOUSEKEEPING",
+                "ROLE_MAINTENANCE", "ROLE_MODERATOR", "ROLE_PENDING");
+
+        // Check if roles exist before inserting
+        for (String roleName : defaultRoles) {
+            if (!roleExists(roleName)) {
+                jdbcTemplate.execute("INSERT INTO roles(name) VALUES ('" + roleName + "');");
+            }
+        }
+
         logger.info("Default roles inserted successfully.");
+    }
+
+    private boolean roleExists(String roleName) {
+        String query = "SELECT COUNT(*) FROM roles WHERE name = ?";
+        Integer count = jdbcTemplate.queryForObject(query, Integer.class, roleName);
+        return count != null && count > 0;
     }
 }
