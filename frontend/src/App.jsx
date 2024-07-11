@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import PendingUsersTable from "./partials/components/PendingUsers";
@@ -33,6 +32,7 @@ import PaymentForm from './pages/Payment';
 import UserList from './partials/Chat/UserList';
 import ChatBox from './partials/Chat/ChatBox';
 import Chat from './partials/Chat/Chat';
+import RevenueDashboard from './Dashboards/Revenue/RevenueDashboard';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -148,7 +148,7 @@ const App = () => {
 
         <Route path="/followupandvalidation" element={
           userRolePath === '/admin' || userRolePath === '/followupandvalidation' ? (
-            <FollowUpAndValidationDashboard Dashboard />
+            <FollowUpAndValidationDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )
@@ -205,6 +205,14 @@ const App = () => {
         <Route path="/room" element={
           userRolePath === '/admin' || userRolePath === '/room' ? (
             <RoomDashboard />
+          ) : (
+            <Navigate to="/unauthorized" />
+          )
+        } />
+
+        <Route path="/revenue" element={
+          userRolePath === '/admin' || userRolePath === '/revenue' ? (
+            <RevenueDashboard />
           ) : (
             <Navigate to="/unauthorized" />
           )

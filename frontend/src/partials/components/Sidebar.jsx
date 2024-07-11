@@ -728,13 +728,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/finance/transactions"
+                              to="/revenue"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Transactions
+                                Revenue
                               </span>
                             </NavLink>
                           </li>
@@ -816,7 +816,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('messages') && 'bg-slate-900'}`}>
                 <NavLink
                   end
-                  to="/messages"
+                  to="/chat"
                   className={`block text-slate-200 truncate transition duration-150 ${
                     pathname.includes('messages') ? 'hover:text-slate-200' : 'hover:text-white'
                   }`}

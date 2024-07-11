@@ -7,7 +7,7 @@ import dropbox from "./dropbox.png";
 import logo from "./logo.svg";
 import quotes from "./quotes.svg";
 import robot from "./hotel_management_system_logo.png";
-import cap from "./finalfigmapc.png";
+import cap from "./landingcap.png";
 import backgroundImage from "./backgroundImage.jpg";
 import captwo from "./ddss.png";
 import capthree from "./jhhj.png";

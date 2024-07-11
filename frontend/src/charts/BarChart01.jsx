@@ -8,7 +8,7 @@ import {
 import 'chartjs-adapter-moment';
 
 // Import utilities
-import { tailwindConfig, formatValue } from '../utils/Utils';
+import { tailwindConfig, formatValue as originalFormatValue } from '../utils/Utils';
 
 Chart.register(BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend);
 
@@ -18,12 +18,17 @@ function BarChart01({
   height
 }) {
 
-  const [chart, setChart] = useState(null)
+  const [chart, setChart] = useState(null);
   const canvas = useRef(null);
   const legend = useRef(null);
   const { currentTheme } = useThemeProvider();
   const darkMode = currentTheme === 'dark';
   const { textColor, gridColor, tooltipBodyColor, tooltipBgColor, tooltipBorderColor } = chartColors;
+
+  // Custom formatValue function to replace the dollar sign with TND
+  const formatValue = (value) => {
+    return `TND ${originalFormatValue(value).replace('$', '')}`;
+  };
 
   useEffect(() => {
     const ctx = canvas.current;
@@ -57,10 +62,10 @@ function BarChart01({
           x: {
             type: 'time',
             time: {
-              parser: 'MM-DD-YYYY',
+              parser: 'YYYY-MM-DD',
               unit: 'month',
               displayFormats: {
-                month: 'MMM YY',
+                month: 'YY MMM',
               },
             },
             border: {

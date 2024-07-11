@@ -60,11 +60,10 @@ function WelcomeBanner() {
       {/* Content */}
       <div className="relative">
       {currentUser ? (
-        <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Good afternoon, {currentUser.firstName} {currentUser.lastName}. 👋</h1>
+        <h1 className="text-2xl md:text-3xl text-slate-800 dark:text-slate-100 font-bold mb-1">Welcome, {currentUser.firstName} {currentUser.lastName}. 👋</h1>
       ) : (
         <p>No user logged in</p>
       )}
-        <p className="dark:text-indigo-200">Here is what’s happening with your projects today:</p>
       </div>
     </div>
   );

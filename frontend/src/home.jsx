@@ -38,7 +38,7 @@ const Landing_page = () => (
         {/* <Stats /> */}
 
 
-        <Business />
+        {/* <Business /> */}
         {/* <Billing />
         <CardDeal />
         <Testimonials />

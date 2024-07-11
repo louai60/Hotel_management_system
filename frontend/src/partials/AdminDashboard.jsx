@@ -11,6 +11,8 @@ import DashboardCard12 from './dashboard/DashboardCard12';
 import DashboardCard13 from './dashboard/DashboardCard13';
 import MaintenanceList from './dashboard/MaintenanceList';
 import AccountingList from './dashboard/AccountingList';
+import DashboardCard04 from './dashboard/DashboardCard04';
+import DashboardCard06 from './dashboard/DashboardCard06';
 
 const AdminDashboard = () => {
   return (
@@ -18,14 +20,13 @@ const AdminDashboard = () => {
       <div className="relative ">
       </div>
         <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 mb-12"> 
-              <DashboardCard08 />
-        </div>
+          <DashboardCard08 />
           {/* <DashboardCard01 />
           <DashboardCard02 />
           <DashboardCard03 /> */}
           {/* Line chart (Sales Over Time) */}
-          {/* <DashboardCard08 /> */}
+          <DashboardCard04 />
+          <DashboardCard06 />
           {/* Stacked bar chart (Sales VS Refunds) */}
           {/* <DashboardCard09 /> */}
           

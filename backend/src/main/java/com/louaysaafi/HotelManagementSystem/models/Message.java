@@ -1,7 +1,7 @@
 package com.louaysaafi.HotelManagementSystem.models;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "messages")
@@ -22,12 +22,10 @@ public class Message {
     private String content;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
-    @PrePersist
-    protected void onCreate() {
-        timestamp = new Date();
+    public Message() {
+        this.timestamp = LocalDateTime.now();
     }
 
     // Getters and setters
@@ -63,14 +61,11 @@ public class Message {
         this.content = content;
     }
 
-    public Date getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public void setSenderId(Long senderId) {
     }
 }

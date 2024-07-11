@@ -18,7 +18,6 @@ const Chat = () => {
                 <ChatBox selectedUser={selectedUser} />
             </div>
         </AdminLayout>
-
     );
 };
 

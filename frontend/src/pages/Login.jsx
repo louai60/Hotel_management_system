@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { robot } from "../Landingpage_components/assets";
 
 
-export default function Login() {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,11 +28,15 @@ export default function Login() {
       const token = response.headers['set-cookie'];
       localStorage.setItem('jwtToken', token);
       const roles = response.data.roles;
+
+      console.log(roles);
+
       const roleToPathMap = {
         ROLE_ADMIN: '/admin',
         ROLE_RECEPTIONIST: '/reception',
         ROLE_HOUSEKEEPING: '/housekeeping',
-        // ....
+        ROLE_TECHNICIAN: '/maintenance',
+        ROLE_ACCOUNTING: '/accounting',
       };
 
       const userRole = roles.find(role => roleToPathMap[role]);
@@ -143,4 +147,6 @@ export default function Login() {
       </div>
     </>
   );
-}
+};
+
+export default Login;

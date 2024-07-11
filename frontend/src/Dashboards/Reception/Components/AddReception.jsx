@@ -22,7 +22,7 @@ const CreateBooking = () => {
 
   const [activeStep, setActiveStep] = useState(0);
   const [isLastStep, setIsLastStep] = useState(false);
-  const [isFirstStep, setIsFirstStep] = useState(true); 
+  const [isFirstStep, setIsFirstStep] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +41,6 @@ const CreateBooking = () => {
 
   const handleNext = async () => {
     if (activeStep === 0) {
-
       if (!receptionData.clientName) {
         alert('Please enter client name.');
         return;
@@ -51,14 +50,13 @@ const CreateBooking = () => {
         const receptionResponse = await axios.post('http://localhost:8080/api/receptions', receptionData);
         const createdReception = receptionResponse.data;
         console.log('Reception created:', createdReception);
-        setIsFirstStep(false); 
-        setActiveStep(1); 
+        setIsFirstStep(false);
+        setActiveStep(1);
       } catch (error) {
         console.error('Error creating reception:', error);
         alert('Error creating reception. Please try again.');
       }
     } else if (activeStep === 1) {
-
       if (paymentData.amount <= 0) {
         alert('Please enter valid payment amount.');
         return;
@@ -78,7 +76,7 @@ const CreateBooking = () => {
 
   const handlePrev = () => {
     setActiveStep((cur) => cur - 1);
-    setIsLastStep(false); 
+    setIsLastStep(false);
   };
 
   const handleSubmit = async (e) => {
@@ -107,7 +105,7 @@ const CreateBooking = () => {
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
         isFirstStep={(value) => setIsFirstStep(value)}
-        color="blue" 
+        color="blue"
       >
         <Step onClick={() => setActiveStep(0)} className="relative">
           <UserIcon className="h-5 w-5" />
@@ -184,7 +182,12 @@ const CreateBooking = () => {
                 </label>
                 <label className="block mb-1">
                   Status:
-                  <input type="text" name="reception_status" value={receptionData.status} onChange={handleChange} className="form-input mt-1 block w-full" required />
+                  <select name="reception_status" value={receptionData.status} onChange={handleChange} className="form-select mt-1 block w-full" required>
+                    <option value="" disabled>Select status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
                 </label>
               </div>
             </div>
@@ -211,11 +214,22 @@ const CreateBooking = () => {
             </label>
             <label className="block mb-1">
               Payment Method:
-              <input type="text" name="payment_paymentMethod" value={paymentData.paymentMethod} onChange={handleChange} className="form-input mt-1 block w-full" required />
+              <select name="payment_paymentMethod" value={paymentData.paymentMethod} onChange={handleChange} className="form-select mt-1 block w-full" required>
+                <option value="" disabled>Select payment method</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Debit Card">Debit Card</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Cash">Cash</option>
+              </select>
             </label>
             <label className="block mb-1">
               Payment Status:
-              <input type="text" name="payment_status" value={paymentData.status} onChange={handleChange} className="form-input mt-1 block w-full" />
+              <select name="payment_status" value={paymentData.status} onChange={handleChange} className="form-select mt-1 block w-full" required>
+                <option value="" disabled>Select status</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Failed">Failed</option>
+              </select>
             </label>
           </div>
         )}
